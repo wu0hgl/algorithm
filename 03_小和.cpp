@@ -1,7 +1,10 @@
 #include <iostream>
 #include <ctime>
-
 using namespace std;
+
+/*
+    在一个数组中, 每一个数左边比当前数小的数累加起来, 叫做这个数组的小和. 求一个数字的小和. 如[1, 3, 4, 2, 5]小和为16
+*/
 
 void printArr(int *a, int len) {
     for (auto i = 0; i < len; i++) {
