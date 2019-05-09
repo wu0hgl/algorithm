@@ -4,6 +4,10 @@
 #include <ctime>
 using namespace std;
 
+/*
+    一个有序数组A, 另一个无序数组B, 打印B中所有不在A中的数组, A数组长度为N, B数组长度为M
+*/
+
 void printV(vector<int> &vt) {
     for (auto v : vt)
         cout << v << " ";
