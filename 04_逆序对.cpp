@@ -3,6 +3,10 @@
 #include<vector>
 using namespace std;
 
+/*
+    在一个数组中, 左边的数如果比右边的数大, 则这两个数构成一个逆序对, 请打印所有逆序对
+*/
+
 int merge(vector<int> &vt, int left, int mid, int right) {
     int leftPtr = left;
     int rightPtr = mid + 1;
