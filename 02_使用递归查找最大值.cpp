@@ -2,8 +2,11 @@
 #include <vector>
 #include <ctime>
 #include <algorithm>
-
 using namespace std;
+
+/*
+    使用递归查找数组中的最大值
+*/
 
 void printArr(int *a, int len) {
     for (auto i = 0; i < len; i++) {
