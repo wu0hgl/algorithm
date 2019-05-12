@@ -10,6 +10,10 @@ using namespace std;
 void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
 
+/*
+    åŒæ ˆè¿”å›æœ€å°å€¼
+*/
+
 class Solution {
 public:
     stack<int> m_min;
@@ -40,7 +44,7 @@ public:
         return m_sk.top();
     }
 
-    int min() {
+    int getMin() {
         return m_min.top();
     }
 };
@@ -55,7 +59,7 @@ int main() {
     Solution s;
     for (int i = 0; i < arr.size(); i++) {
         s.push(arr[i]);
-        cout << s.min() << endl;
+        cout << s.getMin() << endl;
     }
 
     printVector(arr);
@@ -74,8 +78,8 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
     int len = (int)(maxSize % (maxSize + 1));
 
     for (int i = 0; i < len; i++) {
-        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // Ëæ»úÉú³ÉÕı¸ºÊı
-        //temp = static_cast<int>(rand() % (maxValue + 1));          // Ëæ»úÉú³ÉÕıÊı
+        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // éšæœºç”Ÿæˆæ­£è´Ÿæ•°
+        //temp = static_cast<int>(rand() % (maxValue + 1));          // éšæœºç”Ÿæˆæ­£æ•°
         vt.push_back(temp);
         //Insert_2(temp);
     }
