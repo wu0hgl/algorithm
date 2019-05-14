@@ -31,21 +31,29 @@ void printZ(vector<vector<int> > &matrix) {
     int y_1 = 0;
     int x_2 = 0;
     int y_2 = 0;
+    int row = matrix.size();
+    int col = matrix[0].size();
     int endRow = matrix.size() - 1;
     int endCol = matrix[0].size() - 1;
     bool flag = false;
     while (x_1 != endRow + 1) {
         printZ(matrix, x_1, y_1, x_2, y_2, flag);
+        
         x_1 = (y_1 == endCol ? x_1 + 1 : x_1);
         y_1 = (y_1 == endCol ? y_1 : y_1 + 1);
         y_2 = (x_2 == endRow ? y_2 + 1 : y_2);
         x_2 = (x_2 == endRow ? x_2 : x_2 + 1);
-        /*
-        y_1 = (y_1 + 1 == col ? col - 1 : y_1 + 1);
-        x_1 = (y_1 == col - 1 ? x_1 + 1 : x_1);
-        x_2 = (x_2 + 1 == row ? row - 1 : x_2 + 1);
-        y_2 = (x_2 == row - 1 ? y_2 + 1 : y_2);
-        */
+        
+        //y_1 = (y_1 == endCol ? y_1 : y_1 + 1);
+        //x_1 = (y_1 == endCol ? x_1 + 1 : x_1);
+        //x_2 = (x_2 == endRow ? x_2 : x_2 + 1);
+        //y_2 = (x_2 == endRow ? y_2 + 1 : y_2);
+
+        //y_1 = (y_1 + 1 == col ? col - 1 : y_1 + 1);
+        //x_1 = (y_1 == col - 1 ? x_1 + 1 : x_1);
+        //x_2 = (x_2 + 1 == row ? row - 1 : x_2 + 1);
+        //y_2 = (x_2 == row - 1 ? y_2 + 1 : y_2);
+        
         flag = !flag;
     }
 }
