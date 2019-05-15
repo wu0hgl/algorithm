@@ -41,15 +41,15 @@ Node* copyListWithRand_2(Node *pHead) {
     Node *cur = pHead;
     Node *next = nullptr;
     while (cur != nullptr) {
-        //next = cur->next;
-        //cur->next = new Node(cur->value);
-        //cur->next->next = next;
-        //cur = next;
+        next = cur->next;
+        cur->next = new Node(cur->value);
+        cur->next->next = next;
+        cur = next;
 
-        next = new Node(cur->value);
-        next->next = cur->next;
-        cur->next = next;
-        cur = next->next;
+        //next = new Node(cur->value);
+        //next->next = cur->next;
+        //cur->next = next;
+        //cur = next->next;
     }
 
     cur = pHead;
