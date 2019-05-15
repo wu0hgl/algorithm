@@ -127,5 +127,8 @@ int main() {
     res_2 = copyListWithRand_2(head);
     printLinkList(res_2);
 
+    freeRandLinkList(head);
+    freeRandLinkList(res_1);
+    freeRandLinkList(res_2);
     return 0;
 }
