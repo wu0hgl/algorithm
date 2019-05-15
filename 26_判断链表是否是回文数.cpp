@@ -64,45 +64,45 @@ bool isPalindrome_3(Node *head) {
     if ((head == nullptr) || (head->next == nullptr)) {
         return true;
     }
-    Node *ctSlow = head;
+    Node *ctSlow = head;                // 偶数个节点到中间两节点前一位置, 奇数恰好到中间节点
     Node *ctFast = head;
-    while ((ctFast->next != nullptr) && (ctFast->next->next)) {
+    while ((ctFast->next != nullptr) && (ctFast->next->next != nullptr)) {
         ctSlow = ctSlow->next;
         ctFast = ctFast->next->next;
     }
-
-    ctFast = ctSlow->next;      // ctFast相当于head
-    ctSlow->next = nullptr;     // ctSlow相当于prePtr
-    Node *n1 = nullptr;         // n1相当于next
+    /* 反转以ctSlow开头的单链表 */
+    ctFast = ctSlow->next;              // 相当于head
+    ctSlow->next = nullptr;             // 相当于prePtr
+    Node *node = nullptr;               // 相当于next
     while (ctFast != nullptr) {
-        n1 = ctFast->next;
+        node = ctFast->next;
         ctFast->next = ctSlow;
         ctSlow = ctFast;
-        ctFast = n1;
+        ctFast = node;
     }
-
-    n1 = ctSlow;                // ctSlow相当于反转链表后的头结点
+    node = ctSlow;                      // 保存翻转后链表的头结点
+    /* 匹配数字 */
+    bool ret = true;
     ctFast = head;
-    bool res = true;
-    while ((ctSlow != nullptr) && (ctFast != nullptr)) {
-        if (ctSlow->value != ctFast->value) {
-            res = false;
+    while ((ctFast != nullptr)) {
+        if (ctFast->value != ctSlow->value) {
+            ret = false;
             break;
         }
-        ctSlow = ctSlow->next;
         ctFast = ctFast->next;
+        ctSlow = ctSlow->next;
     }
-
-    ctSlow = n1->next;      // 相当于head
-    n1->next = nullptr;     // 相当于prePtr
+    /* 恢复链表 */
+    ctSlow = node->next;                // 相当于head
+    node->next = nullptr;               // 相当于prePtr
     while (ctSlow != nullptr) {
-        ctFast = ctSlow->next;  // ctFast相当于nextPtr
-        ctSlow->next = n1;
-        n1 = ctSlow;
+        ctFast = ctSlow->next;          // 相当于nextPtr
+        ctSlow->next = node;
+        node = ctSlow;
         ctSlow = ctFast;
     }
 
-    return res;
+    return ret;
 }
 
 void printLinkList(Node *head) {
