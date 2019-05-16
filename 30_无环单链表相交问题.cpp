@@ -45,38 +45,8 @@ Node* FindFirstCommonNode_1(Node* pHead1, Node* pHead2) {
         cur2 = cur2->next;
     }
 
-    return (cur1 == cur2 ? cur1 : nullptr);
-
-
-    //if (pHead1 == nullptr || pHead2 == nullptr) {
-    //    return nullptr;
-    //}
-    //Node *cur1 = pHead1;
-    //Node *cur2 = pHead2;
-    //int n = 0;
-    //while (cur1->next != nullptr) {
-    //    n++;
-    //    cur1 = cur1->next;
-    //}
-    //while (cur2->next != nullptr) {
-    //    n--;
-    //    cur2 = cur2->next;
-    //}
-    //if (cur1 != cur2) {
-    //    return nullptr;
-    //}
-    //cur1 = n > 0 ? pHead1 : pHead2;
-    //cur2 = cur1 == pHead1 ? pHead2 : pHead1;
-    //n = abs(n);
-    //while (n != 0) {
-    //    n--;
-    //    cur1 = cur1->next;
-    //}
-    //while (cur1 != cur2) {
-    //    cur1 = cur1->next;
-    //    cur2 = cur2->next;
-    //}
-    //return cur1;
+    //return (cur1 == cur2 ? cur1 : nullptr);
+    return cur1;
 }
 
 Node* FindFirstCommonNode_2(Node* pHead1, Node* pHead2) {
