@@ -31,7 +31,7 @@ int getHeight(Node *head, int level, bool &res) {
 }
 
 bool isBalance_1(Node *head) {
-    bool res = true;
+    bool res = true;            // ³õÊ¼»¯Îªtrue
     getHeight(head, 1, res);
     return res;
 }
