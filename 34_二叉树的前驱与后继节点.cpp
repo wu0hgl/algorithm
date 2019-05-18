@@ -9,7 +9,7 @@ public:
 };
 
 /*
-    二叉树的前驱与后继节点
+二叉树的前驱与后继节点
 */
 
 Node* getLeftMost(Node *node) {
@@ -105,8 +105,8 @@ int main() {
     cout << "==================================" << endl;
 
     test = head->left->left->right;
-    cout << test->value << " pre: " << getSuccessorNode(test)->value << endl;
-    cout << test->value << " next: " << getPredecessorNode(test)->value << endl;
+    cout << test->value << " pre: " << getPredecessorNode(test)->value << endl;
+    cout << test->value << " next: " << getSuccessorNode(test)->value << endl;
     cout << "==================================" << endl;
 
     test = head->left;
