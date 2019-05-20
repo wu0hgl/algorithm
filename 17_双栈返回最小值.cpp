@@ -11,7 +11,7 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
 
 /*
-    åŒæ ˆè¿”å›æœ€å°å€¼
+    Ë«Õ»·µ»Ø×îĞ¡Öµ
 */
 
 class Solution {
@@ -27,16 +27,18 @@ public:
         else {
             if (value > m_min.top()) {
                 m_min.push(m_min.top());
-                m_sk.push(value);
             }
             else {
                 m_min.push(value);
-                m_sk.push(value);
             }
+            m_sk.push(value);
         }
     }
 
     void pop() {
+        if (m_sk.empty()) {
+            cout << "Õ»¿Õ" << endl;
+        }
         m_sk.pop();
         m_min.pop();
     }
@@ -78,8 +80,8 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
     int len = (int)(maxSize % (maxSize + 1));
 
     for (int i = 0; i < len; i++) {
-        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // éšæœºç”Ÿæˆæ­£è´Ÿæ•°
-        //temp = static_cast<int>(rand() % (maxValue + 1));          // éšæœºç”Ÿæˆæ­£æ•°
+        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // Ëæ»úÉú³ÉÕı¸ºÊı
+        //temp = static_cast<int>(rand() % (maxValue + 1));          // Ëæ»úÉú³ÉÕıÊı
         vt.push_back(temp);
         //Insert_2(temp);
     }
