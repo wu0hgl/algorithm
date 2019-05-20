@@ -12,6 +12,10 @@ public:
     Node *right;
 };
 
+/*
+    判断一课二叉树是否是搜索二叉树
+*/
+
 bool isBST_1(Node *head) {
     Node *cur = head;
     Node *pre = nullptr;
