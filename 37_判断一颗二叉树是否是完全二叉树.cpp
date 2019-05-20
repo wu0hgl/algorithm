@@ -35,6 +35,14 @@ bool isCBT(Node *head) {
             return false;
         }
 
+        if (l != nullptr) {
+            q.push(l);
+        }
+        if (r != nullptr) {
+            q.push(r);
+        }
+        if (l == nullptr || r == nullptr) {
+            leaf = true;
         //if (l != nullptr) {
         //    q.push(l);
         //}
@@ -45,14 +53,6 @@ bool isCBT(Node *head) {
         //    leaf = true;
         //}
 
-        if (l != nullptr) {
-            q.push(l);
-        }
-        if (r != nullptr) {
-            q.push(r);
-        }
-        if (l == nullptr || r == nullptr) {
-            leaf = true;
         }
     }
     return true;
