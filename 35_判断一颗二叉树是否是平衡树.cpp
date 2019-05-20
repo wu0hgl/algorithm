@@ -12,6 +12,10 @@ public:
     Node *right;
 };
 
+/*
+    判断一颗二叉树是否是平衡树
+*/
+
 int getHeight(Node *head, int level, bool &res) {
     if (head == nullptr) {
         return level;
