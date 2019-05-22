@@ -2,7 +2,7 @@
 using namespace std;
 
 /*
-    ÓÃÊı×é½á¹¹ÊµÏÖ´óĞ¡¹Ì¶¨Õ»
+    æ•°ç»„å®ç°å¤§å°å›ºå®šçš„æ ˆ
 */
 
 class ArrayToStack{
@@ -14,14 +14,14 @@ public:
     }
     int peek() {
         if (m_currentSize == 0) {
-            cout << "Êı×é³¤¶ÈÎª0" << endl;
+            cout << "æ•°ç»„é•¿åº¦ä¸º0" << endl;
             return -1;
         }
         return m_p[m_currentSize - 1];
     }
     int push(int data) {
         if (m_currentSize == m_maxSize) {
-            cout << "Êı×éÒÑÂú" << endl;
+            cout << "æ•°ç»„å·²æ»¡" << endl;
             return 0;
         }
         m_p[m_currentSize] = data;
@@ -30,7 +30,7 @@ public:
     int pop() {
         int ret = 0;
         if (m_currentSize == 0) {
-            cout << "Êı×éÒÑ¿Õ" << endl;
+            cout << "æ•°ç»„å·²ç©º" << endl;
             return ret;
         }
             ret = m_p[m_currentSize - 1];
