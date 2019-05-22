@@ -6,7 +6,7 @@
 using namespace std;
 
 /*
-    完全二叉树节点的个数
+    瀹屽叏浜屽弶鏍戣妭鐐圭殑涓暟.cpp
 */
 
 class Node {
