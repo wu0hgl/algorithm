@@ -9,7 +9,7 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
 
 /*
-    插入排序
+    归并排序
 */
 
 void merge(vector<int> &arr, int left, int mid, int right) {
