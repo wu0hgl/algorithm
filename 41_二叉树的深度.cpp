@@ -1,10 +1,6 @@
 #include <iostream>
-#include <queue>
-#include <stack>
-#include <vector>
-#include <string>
-#include <memory>
 #include <algorithm>
+#include <string>
 using namespace std;
 
 /*
