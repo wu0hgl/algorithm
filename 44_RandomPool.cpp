@@ -36,8 +36,10 @@ public:
         if ((keyIndexMap.find(key) != keyIndexMap.end()))
         {
             int deleteIndex = keyIndexMap[key];
-            int lastIndex = --this->size;
+
+            int lastIndex = --this->size;               // 最后插入元素的index
             string lastKey = indexKeyMap[lastIndex];
+
             keyIndexMap[lastKey] = deleteIndex;         // 修改最后一个key对应的index
             indexKeyMap[deleteIndex] = lastKey;         // 填坑
 
@@ -60,6 +62,7 @@ int main()
     pool.insert("haha");
     pool.insert("hehe");
     pool.remove("hehe");
+    pool.remove("haha");
     printf("%s\n", pool.getRandom().c_str());
     printf("%s\n", pool.getRandom().c_str());
     printf("%s\n", pool.getRandom().c_str());
