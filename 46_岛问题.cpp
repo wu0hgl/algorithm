@@ -7,6 +7,15 @@ using namespace std;
     求一个矩阵中有多少个岛
 */
 
+void printArr(vector<vector<int>> &arr) {
+    for (int i = 0;  i < arr.size(); i++) {
+        for (int j = 0; j < arr[0].size(); j++) {
+            cout << arr[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
 void infect(vector<vector<int>> &arr, int i, int j, int row, int col) {
     if ((i < 0) || (i >= row) || (j < 0) || (j >= col) || (arr[i][j] != 1)) {
         return;
@@ -33,6 +42,7 @@ int countIsLands(vector<vector<int>> arr) {
             }
         }
     }
+    //printArr(arr);
     return res;
 }
 
