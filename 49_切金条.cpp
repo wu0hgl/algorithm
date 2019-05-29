@@ -45,7 +45,8 @@ struct MaxheapComparator {
 int main() {
     //vector<int> arr = { 8, 7, 6, 9 };
     vector<int> arr = { 10, 20, 30 };
-    cout << lessMoney(arr) << endl;
+    cout << lessMoney(arr);
+    cout << endl << "==================================" << endl;
 
     vector<int> arrForHeap = { 3, 5, 2, 7, 0, 1, 6, 4 };
 
@@ -56,7 +57,7 @@ int main() {
     while (!max1.empty()) {
         cout << max1.top() << " "; max1.pop();
     }
-    cout << endl;
+    cout << endl << "==================================" << endl;
 
     priority_queue<int, vector<int>, MaxheapComparator> max2;   // 大根堆使用比较器
     for (int i = 0; i < arrForHeap.size(); i++) {
@@ -65,7 +66,7 @@ int main() {
     while (!max2.empty()) {
         cout << max2.top() << " "; max2.pop();
     }
-    cout << endl;
+    cout << endl << "==================================" << endl;
 
     priority_queue<int, vector<int>, MinheapComparator> minQ2;  // 小根堆使用比较器
     for (int i = 0; i < arrForHeap.size(); i++) {
@@ -74,7 +75,7 @@ int main() {
     while (!minQ2.empty()) {
         cout << minQ2.top() << " "; minQ2.pop();
     }
-    cout << endl;
+    cout << endl << "==================================" << endl;
 
     return 0;
 }
