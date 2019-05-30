@@ -71,7 +71,7 @@ void moveMidToRight(int N) {
 }
 
 int main() {
-    process(64, "左", "右", "中");
+    process(3, "左", "右", "中");
 
     return 0;
 }
