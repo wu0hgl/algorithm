@@ -16,12 +16,12 @@ void moveMidToRight(int N);
 
 void process(int N, string from, string to, string help) {
     if (N == 1) {
-        printf("Move 1 %s to %s\n", from.c_str(), to.c_str());
+        printf("Move %d from %s to %s\n", N, from.c_str(), to.c_str());
     }
     else {
-        process(N - 1, from, help, to);     // 从from到helpe上去
-        printf("Move %d %s to %s\n", N, from.c_str(), help.c_str());
-        process(N - 1, help, to, from);  
+        process(N - 1, from, help, to);     // 借助to, 从from移到help上
+        printf("Move %d from %s to %s\n", N, from.c_str(), to.c_str());
+        process(N - 1, help, to, from);     // 借助from, 从help移动到to上
     }
 }
 
