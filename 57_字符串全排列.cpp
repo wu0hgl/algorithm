@@ -68,7 +68,6 @@ vector<string> printAllPermutations2(string str) {
     return res;
 }
 
-
 int main() {
     string str_1("aacd");
     vector<string> res;
@@ -78,8 +77,6 @@ int main() {
 
     res = printAllPermutations2(str_1);
     printArr(res);
-
-
 
     return 0;
 }
