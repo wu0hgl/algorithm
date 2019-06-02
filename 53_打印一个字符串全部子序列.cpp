@@ -3,7 +3,7 @@
 using namespace std;
 
 /*
-    打印一个字符串全部子序列
+    打印一个字符串的全部子序列, 包括空字符串
 */
 
 void printAllSub(string &str, int i, string &res) {
