@@ -48,6 +48,7 @@ int minPath2(vector<vector<int>> &matrix, int row, int col) {
     return matrix[row][col] + min(minPath2(matrix, row, col - 1), minPath2(matrix, row - 1, col));
 }
 
+// 暴力递归转动态规划
 int minPath3(vector<vector<int>> &matrix) {
     if (matrix.size() == 0 || matrix[0].size() == 0) {
         return 0;
