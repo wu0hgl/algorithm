@@ -1,9 +1,11 @@
-#include <iostream>
+﻿#include <iostream>
 #include <cstring>
 #include <vector>
 using namespace std;
 
-
+/*
+    数组累加和
+*/
 
 bool isSum(vector<int> &arr, int i, int sum, int aim) {
     if (i == arr.size()) {
