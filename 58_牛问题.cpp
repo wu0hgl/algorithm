@@ -43,8 +43,8 @@ int cowNumber_2(int n) {
 
 int main() {
 
-    cout << cowNumber_1(50) << endl;
-    cout << cowNumber_1(50) << endl;
+    cout << cowNumber_1(10) << endl;
+    cout << cowNumber_2(10) << endl;
 
     return 0;
 }
