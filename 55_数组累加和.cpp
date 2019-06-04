@@ -31,31 +31,31 @@ bool isSum_2(vector<int> &arr, int aim) {
         return false;
     }
 
-    vector<vector<bool>> matrix;
+    vector<vector<bool>> dp;
     int row = arr.size();
     int col = sum;
 
     /* 建表 */
-    matrix.resize(row + 1);
+    dp.resize(row + 1);
     for (int i = 0; i <= row; i++) {
-        matrix[i].resize(col + 1);
+        dp[i].resize(col + 1);
     }
 
     /* 最后一行为base case可直接计算 */
     for (int i = 0; i <= col; i++) {
-        matrix[row][i] = false;
+        dp[row][i] = false;
     }
-    matrix[row][aim] = true;
+    dp[row][aim] = true;
 
     for (int i = row - 1; i >= 0; i--) {
         for (int j = 0; j <= col; j++) {
-            matrix[i][j] = (j + arr[i] <= col) ?    // 防止数组越界
-                (matrix[i][j] = matrix[i + 1][j] || (matrix[i + 1][j + arr[i]])) : (matrix[i][j] = matrix[i + 1][j]);
+            dp[i][j] = (j + arr[i] <= col) ?    // 防止数组越界
+                (dp[i][j] = dp[i + 1][j] || (dp[i + 1][j + arr[i]])) : (dp[i][j] = dp[i + 1][j]);
         }
     }
-    printArr(matrix);
+    printArr(dp);
     
-    return matrix[0][0];
+    return dp[0][0];
 }
 
 int main() {
