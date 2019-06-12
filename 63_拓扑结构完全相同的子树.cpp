@@ -119,8 +119,6 @@ int main() {
     return 0;
 }
 
-
-
 void printTree(Node *head) {
     //System->out->println("Binary Tree:");
     cout << "Binary Tree:" << endl;
