@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <deque>
+#include <list>
 #include <ctime>
 using namespace std;
 void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
@@ -22,7 +23,8 @@ vector<int> getMaxWindow_1(vector<int> arr, int w) {
     }
 
     res.resize(len - w + 1);
-    deque<int> qmax;
+    //deque<int> qmax;
+    list<int> qmax;                     // 不使用随机访问功能使用list更好
     int index = 0;
     for (int i = 0; i < len; i++) {
         while ((!qmax.empty()) && (arr[qmax.back()] <= arr[i])) {
