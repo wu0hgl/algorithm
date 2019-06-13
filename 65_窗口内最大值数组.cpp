@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include <deque>
 #include <list>
@@ -8,11 +8,11 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
 
 /*
-    Êı×éarrºÍÒ»¸ö´óĞ¡ÎªwµÄ´°¿Ú´ÓÊı×éµÄ×î×ó±ß»¬µ½×îÓÒ±ß, ´°¿ÚÃ¿´ÎÏòÓÒ»¬Ò»¸öÎ»ÖÃ.
-    Èç¹ûÊı×é³¤¶ÈÎªn, ´°¿Ú´óĞ¡Îªw, ÔòÒ»¹²²úÉún-w+1¸ö´°¿ÚµÄ×î´óÖµ.
-    ÊµÏÖÒ»¸öº¯Êı:
-        ÊäÈë: ÕûĞÍÊı×éarr, ´°¿Ú´óĞ¡Îªw
-        Êä³ö: Ò»¸ö³¤¶ÈÎªn-w+1µÄÊı×éres, res[i]±íÊ¾Ã¿Ò»ÖÖ´°¿Ú×´Ì¬ÏÂµÄ
+    æ•°ç»„arrå’Œä¸€ä¸ªå¤§å°ä¸ºwçš„çª—å£ä»æ•°ç»„çš„æœ€å·¦è¾¹æ»‘åˆ°æœ€å³è¾¹, çª—å£æ¯æ¬¡å‘å³æ»‘ä¸€ä¸ªä½ç½®.
+    å¦‚æœæ•°ç»„é•¿åº¦ä¸ºn, çª—å£å¤§å°ä¸ºw, åˆ™ä¸€å…±äº§ç”Ÿn-w+1ä¸ªçª—å£çš„æœ€å¤§å€¼.
+    å®ç°ä¸€ä¸ªå‡½æ•°:
+        è¾“å…¥: æ•´å‹æ•°ç»„arr, çª—å£å¤§å°ä¸ºw
+        è¾“å‡º: ä¸€ä¸ªé•¿åº¦ä¸ºn-w+1çš„æ•°ç»„res, res[i]è¡¨ç¤ºæ¯ä¸€ç§çª—å£çŠ¶æ€ä¸‹çš„
 */
 
 vector<int> getMaxWindow_1(vector<int> arr, int w) {
@@ -24,14 +24,14 @@ vector<int> getMaxWindow_1(vector<int> arr, int w) {
 
     res.resize(len - w + 1);
     //deque<int> qmax;
-    list<int> qmax;                     // ²»Ê¹ÓÃËæ»ú·ÃÎÊ¹¦ÄÜÊ¹ÓÃlist¸üºÃ
+    list<int> qmax;                     // ä¸ä½¿ç”¨éšæœºè®¿é—®åŠŸèƒ½ä½¿ç”¨listæ›´å¥½
     int index = 0;
     for (int i = 0; i < len; i++) {
         while ((!qmax.empty()) && (arr[qmax.back()] <= arr[i])) {
             qmax.pop_back();
         }
         qmax.push_back(i);
-        if (qmax.front() == i - w) {    // ³õÊ¼Ê±ÏÂ±êÃ»ĞÎ³ÉÍêÈ«, ²»»áÓĞÈÎºÎÔªËØµ¯³ö
+        if (qmax.front() == i - w) {    // åˆå§‹æ—¶ä¸‹æ ‡æ²¡å½¢æˆå®Œå…¨, ä¸ä¼šæœ‰ä»»ä½•å…ƒç´ å¼¹å‡º
             qmax.pop_front();
         }
         if (i >= w - 1) {
@@ -92,8 +92,8 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
     int len = (int)(maxSize % (maxSize + 1));
 
     for (int i = 0; i < len; i++) {
-        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // Ëæ»úÉú³ÉÕı¸ºÊı
-        //temp = static_cast<int>(rand() % (range + 1));          // Ëæ»úÉú³ÉÕıÊı
+        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // éšæœºç”Ÿæˆæ­£è´Ÿæ•°
+        //temp = static_cast<int>(rand() % (range + 1));          // éšæœºç”Ÿæˆæ­£æ•°
         vt.push_back(temp);
     }
 }
