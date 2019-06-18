@@ -35,7 +35,7 @@ void morris(Node *head) {
             }
             if (mostRight->right == nullptr) {
                 mostRight->right = cur;
-                cout << cur->value << " ";
+                cout << cur->value << " ";      // 第一次到达
                 cur = cur->left;
                 continue;
             }
@@ -43,7 +43,7 @@ void morris(Node *head) {
                 mostRight->right = nullptr;
             }
         }
-        cout << cur->value << " ";
+        cout << cur->value << " ";              // 只到达一次的节点和第二次到达
         cur = cur->right;
     }
     cout << endl;
@@ -63,7 +63,7 @@ void morrisPre(Node *head) {
             }
             if (mostRight->right == nullptr) {
                 mostRight->right = cur;
-                cout << cur->value << " ";
+                cout << cur->value << " ";      // 第一次到达
                 cur = cur->left;
                 continue;
             }
@@ -72,7 +72,7 @@ void morrisPre(Node *head) {
             }
         }
         else {
-            cout << cur->value << " ";
+            cout << cur->value << " ";          // 只到达一次的节点
         }
         cur = cur->right;
     }
@@ -91,7 +91,7 @@ void morrisIn(Node *head) {
             while ((mostRight->right != nullptr) && (mostRight->right != cur)) {
                 mostRight = mostRight->right;
             }
-            if (mostRight->right == nullptr) {
+            if (mostRight->right == nullptr) {      // 第一次到达不打印
                 mostRight->right = cur;
                 cur = cur->left;
                 continue;
@@ -100,7 +100,7 @@ void morrisIn(Node *head) {
                 mostRight->right = nullptr;
             }
         }
-        cout << cur->value << " ";
+        cout << cur->value << " ";                  // 第二次到达和只到达一次的节点
         cur = cur->right;
     }
     cout << endl;
