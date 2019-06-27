@@ -1,0 +1,76 @@
+﻿#include <iostream>
+#include <vector>
+#include <map>
+#include <algorithm>
+#include <ctime>
+using namespace std;
+void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
+void printVector(vector<int> &vt);
+
+/*
+    给定一个数组arr, 数组有正有负, 和一个整数aim. 
+    求在arr中， 累加和等于aim的最长子数组的长度
+*/
+
+int maxLength_1(vector<int>& arr, int aim) {
+    int len = 0;
+    int sum = 0;
+    map<int, int> lenMap;   // key: 累加和, value: 第一次出现累加和的位置
+    lenMap[0] = -1;
+    for (size_t i = 0; i < arr.size(); i++) {
+        sum += arr[i];
+        if (lenMap.count(sum - aim)) {
+            int temp = i - lenMap[sum - aim];
+            len = max(temp, len);
+        } 
+        if (!lenMap.count(sum)) {
+            lenMap[sum] = i;
+        }
+    }
+    return len;
+}
+
+/* 暴力解 */
+int maxLength_2(vector<int>& arr, int aim) {
+    size_t len = 0;
+    for (size_t outer = 0; outer < arr.size(); outer++) {
+        int sum = 0;
+        for (size_t inner = outer; inner < arr.size(); inner++) {
+            sum += arr[inner];
+            if (sum == aim) {
+                len = (inner - outer + 1) > len ? (inner - outer + 1) : len;
+            }
+        }
+    }
+    return len;
+}
+
+int main() {
+    vector<int> arr;
+    generatorRandomArray(arr, 10, 5);
+    //vector<int> arr = {7, 3, 2, 1, 1, 7, -6, -1, 7};
+    printVector(arr);
+
+    cout << maxLength_1(arr, -3) << endl;
+    cout << maxLength_2(arr, -3) << endl;
+
+    return 0;
+}
+
+void printVector(vector<int> &vt) {
+    for (auto v : vt)
+        cout << v << " ";
+    cout << endl;
+}
+
+void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
+    int temp;
+    int len = (int)(maxSize % (maxSize + 1));
+
+    srand(static_cast<int>(time(NULL)));
+    for (int i = 0; i < len; i++) {
+        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // 随机生成正负数
+        //temp = static_cast<int>(rand() % (range + 1));          // 随机生成正数
+        vt.push_back(temp);
+    }
+}
