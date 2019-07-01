@@ -74,10 +74,10 @@ Node* biggestSubBST_1(Node* head) {
 }
 
 Node* posOrder(Node* head, vector<int>& record) {
-    if (head == nullptr) {
-        record[0] = 0;
-        record[1] = INT_MAX;
-        record[2] = INT_MIN;
+    if (head == nullptr) {          // 节点作为返回值
+        record[0] = 0;              // size
+        record[1] = INT_MAX;        // min
+        record[2] = INT_MIN;        // max
         return nullptr;
     }
 
