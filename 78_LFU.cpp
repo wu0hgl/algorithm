@@ -1,6 +1,6 @@
 ﻿#include <iostream>
-#include <hash_map>
-#include <map>
+#include <unordered_map>
+//#include <map>
 #include <memory>
 using namespace std;
 
@@ -197,8 +197,8 @@ public:
 
     int capacity;                       // 容量
     int size;                           // 当前节点
-    hash_map<int, shared_ptr<Node>> records;    // 节点记录, 即记录key值是否出现过
-    hash_map<shared_ptr<Node>, shared_ptr<NodeList>> heads;     // 当前节所在词频链表的头节点
+    unordered_map<int, shared_ptr<Node>> records;    // 节点记录, 即记录key值是否出现过
+    unordered_map<shared_ptr<Node>, shared_ptr<NodeList>> heads;     // 当前节所在词频链表的头节点
     shared_ptr<NodeList> headList;     // 保存第一词频链表
 };
 
