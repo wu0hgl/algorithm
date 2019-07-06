@@ -125,9 +125,9 @@ int getMaxE_4(vector<int>& arr) {
 }
 
 int main() {
-    //vector<int> arr;
-    //generatorRandomArray(arr, 10, 5);
-    vector<int> arr = { 0, 4};
+    vector<int> arr;
+    generatorRandomArray(arr, 10, 5);
+    //vector<int> arr = { 0, 0, 4};
     //vector<int> arr = { 4, 0, 0 };
     //vector<int> arr = {3, 2, 1, 0, 1, 2, 3, 0};
     printVector(arr);
