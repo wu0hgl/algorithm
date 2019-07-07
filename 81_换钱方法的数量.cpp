@@ -66,7 +66,7 @@ int coins_3(vector<int>& arr, int aim) {
         return 0;
     }
 
-    vector<vector<int>> dp(arr.size() + 1, vector<int>(aim + 1));
+    vector<vector<int>> dp(arr.size() + 1, vector<int>(aim + 1));   // 递归arr.size() == index, 故dp列数为arr.size()+1
     dp[arr.size()][0] = 1;
 
     for (int row = arr.size() - 1; row >= 0; row--) {
@@ -75,6 +75,7 @@ int coins_3(vector<int>& arr, int aim) {
             dp[row][col] += col - arr[row] >= 0 ? dp[row][col - arr[row]] : 0;
         }
     }
+
     return dp[0][aim];
 }
 
@@ -84,12 +85,15 @@ int coins_4(vector<int>& arr, int aim) {
     }
 
     vector<vector<int>> dp(arr.size(), vector<int>(aim + 1));
+
+    // 填写不依赖其他位置的值
     for (size_t i = 0; i < arr.size(); i++) {
         dp[i][0] = 1;
     }
     for (int j = 1; arr[0] * j <= aim; j++) {
         dp[0][arr[0] * j] = 1;
     }
+
     for (size_t i = 1; i < arr.size(); i++) {
         for (int j = 1; j <= aim; j++) {
             dp[i][j] = dp[i - 1][j];
