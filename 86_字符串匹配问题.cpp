@@ -34,7 +34,7 @@ bool process(string& str, int si, string& exp, int ei) {
     }
 
     /* 最后一个字符, 或者exp的下一个字符不是*的情况 */
-    if ((ei + 1 == exp.size()) || (exp[ei + 1] != '*')) {
+    if (/* exp到最后一个字符 */(ei + 1 == exp.size()) || /* exp的下一个字符不是* */(exp[ei + 1] != '*')) {
         return si != str.size()                             // 当前str字符没有匹配完
                && (exp[ei] == str[si] || exp[ei] == '.')    // 当前str字符与exp字符匹配, 或者当前exp字符是., 则继续匹配后续字符
                && process(str, si + 1, exp, ei + 1);        // 继续考察下一位
@@ -42,12 +42,13 @@ bool process(string& str, int si, string& exp, int ei) {
 
     /* exp的下一个字符是*的情况 */
     while ((si != str.size()) && (exp[ei] == str[si] || exp[ei] == '.')) {
-        if (process(str, si, exp, ei + 2)) {
+        if (process(str, si, exp, ei + 2)) {    // aaab与a*xx的情况, 匹配0个a的情况
             return true;
         }
         si++;
     }
 
+    // aaab与b*xx的情况, 没有进入上面的while, exp直接向后跳两个字符继续匹配
     return process(str, si, exp, ei + 2);
 }
 
@@ -59,9 +60,11 @@ bool isMatch(string& str, string& exp) {
 }
 
 int main() {
-    string str = "abcccdefg";
-    //string exp = "ab.*d.*e.*";
-    string exp = ".*";
+    //string str = "abcccdefg";
+    ////string exp = "ab.*d.*e.*";
+    //string exp = ".*";
+    string str = "aaab";
+    string exp = "a*xx";
 
     cout << isMatch(str, exp) << endl;
 
