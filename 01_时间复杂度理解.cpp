@@ -57,8 +57,7 @@ void func_3(vector<int> &a, vector<int> &b) {
         if (a[p1] < b[p2])
             p1++;
         else if (a[p1] == b[p2]) {
-            //p1++;         // 此时不移动p1, 只移动p2
-            p2++;
+            p2++;           // p1不移动, 移动p2, 因为B数组中可能有重复数字所以只移动p2
         }
         else {
             cout << b[p2++] << " ";
