@@ -11,7 +11,7 @@ void printVector(vector<int> &vt);
 */
 
 int merge(vector<int>& arr, int left, int mid, int right) {
-    int leftPtr = left;      // 左侧游标
+    int leftPtr = left;     // 左侧游标
     int rightPtr = mid + 1; // 右侧游标
 
     vector<int> temp(right - left + 1);
