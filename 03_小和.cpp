@@ -1,28 +1,24 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <ctime>
+#include <vector>
 using namespace std;
+void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
+void printVector(vector<int> &vt);
 
 /*
-    ÔÚÒ»¸öÊı×éÖĞ, Ã¿Ò»¸öÊı×ó±ß±Èµ±Ç°ÊıĞ¡µÄÊıÀÛ¼ÓÆğÀ´, ½Ğ×öÕâ¸öÊı×éµÄĞ¡ºÍ. ÇóÒ»¸öÊı×ÖµÄĞ¡ºÍ. Èç[1, 3, 4, 2, 5]Ğ¡ºÍÎª16
+    åœ¨ä¸€ä¸ªæ•°ç»„ä¸­, æ¯ä¸€ä¸ªæ•°å·¦è¾¹æ¯”å½“å‰æ•°å°çš„æ•°ç´¯åŠ èµ·æ¥, å«åšè¿™ä¸ªæ•°ç»„çš„å°å’Œ. æ±‚ä¸€ä¸ªæ•°å­—çš„å°å’Œ. å¦‚[1, 3, 4, 2, 5]å°å’Œä¸º16
 */
 
-void printArr(int *a, int len) {
-    for (auto i = 0; i < len; i++) {
-        cout << a[i] << " ";
-    }
-    cout << endl;
-}
+int merge(vector<int>& arr, int left, int mid, int right) {
+    int lowPtr = left;      // å·¦ä¾§æ¸¸æ ‡
+    int hightPtr = mid + 1; // å³ä¾§æ¸¸æ ‡
 
-int merge(int *arr, int left, int mid, int right) {
-    int lowPtr = left;      // ×ó²àÓÎ±ê
-    int hightPtr = mid + 1; // ÓÒ²àÓÎ±ê
-
-    int *temp = (int *)malloc((right - left + 1) * sizeof(int));
+    vector<int> temp(right - left + 1);
     int ptr = 0;
     int res = 0;
 
     while (lowPtr <= mid && hightPtr <= right) {
-        res += (arr[lowPtr] < arr[hightPtr] ? arr[lowPtr] * (right - hightPtr + 1) : 0);    // Ã»ÓĞÀË·ÑĞ¡·¶Î§±È½ÏÊ±µÄ´ÎÊı
+        res += (arr[lowPtr] < arr[hightPtr] ? arr[lowPtr] * (right - hightPtr + 1) : 0);    // æ²¡æœ‰æµªè´¹å°èŒƒå›´æ¯”è¾ƒæ—¶çš„æ¬¡æ•°
         temp[ptr++] = arr[lowPtr] < arr[hightPtr] ? arr[lowPtr++] : arr[hightPtr++];
     }
     while (lowPtr <= mid) {
@@ -34,33 +30,52 @@ int merge(int *arr, int left, int mid, int right) {
     for (ptr = 0; ptr < (right - left + 1); ptr++) {
         arr[left + ptr] = temp[ptr];
     }
-    free(temp);
 
     return res;
 }
 
-int mergeSort(int *arr, int left, int right) {
+int mergeSort(vector<int>& arr, int left, int right) {
     if (left == right)
         return 0;
 
-    int mid = left + ((right - left) >> 2);
+    int mid = left + ((right - left) >> 1);
 
     return (mergeSort(arr, left, mid)
-        + mergeSort(arr, mid + 1, right)
-        + merge(arr, left, mid, right));
+            + mergeSort(arr, mid + 1, right)
+            + merge(arr, left, mid, right));
 }
 
 int main() {
-    int arr[5];
-    int len = sizeof(arr) / sizeof(int);
-    srand(time(NULL));
-    for (int i = 0; i < len; i++) {
-        arr[i] = static_cast<int>(rand() % 5);
-    }
-    printArr(arr, len);
+    vector<int> arr;
+    generatorRandomArray(arr, 5, 5);
+    printVector(arr);
 
-    cout << mergeSort(arr, 0, len - 1) << endl;
-    printArr(arr, len);
+    cout << mergeSort(arr, 0, static_cast<int>(arr.size()) - 1) << endl;
+
+    printVector(arr);
 
     return 0;
+}
+
+void printVector(vector<int> &vt) {
+    for (auto v : vt)
+        cout << v << " ";
+    cout << endl;
+}
+
+void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
+    int temp;
+    int len = (int)(maxSize % (maxSize + 1));
+
+    srand(static_cast<int>(time(NULL)));
+    for (int i = 0; i < len; i++) {
+        //temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // éšæœºç”Ÿæˆæ­£è´Ÿæ•°
+        temp = static_cast<int>(rand() % (maxValue + 1));          // éšæœºç”Ÿæˆæ­£æ•°
+        if (temp == 0) {
+            continue;
+        }
+        else {
+            vt.push_back(temp);
+        }
+    }
 }
