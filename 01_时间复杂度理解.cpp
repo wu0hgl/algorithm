@@ -1,20 +1,15 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include <algorithm>
 #include <ctime>
 using namespace std;
+void printV(vector<int> &vt);
 
 /*
-    Ò»¸öÓĞĞòÊı×éA, ÁíÒ»¸öÎŞĞòÊı×éB, ´òÓ¡BÖĞËùÓĞ²»ÔÚAÖĞµÄÊı×é, AÊı×é³¤¶ÈÎªN, BÊı×é³¤¶ÈÎªM
+    ä¸€ä¸ªæœ‰åºæ•°ç»„A, å¦ä¸€ä¸ªæ— åºæ•°ç»„B, æ‰“å°Bä¸­æ‰€æœ‰ä¸åœ¨Aä¸­çš„æ•°ç»„, Aæ•°ç»„é•¿åº¦ä¸ºN, Bæ•°ç»„é•¿åº¦ä¸ºM
 */
 
-void printV(vector<int> &vt) {
-    for (auto v : vt)
-        cout << v << " ";
-    cout << endl;
-}
-
-// ±©Á¦·¨
+// æš´åŠ›æ³•
 void func_1(vector<int> &a, vector<int> &b) {
     size_t out, in;
     for (out = 0; out < b.size(); out++) {
@@ -45,8 +40,7 @@ bool find(vector<int> &arr, int target) {
     }
     return false;
 }
-
-// °ÑbÖĞµÄÔªËØÔÚaÖĞÊ¹ÓÃ¶ş·Ö·¨²éÕÒ
+// æŠŠbä¸­çš„å…ƒç´ åœ¨aä¸­ä½¿ç”¨äºŒåˆ†æ³•æŸ¥æ‰¾
 void func_2(vector<int> &a, vector<int> &b) {
     for (size_t i = 0; i < b.size(); i++)
         if (!find(a, b[i]))
@@ -54,16 +48,16 @@ void func_2(vector<int> &a, vector<int> &b) {
     cout << endl;
 }
 
-// °Ñb½øĞĞÅÅĞòÈ»ºó½øĞĞÀàËÆÍâÅÅµÄ·½·¨²éÕÒ
+// æŠŠbè¿›è¡Œæ’åºç„¶åè¿›è¡Œç±»ä¼¼å¤–æ’çš„æ–¹æ³•æŸ¥æ‰¾
 void func_3(vector<int> &a, vector<int> &b) {
     sort(b.begin(), b.end());
-    int p1 = 0;
-    int p2 = 0;
+    size_t p1 = 0;
+    size_t p2 = 0;
     while (p1 < a.size() && p2 < b.size()) {
         if (a[p1] < b[p2])
             p1++;
         else if (a[p1] == b[p2]) {
-            //p1++;         // ´ËÊ±²»ÒÆ¶¯p1, Ö»ÒÆ¶¯p2
+            //p1++;         // æ­¤æ—¶ä¸ç§»åŠ¨p1, åªç§»åŠ¨p2
             p2++;
         }
         else {
@@ -78,7 +72,7 @@ void func_3(vector<int> &a, vector<int> &b) {
 int main() {
     vector<int> a;
     vector<int> b;
-    srand(time(NULL));
+    srand(static_cast<unsigned int>(time(NULL)));
     for (int i = 0; i < 10; i++) {
         a.push_back(static_cast<int>(rand() % 10));
     }
@@ -94,4 +88,10 @@ int main() {
     func_3(a, b);
 
     return 0;
+}
+
+void printV(vector<int> &vt) {
+    for (auto v : vt)
+        cout << v << " ";
+    cout << endl;
 }
