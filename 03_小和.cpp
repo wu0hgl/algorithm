@@ -11,22 +11,22 @@ void printVector(vector<int> &vt);
 */
 
 int merge(vector<int>& arr, int left, int mid, int right) {
-    int lowPtr = left;      // 左侧游标
-    int hightPtr = mid + 1; // 右侧游标
+    int leftPtr = left;      // 左侧游标
+    int rightPtr = mid + 1; // 右侧游标
 
     vector<int> temp(right - left + 1);
     int ptr = 0;
     int res = 0;
 
-    while (lowPtr <= mid && hightPtr <= right) {
-        res += (arr[lowPtr] < arr[hightPtr] ? arr[lowPtr] * (right - hightPtr + 1) : 0);    // 没有浪费小范围比较时的次数
-        temp[ptr++] = arr[lowPtr] < arr[hightPtr] ? arr[lowPtr++] : arr[hightPtr++];
+    while (leftPtr <= mid && rightPtr <= right) {
+        res += (arr[leftPtr] < arr[rightPtr] ? arr[leftPtr] * (right - rightPtr + 1) : 0);    // 没有浪费小范围比较时的次数
+        temp[ptr++] = arr[leftPtr] < arr[rightPtr] ? arr[leftPtr++] : arr[rightPtr++];
     }
-    while (lowPtr <= mid) {
-        temp[ptr++] = arr[lowPtr++];
+    while (leftPtr <= mid) {
+        temp[ptr++] = arr[leftPtr++];
     }
-    while (hightPtr <= right)
-        temp[ptr++] = arr[hightPtr++];
+    while (rightPtr <= right)
+        temp[ptr++] = arr[rightPtr++];
 
     for (ptr = 0; ptr < (right - left + 1); ptr++) {
         arr[left + ptr] = temp[ptr];
