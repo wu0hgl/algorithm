@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include <stack>
 #include <algorithm>
@@ -9,7 +9,7 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
 
 /*
-    ¸ø¶¨Ò»¸öÊı×é, ÇóÅÅĞòÖ®ºóÏàÁÚÁ½ÊıµÄ×î´ó²îÖµ, ÒªÇóÊ±¼ä¸´ÔÓ¶ÈO(N), ÇÒÒªÇóÊ¹ÓÃ·Ç»ùÓÚ±È½ÏµÄÅÅĞò
+    ç»™å®šä¸€ä¸ªæ•°ç»„, æ±‚æ’åºä¹‹åç›¸é‚»ä¸¤æ•°çš„æœ€å¤§å·®å€¼, è¦æ±‚æ—¶é—´å¤æ‚åº¦O(N), ä¸”è¦æ±‚ä½¿ç”¨éåŸºäºæ¯”è¾ƒçš„æ’åº
 */
 
 int bucket(long num, long len, long minId, long maxId) {
@@ -31,7 +31,7 @@ int getMaxGap(vector<int> vt) {
     vector<bool> hasNum(len + 1, false);
     vector<int> maxs(len + 1, 0);
     vector<int> mins(len + 1, 0);
-    int bid = 0;        // ÓÃÓÚ¼ÇÂ¼Í°ºÅ
+    int bid = 0;        // ç”¨äºè®°å½•æ¡¶å·
     for (int i = 0; i < len; i++) {
         bid = bucket(vt[i], len, minId, maxId);
         mins[bid] = hasNum[bid] ? min(mins[bid], vt[i]) : vt[i];
@@ -87,8 +87,8 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
     int len = (int)(maxSize % (maxSize + 1));
 
     for (int i = 0; i < len; i++) {
-        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // Ëæ»úÉú³ÉÕı¸ºÊı
-        //temp = static_cast<int>(rand() % (maxValue + 1));          // Ëæ»úÉú³ÉÕıÊı
+        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // éšæœºç”Ÿæˆæ­£è´Ÿæ•°
+        //temp = static_cast<int>(rand() % (maxValue + 1));          // éšæœºç”Ÿæˆæ­£æ•°
         vt.push_back(temp);
     }
 }
