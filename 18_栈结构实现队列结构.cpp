@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include <stack>
 #include <algorithm>
@@ -10,39 +10,64 @@ using namespace std;
 void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
 
+/*
+    æ ˆç»“æ„å®ç°é˜Ÿåˆ—
+*/
+
 class myQueue
 {
 public:
+    myQueue() {
+        stackPush = new stack<int>;
+        stackPop = new stack<int>;
+    }
+
+    ~myQueue() {
+        delete stackPush;
+        delete stackPop;
+    }
+
     void push(int node) {
-        stack1.push(node);
+        stackPush->push(node);
+        cout << stackPush->size() << endl;
     }
 
     int pop() {
-        if (stack2.empty()) {
-            while (!stack1.empty()) {
-                stack2.push(stack1.top());
-                stack1.pop();
+        if (stackPush->empty() && stackPop->empty()) {
+            cout << "é˜Ÿåˆ—ä¸ºç©º pop err" << endl;
+            return -1;
+        }
+        else if (stackPop->empty()){
+            while (!stackPush->empty()) {
+                stackPop->push(stackPush->top());
+                stackPush->pop();
             }
         }
-        int ret = stack2.top();
-        stack2.pop();
+        int ret = stackPop->top();
+        stackPop->pop();
         return ret;
     }
 
     int top() {
-        if (stack2.empty()) {
-            while (!stack1.empty()) {
-                stack2.push(stack1.top());
-                stack1.pop();
+        if (stackPop->empty() && stackPush->empty()) {
+            cout << "é˜Ÿåˆ—ä¸ºç©º top err" << endl;
+            return -1;
+        }
+        else if (stackPop->empty()) {
+            while (!stackPush->empty()) {
+                stackPop->push(stackPush->top());
+                stackPush->pop();
             }
         }
-        int ret = stack2.top();
+
+        int ret = stackPop->top();
+        stackPop->pop();
         return ret;
     }
 
-private:
-    stack<int> stack1;
-    stack<int> stack2;
+public:
+    stack<int> *stackPush;
+    stack<int> *stackPop;
 };
 
 
@@ -58,12 +83,21 @@ int main() {
         cout << q.top() << " ";
     }
     cout << endl;
+    cout << q.stackPush->size() << endl;
+    cout << "---------------" << endl;
     cout << q.top() << endl;
+    cout << "---------------" << endl;
     for (int i = 0; i < 5; i++)
         cout << q.pop() << " ";
     cout << endl;
+    cout << "---------------" << endl;
     cout << q.top() << endl;
+    cout << "---------------" << endl;
 
+    stack<int> sk;
+    sk.push(2);
+    sk.push(4);
+    cout << sk.size() << endl;
 
     printVector(arr);
 
@@ -81,8 +115,8 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
     int len = (int)(maxSize % (maxSize + 1));
 
     for (int i = 0; i < len; i++) {
-        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // Ëæ»úÉú³ÉÕı¸ºÊı
-        //temp = static_cast<int>(rand() % (maxValue + 1));          // Ëæ»úÉú³ÉÕıÊı
+        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // éšæœºç”Ÿæˆæ­£è´Ÿæ•°
+        //temp = static_cast<int>(rand() % (maxValue + 1));          // éšæœºç”Ÿæˆæ­£æ•°
         vt.push_back(temp);
         //Insert_2(temp);
     }
