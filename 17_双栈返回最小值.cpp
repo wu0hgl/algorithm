@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include <stack>
 #include <algorithm>
@@ -11,7 +11,7 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
 
 /*
-    Ë«Õ»·µ»Ø×îĞ¡Öµ
+    åŒæ ˆè¿”å›æœ€å°å€¼
 */
 
 class Solution {
@@ -37,7 +37,7 @@ public:
 
     void pop() {
         if (m_sk.empty()) {
-            cout << "Õ»¿Õ" << endl;
+            cout << "æ ˆç©º" << endl;
         }
         m_sk.pop();
         m_min.pop();
@@ -80,8 +80,8 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
     int len = (int)(maxSize % (maxSize + 1));
 
     for (int i = 0; i < len; i++) {
-        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // Ëæ»úÉú³ÉÕı¸ºÊı
-        //temp = static_cast<int>(rand() % (maxValue + 1));          // Ëæ»úÉú³ÉÕıÊı
+        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // éšæœºç”Ÿæˆæ­£è´Ÿæ•°
+        //temp = static_cast<int>(rand() % (maxValue + 1));          // éšæœºç”Ÿæˆæ­£æ•°
         vt.push_back(temp);
         //Insert_2(temp);
     }
