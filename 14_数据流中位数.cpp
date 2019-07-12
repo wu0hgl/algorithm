@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include <stack>
 #include <algorithm>
@@ -7,15 +7,15 @@
 #include <functional>
 using namespace std;
 
-void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
+void generatorRandomArray(vector<int> &vt, int maxValueSize, int minValue);
 void printVector(vector<int> &vt);
 
 /*
-    ÈçºÎ¿ÉÒÔµÃµ½Êı¾İÁ÷ÖĞÅÅĞòºóµÄÖĞÎ»Êı
+    å¦‚ä½•å¯ä»¥å¾—åˆ°æ•°æ®æµä¸­æ’åºåçš„ä¸­ä½æ•°
 */
 
-priority_queue<int, vector<int>, less<int>> p;      // ½µĞò, ×î´ó¶Ñ, ×î´ó¶Ñ
-priority_queue<int, vector<int>, greater<int>> q;   // ÉıĞò, ×îĞ¡¶Ñ, ×îĞ¡¶Ñ
+priority_queue<int, vector<int>, less<int>> p;      // é™åº, æœ€å¤§å †, æœ€å¤§å †
+priority_queue<int, vector<int>, greater<int>> q;   // å‡åº, æœ€å°å †, æœ€å°å †
 
 
 void Insert_1(int num){
@@ -36,53 +36,49 @@ double GetMedian_1(){
     return p.size() == q.size() ? (p.top() + q.top()) / 2.0 : p.top();
 }
 
-/*
-vector<int> min;
-vector<int> max;
-
+vector<int> minValue;
+vector<int> maxValue;
 void Insert_2(int num)
 {
-    if (((min.size() + max.size()) & 1) == 0) {    // Å¼Êı, Ó¦¸Ã²åÈë×îĞ¡¶ÑÖĞ
-        if (max.size() > 0 && max[0] > num) {    // ×î´ó¶ÑÖĞµÄÊı×Ö´óÓÚÒª²åÈëµÄÊı×Ö
-            max.push_back(num);
-            push_heap(max.begin(), max.end(), less<int>());
+    if (((minValue.size() + maxValue.size()) & 1) == 0) {    // å¶æ•°, åº”è¯¥æ’å…¥æœ€å°å †ä¸­
+        if (maxValue.size() > 0 && maxValue[0] > num) {    // æœ€å¤§å †ä¸­çš„æ•°å­—å¤§äºè¦æ’å…¥çš„æ•°å­—
+            maxValue.push_back(num);
+            push_heap(maxValue.begin(), maxValue.end(), less<int>());
 
-            num = max[0];
+            num = maxValue[0];
 
-            pop_heap(max.begin(), max.end(), less<int>());
-            max.pop_back();
+            pop_heap(maxValue.begin(), maxValue.end(), less<int>());
+            maxValue.pop_back();
         }
-        min.push_back(num);
-        push_heap(min.begin(), min.end(), greater<int>());
+        minValue.push_back(num);
+        push_heap(minValue.begin(), minValue.end(), greater<int>());
     }
-    else {        // ÆæÊı, ²åÈë×î´ó¶Ñ
-        if (min.size() > 0 && min[0] < num) {   // ×îĞ¡¶ÑĞ¡ÓÚÕâ¸öÊı
-            min.push_back(num);
-            push_heap(min.begin(), min.end(), greater<int>());
+    else {        // å¥‡æ•°, æ’å…¥æœ€å¤§å †
+        if (minValue.size() > 0 && minValue[0] < num) {   // æœ€å°å †å°äºè¿™ä¸ªæ•°
+            minValue.push_back(num);
+            push_heap(minValue.begin(), minValue.end(), greater<int>());
 
-            num = min[0];
+            num = minValue[0];
 
-            pop_heap(min.begin(), min.end(), greater<int>());
-            min.pop_back();
+            pop_heap(minValue.begin(), minValue.end(), greater<int>());
+            minValue.pop_back();
         }
-        max.push_back(num);
-        push_heap(max.begin(), max.end(), less<int>());
+        maxValue.push_back(num);
+        push_heap(maxValue.begin(), maxValue.end(), less<int>());
     }
 }
-
 double GetMedian_2()
 {
-    int size = min.size() + max.size();
+    int size = minValue.size() + maxValue.size();
 
     if (0 == size)
         return 0;
 
     if ((size & 1) == 1)
-        return min[0];
+        return minValue[0];
     else
-        return (min[0] + max[0]) / 2.0;
+        return (minValue[0] + maxValue[0]) / 2.0;
 }
-*/
 
 double getMedian(vector<int> vt) {
     if ((vt.size() % 2) == 0)
@@ -96,8 +92,10 @@ int main() {
     srand(static_cast<int>(time(NULL)));
     generatorRandomArray(arr, 5, 10);
     printVector(arr);
+
     cout << GetMedian_1() << endl;
-    //cout << GetMedian_2() << endl;
+    cout << GetMedian_2() << endl;
+
     sort(arr.begin(), arr.end());
     cout << getMedian(arr) << endl;
     printVector(arr);
@@ -111,15 +109,15 @@ void printVector(vector<int> &vt) {
     cout << endl;
 }
 
-void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
+void generatorRandomArray(vector<int> &vt, int maxValueSize, int minValue) {
     int temp;
-    int len = (int)(maxSize % (maxSize + 1));
+    int len = (int)(maxValueSize % (maxValueSize + 1));
 
     for (int i = 0; i < len; i++) {
-        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // Ëæ»úÉú³ÉÕı¸ºÊı
-        //temp = static_cast<int>(rand() % (maxValue + 1));          // Ëæ»úÉú³ÉÕıÊı
+        temp = static_cast<int>(rand() % (minValue + 1)) - static_cast<int>(rand() % (minValue));   // éšæœºç”Ÿæˆæ­£è´Ÿæ•°
+        //temp = static_cast<int>(rand() % (minValue + 1));          // éšæœºç”Ÿæˆæ­£æ•°
         vt.push_back(temp);
+        Insert_2(temp);
         Insert_1(temp);
-        //Insert_2(temp);
     }
 }
