@@ -1,8 +1,8 @@
-#include <iostream>
+﻿#include <iostream>
 using namespace std;
 
 /*
-    数组实现大小固定的栈
+    用数组结构实现大小固定栈
 */
 
 class ArrayToStack{
@@ -22,10 +22,11 @@ public:
     int push(int data) {
         if (m_currentSize == m_maxSize) {
             cout << "数组已满" << endl;
-            return 0;
+            return -1;
         }
         m_p[m_currentSize] = data;
         m_currentSize++;
+        return 0;
     }
     int pop() {
         int ret = 0;
@@ -33,9 +34,10 @@ public:
             cout << "数组已空" << endl;
             return ret;
         }
-            ret = m_p[m_currentSize - 1];
-            m_currentSize--;
-            return ret;
+
+        ret = m_p[m_currentSize - 1];
+        m_currentSize--;
+        return ret;
     }
     ~ArrayToStack() {
         if (m_p != nullptr) {
