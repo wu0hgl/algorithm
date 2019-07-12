@@ -1,8 +1,8 @@
-#include <iostream>
+ï»¿#include <iostream>
 using namespace std;
 
 /*
-    ÓÃÊı×é½á¹¹ÊµÏÖ´óĞ¡¹Ì¶¨¶ÓÁĞ
+    ç”¨æ•°ç»„ç»“æ„å®ç°å¤§å°å›ºå®šé˜Ÿåˆ—
 */
 
 class ArrayToQueue{
@@ -17,7 +17,7 @@ public:
 
     int peek() {
         if (m_size == 0) {
-            cout << "¶ÓÁĞÎª¿Õ" << endl;
+            cout << "é˜Ÿåˆ—ä¸ºç©º" << endl;
             return -1;
         }
 
@@ -26,7 +26,7 @@ public:
 
     void push(int data) {
         if (m_size == m_arraySize) {
-            cout << "¶ÓÁĞÒÑÂú" << endl;
+            cout << "é˜Ÿåˆ—å·²æ»¡" << endl;
             return;
         }
         m_size++;
@@ -36,7 +36,7 @@ public:
 
     int poll() {
         if (m_size == 0) {
-            cout << "¶ÓÁĞÎª¿Õ" << endl;
+            cout << "é˜Ÿåˆ—ä¸ºç©º" << endl;
             return -1;
         }
         m_size--;
