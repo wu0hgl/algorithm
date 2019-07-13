@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -6,20 +6,20 @@ void printMatrix(vector<vector<int>> matrix);
 void generateMatrix(vector<vector<int>> &matrix);
 
 /*
-    ¸ø¶¨Ò»¸öÕûĞÍ¾ØÕómatrix, °´ÕÕ´ÓÍâÏòÀïÒÔË³Ê±ÕëµÄË³ĞòÒÀ´Î´òÓ¡³öÃ¿Ò»¸öÊı×Ö. 
-    ÀıÈç: Èç¹ûÊäÈëÈçÏÂ4 X 4¾ØÕó:  { 1,  2,  3,  4,
+    ç»™å®šä¸€ä¸ªæ•´å‹çŸ©é˜µmatrix, æŒ‰ç…§ä»å¤–å‘é‡Œä»¥é¡ºæ—¶é’ˆçš„é¡ºåºä¾æ¬¡æ‰“å°å‡ºæ¯ä¸€ä¸ªæ•°å­—. 
+    ä¾‹å¦‚: å¦‚æœè¾“å…¥å¦‚ä¸‹4 X 4çŸ©é˜µ:  { 1,  2,  3,  4,
                                     5,  6,  7,  8,
                                     9,  10, 11, 12,
                                     13, 14, 15, 16 }
-    ÔòÒÀ´Î´òÓ¡³öÊı×Ö1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.
+    åˆ™ä¾æ¬¡æ‰“å°å‡ºæ•°å­—1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.
 */
 
 void printFunc(vector<vector<int> > matrix, vector<int> &out, int x_1, int y_1, int x_2, int y_2) {
-    if (x_1 == x_2) {               // Ò»ĞĞ
+    if (x_1 == x_2) {               // ä¸€è¡Œ
         for (int i = 0; i < (y_2 - y_1 + 1); i++)
             out.push_back(matrix[x_1][y_1 + i]);
     }
-    else if (y_1 == y_2) {          // Ò»ÁĞ
+    else if (y_1 == y_2) {          // ä¸€åˆ—
         for (int i = 0; i < (x_2 - x_1 + 1); i++)
             out.push_back(matrix[x_1 + i][y_1]);
     }
@@ -28,20 +28,20 @@ void printFunc(vector<vector<int> > matrix, vector<int> &out, int x_1, int y_1, 
         int ctR = x_1;
         int ctC = y_1;
         while (ctC != y_2) {
-        out.push_back(matrix[x_1][ctC]);
-        ctC++;
+            out.push_back(matrix[x_1][ctC]);
+            ctC++;
         }
         while (ctR != x_2) {
-        out.push_back(matrix[ctR][y_2]);
-        ctR++;
+            out.push_back(matrix[ctR][y_2]);
+            ctR++;
         }
         while (ctC != y_1) {
-        out.push_back(matrix[x_2][ctC]);
-        ctC--;
+            out.push_back(matrix[x_2][ctC]);
+            ctC--;
         }
         while (ctR != x_1) {
-        out.push_back(matrix[ctR][y_1]);
-        ctR--;
+            out.push_back(matrix[ctR][y_1]);
+            ctR--;
         }
         */
 
@@ -75,16 +75,22 @@ vector<int> printFunc(vector<vector<int> > matrix) {
     return ret;
 }
 
-
-
 int main() {
+    //vector<vector<int>> matrix =
+    //{
+    //    {1, 2, 3, 4, 5},
+    //    {6, 7, 8, 9, 10},
+    //    {11, 12, 13, 14, 15},
+    //    {16, 17, 18, 19, 20},
+    //    {21, 22, 23, 24, 25}
+    //};
     vector<vector<int>> matrix;
     generateMatrix(matrix);
     printMatrix(matrix);
     cout << "--------------------" << endl;
     vector<int> ret;
     ret = printFunc(matrix);
-    for (int i = 0; i < ret.size(); i++)
+    for (size_t i = 0; i < ret.size(); i++)
         cout << ret[i] << " ";
     cout << endl;
 
@@ -92,8 +98,8 @@ int main() {
 }
 
 void printMatrix(vector<vector<int>> matrix) {
-    for (int i = 0; i < matrix.size(); i++) {
-        for (int j = 0; j < matrix[0].size(); j++) {
+    for (size_t i = 0; i < matrix.size(); i++) {
+        for (size_t j = 0; j < matrix[0].size(); j++) {
             cout << matrix[i][j] << "\t";
         }
         cout << endl;
