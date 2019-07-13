@@ -68,7 +68,8 @@ vector<int> printFunc(vector<vector<int> > matrix) {
     int y_1 = 0;
     int x_2 = matrix.size() - 1;
     int y_2 = matrix[0].size() - 1;
-    while ((x_2 >= x_1) && (y_2 >= y_1)) {
+    while (x_2 >= x_1) {
+    //while ((x_2 >= x_1) && (y_2 >= y_1)) {
         printFunc(matrix, ret, x_1++, y_1++, x_2--, y_2--);
     }
 
@@ -76,16 +77,16 @@ vector<int> printFunc(vector<vector<int> > matrix) {
 }
 
 int main() {
-    //vector<vector<int>> matrix =
-    //{
-    //    {1, 2, 3, 4, 5},
-    //    {6, 7, 8, 9, 10},
-    //    {11, 12, 13, 14, 15},
-    //    {16, 17, 18, 19, 20},
-    //    {21, 22, 23, 24, 25}
-    //};
-    vector<vector<int>> matrix;
-    generateMatrix(matrix);
+    vector<vector<int>> matrix =
+    {
+        {1, 2, 3, 4, 5},
+        {6, 7, 8, 9, 10},
+        {11, 12, 13, 14, 15},
+        {16, 17, 18, 19, 20},
+        {21, 22, 23, 24, 25}
+    };
+    //vector<vector<int>> matrix;
+    //generateMatrix(matrix);
     printMatrix(matrix);
     cout << "--------------------" << endl;
     vector<int> ret;

@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -6,12 +6,12 @@ void printMatrix(vector<vector<int>> matrix);
 void generateMatrix(vector<vector<int>> &matrix);
 
 /*
-    ¸ø¶¨Ò»¸öÕûĞÍ¾ØÕómatrix, °´ÕÕ´ÓÍâÏòÀïÒÔË³Ê±ÕëµÄË³ĞòÒÀ´Î´òÓ¡³öÃ¿Ò»¸öÊı×Ö.
-    ÀıÈç: Èç¹ûÊäÈëÈçÏÂ4 X 4¾ØÕó:  { 1,  2,  3,  4,
+    ç»™å®šä¸€ä¸ªæ•´å‹çŸ©é˜µmatrix, æŒ‰ç…§ä»å¤–å‘é‡Œä»¥é¡ºæ—¶é’ˆçš„é¡ºåºä¾æ¬¡æ‰“å°å‡ºæ¯ä¸€ä¸ªæ•°å­—.
+    ä¾‹å¦‚: å¦‚æœè¾“å…¥å¦‚ä¸‹4 X 4çŸ©é˜µ:  { 1,  2,  3,  4,
                                     5,  6,  7,  8, 
                                     9,  10, 11, 12, 
                                     13, 14, 15, 16 }
-    ×ª»»ºó: { 13, 9,  5, 1,
+    è½¬æ¢å: { 13, 9,  5, 1,
               14, 10, 6, 2,
               15, 11, 7, 3,
               16, 12, 8, 4 }
@@ -33,7 +33,7 @@ void rotateMatrix(vector<vector<int> > &matrix) {
     int y_1 = 0;
     int x_2 = matrix.size() - 1;
     int y_2 = matrix[0].size() - 1;
-    while (x_2 > x_1) {
+    while (x_2 >= x_1) {        // è¿™é‡Œç­‰å·å¤§äºå’Œå¤§äºç­‰äºæ²¡åŒºåˆ«, å½“x_2==x_1æ—¶, åªæœ‰ä¸€ä¸ªæ•°, æ—‹è½¬ä¸æ—‹è½¬éƒ½ä¸€æ ·
         rotateMatrix(matrix, x_1++, y_1++, x_2--, y_2--);
     }
 }

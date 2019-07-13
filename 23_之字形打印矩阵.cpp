@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -7,22 +7,22 @@ void generateMatrix(vector<vector<int>> &matrix);
 
 /*
     
-    ¸ø¶¨Ò»¸ö¾ØÕómatrix, °´ÕÕ"Ö®"×ÖĞÎ·½Ê½´òÓ¡Õâ¸ö¾ØÕó
-    ÀıÈç: Èç¹ûÊäÈëÈçÏÂ4 X 4¾ØÕó:  { 1,  2,  3,  4,
+    ç»™å®šä¸€ä¸ªçŸ©é˜µmatrix, æŒ‰ç…§"ä¹‹"å­—å½¢æ–¹å¼æ‰“å°è¿™ä¸ªçŸ©é˜µ
+    ä¾‹å¦‚: å¦‚æœè¾“å…¥å¦‚ä¸‹4 X 4çŸ©é˜µ:  { 1,  2,  3,  4,
                                     5,  6,  7,  8,
                                     9,  10, 11, 12 }
-    Êä³ö 1, 2, 5, 9, 6, 3, 4, 7, 10, 11, 8, 12
+    è¾“å‡º 1, 2, 5, 9, 6, 3, 4, 7, 10, 11, 8, 12
 
 */
 
 void printZ(vector<vector<int>> &matrix, int x_1, int y_1, int x_2, int y_2, bool flag) {
     if (flag) {
         while (x_1 != (x_2 + 1))
-            cout << matrix[x_1++][y_1--] << " ";
+            cout << matrix[x_1++][y_1--] << " ";    // ä¸‹ä¸€è¡Œ, ä¸Šä¸€åˆ—
     }
     else {
         while (x_2 != (x_1 - 1))
-        cout << matrix[x_2--][y_2++] << " ";
+        cout << matrix[x_2--][y_2++] << " ";        // ä¸Šä¸€è¡Œ, ä¸‹ä¸€åˆ—
     }
 }
 
