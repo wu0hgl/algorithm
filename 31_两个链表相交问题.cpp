@@ -1,12 +1,12 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <algorithm>
 #include <set>
 using namespace std;
 
 /*
-    Á½¸öÁ´±íÏà½»ÎÊÌâ
-    ÊµÏÖÒ»¸öº¯Êý, Èç¹ûÁ½¸öÁ´±íÏà½», ·µ»ØÏà½»µÄµÚÒ»¸ö½áµã, Èç¹û²»Ïà½»·µ»Ønullptr. 
-    Èç¹ûÁ´±í1³¤¶ÈN, Á´±í2³¤¶ÈM, ÒªÇóÊ±¼ä¸´ÔÓ¶ÈO(M+N), ¶îÍâ¿Õ¼ä¸´ÔÓ¶ÈO(1)
+    ä¸¤ä¸ªé“¾è¡¨ç›¸äº¤é—®é¢˜
+    å®žçŽ°ä¸€ä¸ªå‡½æ•°, å¦‚æžœä¸¤ä¸ªé“¾è¡¨ç›¸äº¤, è¿”å›žç›¸äº¤çš„ç¬¬ä¸€ä¸ªç»“ç‚¹, å¦‚æžœä¸ç›¸äº¤è¿”å›žnullptr. 
+    å¦‚æžœé“¾è¡¨1é•¿åº¦N, é“¾è¡¨2é•¿åº¦M, è¦æ±‚æ—¶é—´å¤æ‚åº¦O(M+N), é¢å¤–ç©ºé—´å¤æ‚åº¦O(1)
 */
 
 class Node {
@@ -26,11 +26,14 @@ Node* getIntersectNode(Node *pHead1, Node *pHead2) {
     }
     Node *loop1 = getLoopNode(pHead1);
     Node *loop2 = getLoopNode(pHead2);
-    if ((loop1 == nullptr) && (loop2 == nullptr)) {         // ÎÞ»·Á´±íÏà½»ÎÊÌâ
+
+    /* æ— çŽ¯é“¾è¡¨ç›¸äº¤é—®é¢˜ */
+    if ((loop1 == nullptr) && (loop2 == nullptr)) {     // æ— çŽ¯é“¾è¡¨ç›¸äº¤é—®é¢˜
         return noLoop(pHead1, pHead2);
     }
     
-    if ((loop1 != nullptr) && (loop2 != nullptr)) {    // ÓÐ»·Á´±íÏà½»ÎÊÌâ
+    /* æœ‰çŽ¯é“¾è¡¨ç›¸äº¤é—®é¢˜: (1)ä¸¤ä¸ªé“¾è¡¨å…¥å£ç‚¹ç›¸åŒ; (2)ä¸¤ä¸ªé“¾è¡¨çš„å…¥å£ç‚¹ä¸åŒ; (3)ä¸¤ä¸ªé“¾è¡¨å¯¹åº”çš„çŽ¯ä¸ç›¸äº¤ */
+    if ((loop1 != nullptr) && (loop2 != nullptr)) {     // 
         return bothLoop(pHead1, loop1, pHead2, loop2);
     }
 
@@ -94,7 +97,7 @@ Node* noLoop(Node *pHead1, Node *pHead2) {
 Node* bothLoop(Node *pHead1, Node *loop1, Node *pHead2, Node *loop2) {
     Node *cur1 = nullptr;
     Node *cur2 = nullptr;
-    if (loop1 == loop2) {   // ×ª»»ÎªÁ½ÎÞ»·Á´±íÏà½»ÎÊÌâ
+    if (loop1 == loop2) {   // ä¸¤ä¸ªé“¾è¡¨å…¥å£ç‚¹ç›¸åŒ, è½¬æ¢ä¸ºä¸¤æ— çŽ¯é“¾è¡¨ç›¸äº¤é—®é¢˜
         cur1 = pHead1;
         cur2 = pHead2;
         int count = 0;
@@ -118,8 +121,9 @@ Node* bothLoop(Node *pHead1, Node *loop1, Node *pHead2, Node *loop2) {
             cur2 = cur2->next;
         }
         return cur1;
+        //return loop1;     // è¿”å›žç›¸äº¤çš„èŠ‚ç‚¹ä¸æ˜¯æ±‚æ¢çš„å…¥å£èŠ‚ç‚¹
     }
-    else {
+    else {                  // ä¸¤ä¸ªé“¾è¡¨çš„å…¥å£ç‚¹ä¸åŒ
         cur1 = loop1->next;
         while (cur1 != loop1) {
             if (cur1 == loop2) {
@@ -127,56 +131,76 @@ Node* bothLoop(Node *pHead1, Node *loop1, Node *pHead2, Node *loop2) {
             }
             cur1 = cur1->next;
         }
-        return nullptr;
+        return nullptr;     // ä¸¤ä¸ªé“¾è¡¨å¯¹åº”çš„çŽ¯ä¸ç›¸äº¤
     }
 }
 
 int main() {
+    test_1();
+    test_2();
+    test_3();
+
+    return 0;
+}
+
+void test_1() {
     // 1->2->3->4->5->6->7->null
-    Node *head1 = new Node(1);
-    head1->next = new Node(2);
-    head1->next->next = new Node(3);
-    head1->next->next->next = new Node(4);
-    head1->next->next->next->next = new Node(5);
-    head1->next->next->next->next->next = new Node(6);
-    head1->next->next->next->next->next->next = new Node(7);
+    Node *head1 = &Node(1);
+    head1->next = &Node(2);
+    head1->next->next = &Node(3);
+    head1->next->next->next = &Node(4);
+    head1->next->next->next->next = &Node(5);
+    head1->next->next->next->next->next = &Node(6);
+    head1->next->next->next->next->next->next = &Node(7);
 
     // 0->9->8->6->7->null
-    Node *head2 = new Node(0);
-    head2->next = new Node(9);
-    head2->next->next = new Node(8);
+    Node *head2 = &Node(0);
+    head2->next = &Node(9);
+    head2->next->next = &Node(8);
     head2->next->next->next = head1->next->next->next->next->next; // 8->6
-    cout << "ÎÞ»·: ";
+    cout << "æ— çŽ¯: ";
     cout << getIntersectNode(head1, head2)->value << endl;
     cout << "==========================================" << endl;
+}
 
+void test_2() {
     // 1->2->3->4->5->6->7->4->->->
-    head1 = new Node(1);
-    head1->next = new Node(2);
-    head1->next->next = new Node(3);
-    head1->next->next->next = new Node(4);
-    head1->next->next->next->next = new Node(5);
-    head1->next->next->next->next->next = new Node(6);
-    head1->next->next->next->next->next->next = new Node(7);
+    Node *head1 = &Node(1);
+    head1->next = &Node(2);
+    head1->next->next = &Node(3);
+    head1->next->next->next = &Node(4);
+    head1->next->next->next->next = &Node(5);
+    head1->next->next->next->next->next = &Node(6);
+    head1->next->next->next->next->next->next = &Node(7);
     head1->next->next->next->next->next->next = head1->next->next->next; // 7->4
 
     // 0->9->8->2->->->
-    head2 = new Node(0);
-    head2->next = new Node(9);
-    head2->next->next = new Node(8);
+    Node *head2 = &Node(0);
+    head2->next = &Node(9);
+    head2->next->next = &Node(8);
     head2->next->next->next = head1->next; // 8->2
-    cout << "ÓÐ»·: ";
+    cout << "æœ‰çŽ¯: ";
     cout << getIntersectNode(head1, head2)->value << endl;
     cout << "==========================================" << endl;
+}
+
+void test_3() {
+    // 1->2->3->4->5->6->7->4->->->
+    Node *head1 = &Node(1);
+    head1->next = &Node(2);
+    head1->next->next = &Node(3);
+    head1->next->next->next = &Node(4);
+    head1->next->next->next->next = &Node(5);
+    head1->next->next->next->next->next = &Node(6);
+    head1->next->next->next->next->next->next = &Node(7);
+    head1->next->next->next->next->next->next = head1->next->next->next; // 7->4
 
     // 0->9->8->6->4->5->6->->
-    head2 = new Node(0);
-    head2->next = new Node(9);
-    head2->next->next = new Node(8);
+    Node *head2 = &Node(0);
+    head2->next = &Node(9);
+    head2->next->next = &Node(8);
     head2->next->next->next = head1->next->next->next->next->next; // 8->6
-    cout << "ÓÐ»·: ";
+    cout << "æœ‰çŽ¯: ";
     cout << getIntersectNode(head1, head2)->value << endl;
     cout << "==========================================" << endl;
-
-    return 0;
 }

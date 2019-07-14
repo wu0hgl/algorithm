@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <algorithm>
 #include <vector>
 #include <unordered_map>
@@ -11,13 +11,16 @@ public:
     Node *rand;
     int value;
 };
+void printLinkList(Node *head);
+void freeRandLinkList(Node *head);
 
 /*
-    ÊäÈëÒ»¸ö¸´ÔÓÁ´±í(Ã¿¸ö½ÚµãÖĞÓĞ½ÚµãÖµ, ÒÔ¼°Á½¸öÖ¸Õë, Ò»¸öÖ¸ÏòÏÂÒ»¸ö½Úµã, ÁíÒ»¸öÌØÊâÖ¸ÕëÖ¸ÏòÈÎÒâÒ»¸ö½Úµã), 
-    ·µ»Ø½á¹ûÎª¸´ÖÆºó¸´ÔÓÁ´±íµÄhead. )×¢Òâ£¬Êä³ö½á¹ûÖĞÇë²»Òª·µ»Ø²ÎÊıÖĞµÄ½ÚµãÒıÓÃ, ·ñÔòÅĞÌâ³ÌĞò»áÖ±½Ó·µ»Ø¿Õ)
+    è¾“å…¥ä¸€ä¸ªå¤æ‚é“¾è¡¨(æ¯ä¸ªèŠ‚ç‚¹ä¸­æœ‰èŠ‚ç‚¹å€¼, ä»¥åŠä¸¤ä¸ªæŒ‡é’ˆ, ä¸€ä¸ªæŒ‡å‘ä¸‹ä¸€ä¸ªèŠ‚ç‚¹, å¦ä¸€ä¸ªç‰¹æ®ŠæŒ‡é’ˆæŒ‡å‘ä»»æ„ä¸€ä¸ªèŠ‚ç‚¹), 
+    è¿”å›ç»“æœä¸ºå¤åˆ¶åå¤æ‚é“¾è¡¨çš„head. )æ³¨æ„ï¼Œè¾“å‡ºç»“æœä¸­è¯·ä¸è¦è¿”å›å‚æ•°ä¸­çš„èŠ‚ç‚¹å¼•ç”¨, å¦åˆ™åˆ¤é¢˜ç¨‹åºä¼šç›´æ¥è¿”å›ç©º)
 */
 
 Node* copyListWithRand_1(Node *pHead) {
+    // åˆ›å»ºèŠ‚ç‚¹
     unordered_map<Node*, Node*> hMap;
     Node *ct = pHead;
     while (ct != nullptr) {
@@ -25,12 +28,14 @@ Node* copyListWithRand_1(Node *pHead) {
         hMap[ct] = temp;
         ct = ct->next;
     }
+    // è¿æ¥èŠ‚ç‚¹
     ct = pHead;
     while (ct != nullptr) {
         hMap[ct]->next = hMap[ct->next];
         hMap[ct]->rand = hMap[ct->rand];
         ct = ct->next;
     }
+
     return hMap[pHead];
 }
 
@@ -38,6 +43,8 @@ Node* copyListWithRand_2(Node *pHead) {
     if (nullptr == pHead) {
         return nullptr;
     }
+
+    // å¤åˆ¶èŠ‚ç‚¹
     Node *cur = pHead;
     Node *next = nullptr;
     while (cur != nullptr) {
@@ -52,6 +59,7 @@ Node* copyListWithRand_2(Node *pHead) {
         //cur = next->next;
     }
 
+    // å¤åˆ¶éšæœºæŒ‡é’ˆ
     cur = pHead;
     Node *curCopy = nullptr;
     while (cur != nullptr) {
@@ -61,6 +69,7 @@ Node* copyListWithRand_2(Node *pHead) {
         cur = next;
     }
 
+    // æ‹†åˆ†é“¾è¡¨
     Node *res = pHead->next;
     cur = pHead;
     while (cur != nullptr) {
@@ -70,35 +79,8 @@ Node* copyListWithRand_2(Node *pHead) {
         curCopy->next = (next != nullptr ? next->next : nullptr);
         cur = next;
     }
+
     return res;
-}
-
-void printLinkList(Node *head) {
-    cout << "order: ";
-    Node *ct = head;
-    while (ct != nullptr) {
-        cout << ct->value << " ";
-        ct = ct->next;
-    }
-    cout << endl;
-    cout << "rand:  ";
-    ct = head;
-    while (ct != nullptr) {
-        if (ct->rand == nullptr)
-            cout << "- ";
-        else
-            cout << ct->rand->value << " ";
-        ct = ct->next;
-    }
-    cout << endl;
-}
-
-void freeRandLinkList(Node *head) {
-    while (nullptr != head) {
-        Node* temp = head->next;
-        free(head);
-        head = temp;
-    }
 }
 
 int main() {
@@ -131,4 +113,32 @@ int main() {
     freeRandLinkList(res_1);
     freeRandLinkList(res_2);
     return 0;
+}
+
+void printLinkList(Node *head) {
+    cout << "order: ";
+    Node *ct = head;
+    while (ct != nullptr) {
+        cout << ct->value << " ";
+        ct = ct->next;
+    }
+    cout << endl;
+    cout << "rand:  ";
+    ct = head;
+    while (ct != nullptr) {
+        if (ct->rand == nullptr)
+            cout << "- ";
+        else
+            cout << ct->rand->value << " ";
+        ct = ct->next;
+    }
+    cout << endl;
+}
+
+void freeRandLinkList(Node *head) {
+    while (nullptr != head) {
+        Node* temp = head->next;
+        free(head);
+        head = temp;
+    }
 }

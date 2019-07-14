@@ -1,8 +1,8 @@
-#include <iostream>
+ï»¿#include <iostream>
 using namespace std;
-
+void printList(Node *head);
 /*
-·´×ªµ¥Ë«Á´±í
+    è¾“å…¥ä¸€ä¸ªé“¾è¡¨, è¾“å‡ºè¯¥é“¾è¡¨ä¸­å€’æ•°ç¬¬kä¸ªç»“ç‚¹
 */
 
 class Node {
@@ -24,15 +24,8 @@ Node* FindKthToTail(Node* pListHead, unsigned int k) {
             ret = ret->next;
         }
     }
-    return count >= k ? ret : nullptr;
-}
 
-void printList(Node *head) {
-    while (head != nullptr) {
-        cout << head->value << " ";
-        head = head->next;
-    }
-    cout << endl;
+    return count >= k ? ret : nullptr;
 }
 
 int main() {
@@ -49,10 +42,18 @@ int main() {
     Node *temp = nullptr;
     temp = FindKthToTail(head1, k);
     if (temp != nullptr) {
-        cout << "µ¹ÊýµÚ" << k << "¸ö½Úµã: " << temp->value << endl;
+        cout << "å€’æ•°ç¬¬" << k << "ä¸ªèŠ‚ç‚¹: " << temp->value << endl;
     }
     else {
-        cout << "µ¹ÊýµÚ" << k << "¸ö½ÚµãÎª¿Õ" << endl;
+        cout << "å€’æ•°ç¬¬" << k << "ä¸ªèŠ‚ç‚¹ä¸ºç©º" << endl;
     }
     return 0;
+}
+
+void printList(Node *head) {
+    while (head != nullptr) {
+        cout << head->value << " ";
+        head = head->next;
+    }
+    cout << endl;
 }

@@ -1,6 +1,7 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <algorithm>
 #include <vector>
+#include <ctime>
 using namespace std;
 class Node {
 public:
@@ -8,9 +9,10 @@ public:
     Node *next;
     int value;
 };
+void printLinkList(Node *head);
 
 /*
-    ½«µ¥ÏòÁ´±í°´Ä³Öµ»®·Ö³É×ó±ßĞ¡, ÖĞ¼äÏàµÈ, ÓÒ±ß´óµÄĞÎÊ½
+    å°†å•å‘é“¾è¡¨æŒ‰æŸå€¼åˆ’åˆ†æˆå·¦è¾¹å°, ä¸­é—´ç›¸ç­‰, å³è¾¹å¤§çš„å½¢å¼
 */
 
 void partition(vector<Node*> &vt, int pivot) {
@@ -41,25 +43,35 @@ Node* listPartition_1(Node *head, int pivot) {
         ct = ct->next;
     }
     partition(arr, pivot);
-    int i = 1;
-    for (; i < arr.size(); i++) {
-        arr[i - 1]->next = arr[i];
+    //int i = 1;
+    //for (; i < arr.size(); i++) {
+    //    arr[i - 1]->next = arr[i];
+    //}
+    //arr[i - 1]->next = nullptr;
+    int i = 0;
+    for (; i < arr.size() - 1; i++) {
+        arr[i]->next = arr[i + 1];
     }
-    arr[i - 1]->next = nullptr;
+    arr[arr.size() - 1]->next = nullptr;
+
     return arr[0];
 }
 
 Node* listPartition_2(Node *head, int pivot) {
     Node *sH = nullptr;
     Node *sT = nullptr;
+
     Node *eH = nullptr;
     Node *eT = nullptr;
+
     Node *bH = nullptr;
     Node *bT = nullptr;
-    Node *ct = nullptr;
+
+    Node *ct = nullptr;     // ç”¨äºä¿å­˜å½“å‰èŠ‚ç‚¹çš„ä¸‹ä¸€èŠ‚ç‚¹
     while (head != nullptr) {
         ct = head->next;
         head->next = nullptr;
+
         if (head->value < pivot) {
             if (sH == nullptr) {
                 sH = head;
@@ -90,18 +102,43 @@ Node* listPartition_2(Node *head, int pivot) {
                 bT = head;
             }
         }
+
         head = ct;
     }
+
     // small and equal reconnect
     if (sT != nullptr) {
         sT->next = eH;
-        eT = eT == nullptr ? sT : eT;
+        eT = (eT == nullptr ? sT : eT);
     }
+    //eT = (eT == nullptr ? sT : eT);   // ä¸èƒ½æ”¾åœ¨å¤–è¾¹
     // all reconnect
     if (eT != nullptr) {
         eT->next = bH;
     }
-    return sH != nullptr ? sH : eH != nullptr ? eH : bH;
+    return (sH != nullptr ? sH : (eH != nullptr ? eH : bH));
+}
+
+int main() {
+    srand(int(time(nullptr)));
+    int pivot = rand() % 11;
+    Node *head = &Node(rand() % 11);
+    head->next = &Node(rand() % 11);
+    head->next->next = &Node(rand() % 11);
+    head->next->next->next = &Node(rand() % 11);
+    head->next->next->next->next = &Node(rand() % 11);
+    head->next->next->next->next->next = &Node(rand() % 11);
+    head->next->next->next->next->next->next = &Node(rand() % 11);
+    head->next->next->next->next->next->next->next = &Node(rand() % 11);
+    head->next->next->next->next->next->next->next->next = &Node(rand() % 11);
+    head->next->next->next->next->next->next->next->next->next = &Node(rand() % 11);
+    cout << "pivot = " << pivot << endl;
+    printLinkList(head);
+    //head = listPartition_1(head, pivot);
+    head = listPartition_2(head, pivot);
+    printLinkList(head);
+
+    return 0;
 }
 
 void printLinkList(Node *head) {
@@ -110,29 +147,4 @@ void printLinkList(Node *head) {
         head = head->next;
     }
     cout << endl;
-}
-
-void freeLinkList(Node *head) {
-    while (nullptr != head) {
-        Node* temp = head->next;
-        free(head);
-        head = temp;
-    }
-}
-
-int main() {
-    Node *head = new Node(7);
-    head->next = new Node(9);
-    head->next->next = new Node(1);
-    head->next->next->next = new Node(8);
-    head->next->next->next->next = new Node(5);
-    head->next->next->next->next->next = new Node(2);
-    head->next->next->next->next->next->next = new Node(5);
-    printLinkList(head);
-    //head = listPartition_1(head, 3);
-    head = listPartition_2(head, 5);
-    printLinkList(head);
-
-    freeLinkList(head);
-    return 0;
 }

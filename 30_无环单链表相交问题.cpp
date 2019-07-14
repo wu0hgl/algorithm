@@ -1,10 +1,10 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <algorithm>
-#include <set>
+#include <unordered_set>
 using namespace std;
 
 /*
-    ÎŞ»·µ¥Á´±íÏà½»ÎÊÌâ
+    æ— ç¯å•é“¾è¡¨ç›¸äº¤é—®é¢˜
 */
 
 class Node {
@@ -32,10 +32,10 @@ Node* FindFirstCommonNode_1(Node* pHead1, Node* pHead2) {
     if (cur1 != cur2)
         return nullptr;
 
-    cur1 = (count > 0 ? pHead1 : pHead2);
-    cur2 = (cur1 == pHead1 ? pHead2 : pHead1);
+    cur1 = (count > 0 ? pHead1 : pHead2);       // count>0: pHead1é“¾è¡¨é•¿, count<0: pHead2é“¾è¡¨é•¿, cur1æŒ‡å‘é•¿é“¾è¡¨å¤´èŠ‚ç‚¹
+    cur2 = (cur1 == pHead1 ? pHead2 : pHead1);  // cur2æŒ‡å‘çŸ­é“¾è¡¨çš„èŠ‚ç‚¹
 
-    count = abs(count);
+    count = abs(count);                         // è®¡æ•°å€¼å–ç»å¯¹å€¼
     while (count != 0) {
         cur1 = cur1->next;
         count--;
@@ -45,12 +45,12 @@ Node* FindFirstCommonNode_1(Node* pHead1, Node* pHead2) {
         cur2 = cur2->next;
     }
 
-    //return (cur1 == cur2 ? cur1 : nullptr);
-    return cur1;
+    //return cur1;
+    return (cur1 == cur2 ? cur1 : nullptr);     // è¿™ä¹ˆåˆ¤æ–­æ›´ä¿é™©ä¸€äº›
 }
 
 Node* FindFirstCommonNode_2(Node* pHead1, Node* pHead2) {
-    set<Node*> mySet;
+    unordered_set<Node*> mySet;
     Node *ct1 = pHead1;
     while (ct1 != nullptr) {
         mySet.insert(ct1);
@@ -67,44 +67,41 @@ Node* FindFirstCommonNode_2(Node* pHead1, Node* pHead2) {
     return nullptr;
 }
 
-void freeLinkList(Node *head) {
-    while (nullptr != head) {
-        Node* temp = head->next;
-        head->next = nullptr;
-        free(head);
-        head = temp;
-    }
-}
-
 int main() {
     // 1->2->3->4->5->6->7->null
-    Node *head1 = new Node(1);
+    Node *head1 = &Node(1);
     Node *temp = nullptr;
-    head1->next = new Node(2);
-    head1->next->next = new Node(3);
-    head1->next->next->next = new Node(4);
-    head1->next->next->next->next = new Node(5);
-    head1->next->next->next->next->next = new Node(6);
-    head1->next->next->next->next->next->next = new Node(7);
+    head1->next = &Node(2);
+    head1->next->next = &Node(3);
+    head1->next->next->next = &Node(4);
+    head1->next->next->next->next = &Node(5);
+    head1->next->next->next->next->next = &Node(6);
+    head1->next->next->next->next->next->next = &Node(7);
 
     // 8->9->10->4
-    Node *head2 = new Node(8);
-    head2->next = new Node(9);
-    head2->next->next = new Node(10);
+    Node *head2 = &Node(8);
+    head2->next = &Node(9);
+    head2->next->next = &Node(10);
     head2->next->next->next = head1->next->next->next;  // 4
-    //head2->next->next->next = new Node(5);
-    //head2->next->next->next->next = new Node(6);
+    //head2->next->next->next = &Node(5);
+    //head2->next->next->next->next = &Node(6);
     //head2->next->next->next->next->next = nullptr;
 
     temp = FindFirstCommonNode_1(head1, head2);
-    //temp = FindFirstCommonNode_2(head1, head2);
     if (temp == nullptr)
-        cout << "ÎŞ¹«¹²½Úµã" << endl;
+        cout << "æ— å…¬å…±èŠ‚ç‚¹" << endl;
     else {
-        cout << "ÓĞ¹«¹²½Úµã: " << temp->value << endl;
+        cout << "æœ‰å…¬å…±èŠ‚ç‚¹: " << temp->value << endl;
     }
-    //freeLinkList(head1);    // Ïà½»Çé¿öÊÍ·Å½ÚµãÓĞÎÊÌâ
-    //freeLinkList(head2);    // Ïà½»Çé¿öÊÍ·Å½ÚµãÓĞÎÊÌâ
+
+    cout << "=============================" << endl;
+
+    temp = FindFirstCommonNode_2(head1, head2);
+    if (temp == nullptr)
+        cout << "æ— å…¬å…±èŠ‚ç‚¹" << endl;
+    else {
+        cout << "æœ‰å…¬å…±èŠ‚ç‚¹: " << temp->value << endl;
+    }
 
     return 0;
 }

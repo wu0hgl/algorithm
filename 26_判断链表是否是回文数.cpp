@@ -1,11 +1,11 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <stack>
 using namespace std;
 
 /*
-    ¸ø¶¨Ò»¸öÁ´±íµÄÍ·½áµãhead, ÅĞ¶Ï¸ÃÁ´±íÊÇ·ñÊÇ»áÎÊ½á¹¹. 
-    Èç: 1, 2, 1·µ»Øtrue; 1, 2, 2, 1·µ»Øtrue; 1, 2, 3·µ»Øfalse. 
-    Èç¹ûÇóÊ±¼ä¸´ÔÓ¶ÈO(N), ¶îÍâ¿Õ¼ä¸´ÔÓ¶ÈO(1)ÎªisPalindrome_3
+    ç»™å®šä¸€ä¸ªé“¾è¡¨çš„å¤´ç»“ç‚¹head, åˆ¤æ–­è¯¥é“¾è¡¨æ˜¯å¦æ˜¯ä¼šé—®ç»“æ„. 
+    å¦‚: 1, 2, 1è¿”å›true; 1, 2, 2, 1è¿”å›true; 1, 2, 3è¿”å›false. 
+    å¦‚æœæ±‚æ—¶é—´å¤æ‚åº¦O(N), é¢å¤–ç©ºé—´å¤æ‚åº¦O(1)ä¸ºisPalindrome_3
 */
 
 class Node {
@@ -14,6 +14,7 @@ public:
     Node *next;
     int value;
 };
+void printLinkList(Node *head);
 
 bool isPalindrome_1(Node *head) {
     Node *ct = head;
@@ -38,7 +39,9 @@ bool isPalindrome_2(Node *head) {
     if ((head == nullptr) || (head->next == nullptr)) {
         return true;
     }
-    Node *ctSlow = head->next;
+    Node *ctSlow = head;            // éå†ç»“æŸæ—¶æŒ‡å‘, å¶æ•°ä¸ªå…ƒç´ æŒ‡å‘ä¸­é—´èŠ‚ç‚¹å‰ä¸€ä¸ªèŠ‚ç‚¹, å¥‡æ•°ä¸ªå…ƒç´ æ—¶æŒ‡å‘ä¸­é—´èŠ‚ç‚¹
+    // ä¸ä¸Šé¢æ•ˆæœç›¸åŒ, åªæ˜¯æœ€åskä¸­å¤šæ¯”è¾ƒä¸€ä¸ªå…ƒç´ 
+    //Node *ctSlow = head->next;    // éå†ç»“æŸæ—¶æŒ‡å‘, å¶æ•°ä¸ªå…ƒç´ æŒ‡å‘ä¸­é—´èŠ‚ç‚¹åä¸€ä¸ªèŠ‚ç‚¹, å¥‡æ•°ä¸ªå…ƒç´ æ—¶æŒ‡å‘ä¸­é—´èŠ‚ä¸‹ä¸€ä¸ªç‚¹
     Node *ctFast = head;
     stack<Node *> sk;
     while ((ctFast->next != nullptr) && (ctFast->next->next != nullptr)) {
@@ -64,27 +67,29 @@ bool isPalindrome_3(Node *head) {
     if ((head == nullptr) || (head->next == nullptr)) {
         return true;
     }
-    Node *ctSlow = head;                // Å¼Êı¸ö½Úµãµ½ÖĞ¼äÁ½½ÚµãÇ°Ò»Î»ÖÃ, ÆæÊıÇ¡ºÃµ½ÖĞ¼ä½Úµã
+    Node *ctSlow = head;                // å¶æ•°ä¸ªèŠ‚ç‚¹åˆ°ä¸­é—´ä¸¤èŠ‚ç‚¹å‰ä¸€ä½ç½®, å¥‡æ•°æ°å¥½åˆ°ä¸­é—´èŠ‚ç‚¹
     Node *ctFast = head;
     while ((ctFast->next != nullptr) && (ctFast->next->next != nullptr)) {
         ctSlow = ctSlow->next;
         ctFast = ctFast->next->next;
     }
-    /* ·´×ªÒÔctSlow¿ªÍ·µÄµ¥Á´±í */
-    ctFast = ctSlow->next;              // Ïàµ±ÓÚhead
-    ctSlow->next = nullptr;             // Ïàµ±ÓÚprePtr
-    Node *node = nullptr;               // Ïàµ±ÓÚnext
+
+    /* åè½¬ä»¥ctSlowå¼€å¤´çš„å•é“¾è¡¨ */
+    ctFast = ctSlow->next;              // ç›¸å½“äºnode
+    ctSlow->next = nullptr;             // ç›¸å½“äºpre
+    Node *node = nullptr;               // ç›¸å½“äºnext
     while (ctFast != nullptr) {
         node = ctFast->next;
         ctFast->next = ctSlow;
         ctSlow = ctFast;
         ctFast = node;
     }
-    node = ctSlow;                      // ±£´æ·­×ªºóÁ´±íµÄÍ·½áµã
-    /* Æ¥ÅäÊı×Ö */
+    node = ctSlow;                      // ä¿å­˜ç¿»è½¬åé“¾è¡¨çš„å¤´ç»“ç‚¹
+
+    /* åŒ¹é…æ•°å­— */
     bool ret = true;
     ctFast = head;
-    while ((ctFast != nullptr)) {
+    while ((ctFast != nullptr)) {       // ä¸èƒ½ä½¿ç”¨ctSlowæ¥åˆ¤æ–­
         if (ctFast->value != ctSlow->value) {
             ret = false;
             break;
@@ -92,33 +97,18 @@ bool isPalindrome_3(Node *head) {
         ctFast = ctFast->next;
         ctSlow = ctSlow->next;
     }
-    /* »Ö¸´Á´±í */
-    ctSlow = node->next;                // Ïàµ±ÓÚhead
-    node->next = nullptr;               // Ïàµ±ÓÚprePtr
+
+    /* æ¢å¤é“¾è¡¨ */
+    ctSlow = node->next;                // ç›¸å½“äºnode
+    node->next = nullptr;               // ç›¸å½“äºpre
     while (ctSlow != nullptr) {
-        ctFast = ctSlow->next;          // Ïàµ±ÓÚnextPtr
+        ctFast = ctSlow->next;          // ç›¸å½“äºnext
         ctSlow->next = node;
         node = ctSlow;
         ctSlow = ctFast;
     }
 
     return ret;
-}
-
-void printLinkList(Node *head) {
-    while (head != nullptr) {
-        cout << head->value << " ";
-        head = head->next;
-    }
-    cout << endl;
-}
-
-void freeLinkList(Node *head) {
-    while (nullptr != head) {
-        Node* temp = head->next;
-        free(head);
-        head = temp;
-    }
 }
 
 int main() {
@@ -128,143 +118,163 @@ int main() {
     cout << isPalindrome_2(head) << " | ";
     cout << isPalindrome_3(head) << endl;
     printLinkList(head);
-    freeLinkList(head);
     cout << "========================================" << endl;
     
-    head = new Node(1);
+    head = &Node(1);
     printLinkList(head);
     cout << isPalindrome_1(head) << " | ";
     cout << isPalindrome_2(head) << " | ";
     cout << isPalindrome_3(head) << endl;
     printLinkList(head);
-    freeLinkList(head);
     cout << "========================================" << endl;
 
-    head = new Node(1);
-    head->next = new Node(2);
+    head = &Node(1);
+    head->next = &Node(2);
     printLinkList(head);
     cout << isPalindrome_1(head) << " | ";
     cout << isPalindrome_2(head) << " | ";
     cout << isPalindrome_3(head) << endl;
     printLinkList(head);
-    freeLinkList(head);
     cout << "========================================" << endl;
 
-    head = new Node(1);
-    head->next = new Node(1);
+    head = &Node(1);
+    head->next = &Node(1);
     printLinkList(head);
     cout << isPalindrome_1(head) << " | ";
     cout << isPalindrome_2(head) << " | ";
     cout << isPalindrome_3(head) << endl;
     printLinkList(head);
-    freeLinkList(head);
     cout << "========================================" << endl;
 
-    head = new Node(1);
-    head->next = new Node(2);
-    head->next->next = new Node(3);
+    head = &Node(1);
+    head->next = &Node(2);
+    head->next->next = &Node(3);
     printLinkList(head);
     cout << isPalindrome_1(head) << " | ";
     cout << isPalindrome_2(head) << " | ";
     cout << isPalindrome_3(head) << endl;
     printLinkList(head);
-    freeLinkList(head);
     cout << "========================================" << endl;
 
-    head = new Node(1);
-    head->next = new Node(2);
-    head->next->next = new Node(1);
+    head = &Node(1);
+    head->next = &Node(2);
+    head->next->next = &Node(1);
     printLinkList(head);
     cout << isPalindrome_1(head) << " | ";
     cout << isPalindrome_2(head) << " | ";
     cout << isPalindrome_3(head) << endl;
     printLinkList(head);
-    freeLinkList(head);
     cout << "========================================" << endl;
 
-    head = new Node(1);
-    head->next = new Node(2);
-    head->next->next = new Node(3);
-    head->next->next->next = new Node(1);
+    head = &Node(1);
+    head->next = &Node(2);
+    head->next->next = &Node(3);
+    head->next->next->next = &Node(1);
     printLinkList(head);
     cout << isPalindrome_1(head) << " | ";
     cout << isPalindrome_2(head) << " | ";
     cout << isPalindrome_3(head) << endl;
     printLinkList(head);
-    freeLinkList(head);
     cout << "========================================" << endl;
 
-    head = new Node(1);
-    head->next = new Node(2);
-    head->next->next = new Node(2);
-    head->next->next->next = new Node(1);
+    head = &Node(1);
+    head->next = &Node(2);
+    head->next->next = &Node(2);
+    head->next->next->next = &Node(1);
     printLinkList(head);
     cout << isPalindrome_1(head) << " | ";
     cout << isPalindrome_2(head) << " | ";
     cout << isPalindrome_3(head) << endl;
     printLinkList(head);
-    freeLinkList(head);
     cout << "========================================" << endl;
 
-    head = new Node(1);
-    head->next = new Node(2);
-    head->next->next = new Node(3);
-    head->next->next->next = new Node(3);
-    head->next->next->next->next = new Node(1);
+    head = &Node(1);
+    head->next = &Node(2);
+    head->next->next = &Node(3);
+    head->next->next->next = &Node(3);
+    head->next->next->next->next = &Node(1);
     printLinkList(head);
     cout << isPalindrome_1(head) << " | ";
     cout << isPalindrome_2(head) << " | ";
     cout << isPalindrome_3(head) << endl;
     printLinkList(head);
-    freeLinkList(head);
     cout << "========================================" << endl;
 
-    head = new Node(1);
-    head->next = new Node(2);
-    head->next->next = new Node(3);
-    head->next->next->next = new Node(3);
-    head->next->next->next->next = new Node(2);
-    head->next->next->next->next->next = new Node(1);
+    head = &Node(1);
+    head->next = &Node(2);
+    head->next->next = &Node(3);
+    head->next->next->next = &Node(3);
+    head->next->next->next->next = &Node(2);
+    head->next->next->next->next->next = &Node(1);
     printLinkList(head);
     cout << isPalindrome_1(head) << " | ";
     cout << isPalindrome_2(head) << " | ";
     cout << isPalindrome_3(head) << endl;
     printLinkList(head);
-    freeLinkList(head);
     cout << "========================================" << endl;
 
-    head = new Node(1);
-    head->next = new Node(2);
-    head->next->next = new Node(3);
-    head->next->next->next = new Node(4);
-    head->next->next->next->next = new Node(3);
-    head->next->next->next->next->next = new Node(2);
-    head->next->next->next->next->next->next = new Node(1);
+    head = &Node(1);
+    head->next = &Node(2);
+    head->next->next = &Node(4);
+    head->next->next->next = &Node(3);
+    head->next->next->next->next = &Node(2);
+    head->next->next->next->next->next = &Node(1);
     printLinkList(head);
     cout << isPalindrome_1(head) << " | ";
     cout << isPalindrome_2(head) << " | ";
     cout << isPalindrome_3(head) << endl;
     printLinkList(head);
-    freeLinkList(head);
     cout << "========================================" << endl;
 
-    head = new Node(2);
-    head->next = new Node(2);
-    head->next->next = new Node(3);
-    head->next->next->next = new Node(4);
-    head->next->next->next->next = new Node(3);
-    head->next->next->next->next->next = new Node(2);
-    head->next->next->next->next->next->next = new Node(1);
+    head = &Node(1);
+    head->next = &Node(2);
+    head->next->next = &Node(3);
+    head->next->next->next = &Node(4);
+    head->next->next->next->next = &Node(3);
+    head->next->next->next->next->next = &Node(2);
+    head->next->next->next->next->next->next = &Node(1);
     printLinkList(head);
     cout << isPalindrome_1(head) << " | ";
     cout << isPalindrome_2(head) << " | ";
     cout << isPalindrome_3(head) << endl;
     printLinkList(head);
-    freeLinkList(head);
     cout << "========================================" << endl;
 
+    head = &Node(2);
+    head->next = &Node(2);
+    head->next->next = &Node(3);
+    head->next->next->next = &Node(4);
+    head->next->next->next->next = &Node(3);
+    head->next->next->next->next->next = &Node(2);
+    head->next->next->next->next->next->next = &Node(1);
+    printLinkList(head);
+    cout << isPalindrome_1(head) << " | ";
+    cout << isPalindrome_2(head) << " | ";
+    cout << isPalindrome_3(head) << endl;
+    printLinkList(head);
+    cout << "========================================" << endl;
+
+    head = &Node(1);
+    head->next = &Node(2);
+    head->next->next = &Node(2);
+    head->next->next->next = &Node(4);
+    head->next->next->next->next = &Node(3);
+    head->next->next->next->next->next = &Node(2);
+    head->next->next->next->next->next->next = &Node(1);
+    printLinkList(head);
+    cout << isPalindrome_1(head) << " | ";
+    cout << isPalindrome_2(head) << " | ";
+    cout << isPalindrome_3(head) << endl;
+    printLinkList(head);
+    cout << "========================================" << endl;
 
     return 0;
 }
 
-
+void printLinkList(Node *head) {
+    while (head != nullptr) {
+        cout << head->value << " ";
+        head = head->next;
+    }
+    cout << endl;
+}

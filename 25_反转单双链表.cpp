@@ -1,8 +1,8 @@
-#include <iostream>
+ï»¿#include <iostream>
 using namespace std;
 
 /*
-    ·´×ªµ¥Ë«Á´±í
+    åè½¬å•åŒé“¾è¡¨
 */
 
 class ListNode {
@@ -17,8 +17,8 @@ ListNode* ReverseList(ListNode* head) {
         return head;
     }
     ListNode* ret = ReverseList(head->next);
-    head->next->next = head;        // µ±Ç°½ÚµãÏÂÒ»½ÚµãµÄnextÖ¸Ïòµ±Ç°½Úµã
-    head->next = nullptr;           // µ±Ç°½ÚµãnextÖ¸Ïò¿Õ
+    head->next->next = head;        // å½“å‰èŠ‚ç‚¹ä¸‹ä¸€èŠ‚ç‚¹çš„nextæŒ‡å‘å½“å‰èŠ‚ç‚¹
+    head->next = nullptr;           // å½“å‰èŠ‚ç‚¹nextæŒ‡å‘ç©º
     return ret;
 }
 
@@ -68,13 +68,13 @@ DoubleNode* reverseDoubleList(DoubleNode *head) {
 
 void printDoubleList(DoubleNode *head) {
     DoubleNode *end = nullptr;
-    cout << "Ë«Á´±í´ÓÍ·µ½Î²: ";
+    cout << "åŒé“¾è¡¨ä»å¤´åˆ°å°¾: ";
     while (head != nullptr) {
         cout << head->value << " ";
         end = head;
         head = head->next;
     }
-    cout << endl << "Ë«Á´±í´ÓÎ²µ½Í·: ";
+    cout << endl << "åŒé“¾è¡¨ä»å°¾åˆ°å¤´: ";
     while (end != nullptr) {
         cout << end->value << " ";
         end = end->last;

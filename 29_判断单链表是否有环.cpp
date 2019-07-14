@@ -1,10 +1,10 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <algorithm>
 #include <set>
 using namespace std;
 
 /*
-    ÅÐ¶Ïµ¥Á´±íÊÇ·ñÓÐ»·
+    åˆ¤æ–­å•é“¾è¡¨æ˜¯å¦æœ‰çŽ¯
 */
 
 class Node {
@@ -18,8 +18,14 @@ Node* EntryNodeOfLoop_1(Node* pHead)
 {
     if ((pHead == nullptr) || (pHead->next == nullptr) || (pHead->next->next == nullptr))
         return nullptr;
+
+    /* è¿™ä¹ˆåˆå§‹åŒ–å¿«æ…¢æŒ‡é’ˆä¸‹é¢çš„whileå¾ªçŽ¯ä¸ºtrue */
+    //Node *ptrFast = pHead;
+    //Node *ptrSlow = pHead;
+
     Node *ptrFast = pHead->next->next;
     Node *ptrSlow = pHead->next;
+ 
     while (ptrFast != ptrSlow) {
         if ((ptrFast->next == nullptr) || (ptrFast->next->next == nullptr))
             return nullptr;
@@ -36,68 +42,65 @@ Node* EntryNodeOfLoop_1(Node* pHead)
 
 Node* EntryNodeOfLoop_2(Node* pHead)
 {
-    if ((pHead == nullptr) || (pHead->next == nullptr) || (pHead->next->next == nullptr))
-        return nullptr;
-    Node *ptrFast = pHead->next->next;
-    Node *ptrSlow = pHead->next;
-    while (ptrFast != ptrSlow) {
-        if ((ptrFast->next == nullptr) || (ptrFast->next->next == nullptr))
-            return nullptr;
-        ptrFast = ptrFast->next->next;
-        ptrSlow = ptrSlow->next;
+    set<Node *> mySet;
+    while (pHead != nullptr) {
+        auto temp = find(mySet.begin(), mySet.end(), pHead);
+        if (temp == mySet.end()) {
+            mySet.insert(pHead);
+            pHead = pHead->next;
+        }
+        else
+            return pHead;
     }
-    ptrFast = pHead;
-    while (ptrSlow != ptrFast) {
-        ptrFast = ptrFast->next;
-        ptrSlow = ptrSlow->next;
-    }
-    return ptrFast;
-}
-
-void freeLinkList(Node *head) {
-    while (nullptr != head) {
-        Node* temp = head->next;
-        head->next = nullptr;
-        free(head);
-        head = temp;
-    }
+    return nullptr;
 }
 
 int main() {
     // 1->2->3->4->5->6->7->null
-    Node *head1 = new Node(1);
+    Node *head1 = &Node(1);
     Node *temp = nullptr;
-    head1->next = new Node(2);
-    head1->next->next = new Node(3);
-    head1->next->next->next = new Node(4);
-    head1->next->next->next->next = new Node(5);
-    head1->next->next->next->next->next = new Node(6);
-    head1->next->next->next->next->next->next = new Node(7);
-    //temp = EntryNodeOfLoop_1(head1);
+    head1->next = &Node(2);
+    head1->next->next = &Node(3);
+    head1->next->next->next = &Node(4);
+    head1->next->next->next->next = &Node(5);
+    head1->next->next->next->next->next = &Node(6);
+    head1->next->next->next->next->next->next = &Node(7);
+
+    temp = EntryNodeOfLoop_1(head1);
+    if (temp == nullptr)
+        cout << "æ— çŽ¯" << endl;
+    else {
+        cout << "æœ‰çŽ¯, å…¥å£: " << endl;
+    }
     temp = EntryNodeOfLoop_2(head1);
     if (temp == nullptr)
-        cout << "ÎÞ»»" << endl;
+        cout << "æ— çŽ¯" << endl;
     else {
-        cout << "ÓÐ»», Èë¿Ú: " << endl;
+        cout << "æœ‰çŽ¯, å…¥å£: " << endl;
     }
-    freeLinkList(head1);
+    cout << "====================================" << endl;
 
     // 1->2->3->4->5->6
-    head1 = new Node(1);
-    head1->next = new Node(2);
-    head1->next->next = new Node(3);
-    head1->next->next->next = new Node(4);
-    head1->next->next->next->next = new Node(5);
-    head1->next->next->next->next->next = new Node(6);
+    head1 = &Node(1);
+    head1->next = &Node(2);
+    head1->next->next = &Node(3);
+    head1->next->next->next = &Node(4);
+    head1->next->next->next->next = &Node(5);
+    head1->next->next->next->next->next = &Node(6);
     head1->next->next->next->next->next->next = head1->next->next->next;    // 6->4
-    //temp = EntryNodeOfLoop_1(head1);
+
+    temp = EntryNodeOfLoop_1(head1);
+    if (temp == nullptr)
+        cout << "æ— çŽ¯" << endl;
+    else {
+        cout << "æœ‰çŽ¯, å…¥å£: " << temp->value << endl;
+    }
     temp = EntryNodeOfLoop_2(head1);
     if (temp == nullptr)
-        cout << "ÎÞ»»" << endl;
+        cout << "æ— çŽ¯" << endl;
     else {
-        cout << "ÓÐ»», Èë¿Ú: " << temp->value << endl;
+        cout << "æœ‰çŽ¯, å…¥å£: " << temp->value << endl;
     }
-    //freeLinkList(head1);    // ÓÐ»·Çé¿öÊÍ·Å½ÚµãÓÐÎÊÌâ
 
     return 0;
 }
