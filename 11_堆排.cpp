@@ -14,7 +14,7 @@ void printVector(vector<int> &vt);
 
 /* 最大堆 */
 void heapInsert_MAX(vector<int> &arr, int index) {      // 上浮: 当前节点若比父节点大, 交换两个节点
-    while (arr[index] > arr[(index - 1) / 2]) {     // 循环边界条件挺有意思, (0 - 1) / 2 = 0还是和0比较
+    while (arr[index] > arr[(index - 1) / 2]) {         // 循环边界条件挺有意思, (0 - 1) / 2 = 0还是和0比较
         swap(arr[index], arr[(index - 1) / 2]);
         index = (index - 1) / 2;
     }
