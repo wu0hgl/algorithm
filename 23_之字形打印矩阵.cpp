@@ -39,9 +39,10 @@ void printZ(vector<vector<int> > &matrix) {
     while (x_1 != endRow + 1) {
         printZ(matrix, x_1, y_1, x_2, y_2, flag);
         
-        x_1 = (y_1 == endCol ? x_1 + 1 : x_1);
+        /* 以下左上角与右下角横纵坐标的先后顺序不能改变 */
+        x_1 = (y_1 == endCol ? x_1 + 1 : x_1);  // 右上角, 由于y_1的变化引起x_1的变化, 所以先判断y_1
         y_1 = (y_1 == endCol ? y_1 : y_1 + 1);
-        y_2 = (x_2 == endRow ? y_2 + 1 : y_2);
+        y_2 = (x_2 == endRow ? y_2 + 1 : y_2);  // 左下角, 由于x_2的变化引起y_2的变化, 所以先判断x_2
         x_2 = (x_2 == endRow ? x_2 : x_2 + 1);
         
         //y_1 = (y_1 == endCol ? y_1 : y_1 + 1);
