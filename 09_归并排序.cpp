@@ -9,7 +9,7 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
 
 /*
-    å½’å¹¶æ’åº
+²åÈëÅÅĞò
 */
 
 void merge(vector<int> &arr, int left, int mid, int right) {
@@ -17,26 +17,31 @@ void merge(vector<int> &arr, int left, int mid, int right) {
     int rightPtr = mid + 1;
     vector<int> vt;
     while ((leftPtr <= mid) && (rightPtr <= right)) {
-        vt.push_back(
-            arr[leftPtr] < arr[rightPtr] ? arr[leftPtr++] : arr[rightPtr++]
-            );
+        vt.push_back(arr[leftPtr] < arr[rightPtr] ? arr[leftPtr++] : arr[rightPtr++]);
     }
     while (leftPtr <= mid)
         vt.push_back(arr[leftPtr++]);
     while (rightPtr <= right)
         vt.push_back(arr[rightPtr++]);
-    for (int i = 0; i < vt.size(); i++)
+    for (size_t i = 0; i < vt.size(); i++)
         arr[left + i] = vt[i];
     return;
 }
 
 void mergeSort(vector<int> &vt, int left, int right) {
-    if (left < right) {
+    //if (left <= right) {      // ²»ÄÜÓĞµÈÓÚºÅ
+    if (left < right) {     
         int mid = left + ((right - left) >> 1);
         mergeSort(vt, left, mid);
         mergeSort(vt, mid + 1, right);
         merge(vt, left, mid, right);
     }
+    //if (left == right)
+    //    return;
+    //int mid = left + ((right - left) >> 1);
+    //mergeSort(vt, left, mid);
+    //mergeSort(vt, mid + 1, right);
+    //merge(vt, left, mid, right);
 }
 
 
@@ -62,8 +67,8 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
     int len = (int)(maxSize % (maxSize + 1));
 
     for (int i = 0; i < len; i++) {
-        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // éšæœºç”Ÿæˆæ­£è´Ÿæ•°
-        //temp = static_cast<int>(rand() % (range + 1));          // éšæœºç”Ÿæˆæ­£æ•°
+        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // Ëæ»úÉú³ÉÕı¸ºÊı
+        //temp = static_cast<int>(rand() % (range + 1));          // Ëæ»úÉú³ÉÕıÊı
         vt.push_back(temp);
     }
 }
