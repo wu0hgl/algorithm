@@ -37,7 +37,7 @@ bool isSymmetrical(Node* head) {
     return process(head, head);
 }
 
-/* 不能这么判断, 下层非对称, 上层可以是对称的
+/* 不能利用下层结构来判断上层结构, 下层非对称, 上层可以是对称的
 bool isSymmetrical(Node* head) {
     if (head == nullptr) {
         return true;
