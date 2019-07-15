@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <algorithm>
-#include <set>
+#include <unordered_set>
 using namespace std;
 
 /*
@@ -42,10 +42,9 @@ Node* EntryNodeOfLoop_1(Node* pHead)
 
 Node* EntryNodeOfLoop_2(Node* pHead)
 {
-    set<Node *> mySet;
+    unordered_set<Node *> mySet;
     while (pHead != nullptr) {
-        auto temp = find(mySet.begin(), mySet.end(), pHead);
-        if (temp == mySet.end()) {
+        if (!mySet.count(pHead)) {
             mySet.insert(pHead);
             pHead = pHead->next;
         }
