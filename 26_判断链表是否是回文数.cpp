@@ -89,7 +89,7 @@ bool isPalindrome_3(Node *head) {
     /* 匹配数字 */
     bool ret = true;
     ctFast = head;
-    while ((ctFast != nullptr)) {       // 不能使用ctSlow来判断
+    while ((ctFast != nullptr)) {       // 不能使用ctSlow来判断, 否者会引起ctFast越界访问空指针
         if (ctFast->value != ctSlow->value) {
             ret = false;
             break;
