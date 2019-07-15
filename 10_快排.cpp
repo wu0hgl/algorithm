@@ -13,8 +13,8 @@ void printVector(vector<int> &vt);
 */
 
 void partition(vector<int> &arr, int left, int right, vector<int> &out) {
-    int leftPtr = left - 1;
-    int rightPtr = right;
+    int leftPtr = left - 1; // leftPtr指向小于arr[right]的右边界
+    int rightPtr = right;   // rightPtr指向大于arr[right]的左边界
     int ctPtr = left;
     while (ctPtr < rightPtr) {
         if (arr[ctPtr] < arr[right])
@@ -42,9 +42,10 @@ void quickSort(vector<int> &vt, int left, int right) {
 
 
 int main() {
-    vector<int> arr;
-    srand(static_cast<int>(time(NULL)));
-    generatorRandomArray(arr, 20, 200);
+    //vector<int> arr;
+    //srand(static_cast<int>(time(NULL)));
+    //generatorRandomArray(arr, 20, 200);
+    vector<int> arr = { 3, 3, 3 };
     printVector(arr);
     quickSort(arr, 0, arr.size() - 1);
     printVector(arr);
