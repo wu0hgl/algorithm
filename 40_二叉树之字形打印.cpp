@@ -57,7 +57,7 @@ vector<vector<int> > Print(Node* pRoot) {
 
         if (levels[current].empty()) {
             ret.push_back(vt);
-            vt.clear(0);            // 把之前保存的数据清空
+            vt.resize(0);           // 把之前保存的数据清空
             current = 1 - current;
             next = 1 - next;
         }
