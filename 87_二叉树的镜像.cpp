@@ -1,10 +1,5 @@
 ﻿#include <iostream>
-#include <queue>
-#include <stack>
-#include <vector>
 #include <string>
-#include <memory>
-#include <algorithm>
 using namespace std;
 
 /*
@@ -44,7 +39,7 @@ int main() {
     head->left->left = &Node(4);
     head->left->right = &Node(5);
     head->right->left = &Node(6);
-    //System.out.println(nodeNum(head));
+
     printTree(head);
     cout << "=============================================" << endl;
     
@@ -55,16 +50,13 @@ int main() {
 }
 
 void printTree(Node *head) {
-    //System->out->println("Binary Tree:");
     cout << "Binary Tree:" << endl;
     printInOrder(head, 0, "H", 17);
     cout << endl;
-    //System->out->println();
 }
 
 string getSpace(int num) {
     string space = " ";
-    //stringBuffer buf = new stringBuffer("");
     string buf;
     for (int i = 0; i < num; i++) {
         buf.append(space.c_str());
@@ -82,7 +74,6 @@ void printInOrder(Node *head, int height, string to, int len) {
     int lenL = (len - lenM) / 2;
     int lenR = len - lenM - lenL;
     val = getSpace(lenL) + val + getSpace(lenR);
-    //System->out->println(getSpace(height * len) + val);
     cout << (getSpace(height * len) + val).c_str() << endl;
     printInOrder(head->left, height + 1, "^", len);
 }

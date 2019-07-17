@@ -1,13 +1,10 @@
-#include <iostream>
-#include <queue>
+ï»¿#include <iostream>
 #include <string>
-#include <memory>
-#include <algorithm>
 using namespace std;
 
 /*
-    ¶þ²æÊ÷ÐòÁÐ»¯
-    Ä¿Ç°°æ±¾Ö»ÓÐÏÈÐò·½Ê½µÄÐòÁÐ»¯Óë·´ÁÐ»¯
+    äºŒå‰æ ‘åºåˆ—åŒ–
+    ç›®å‰ç‰ˆæœ¬åªæœ‰å…ˆåºæ–¹å¼çš„åºåˆ—åŒ–ä¸Žååˆ—åŒ–
 */
 
 class Node {
@@ -17,27 +14,31 @@ public:
     Node *left;
     Node *right;
 };
+string getSpace(int num);
+void printInOrder(Node *head, int height, string to, int len);
+void printTree(Node *head);
 
-void Serialize(Node *root, string &str) {
+void process_1(Node *root, string &str) {
     if (root == nullptr) {
         str += '#';
         return;
     }
     str += to_string(root->value) + ',';
-    Serialize(root->left, str);
-    Serialize(root->right, str);
+    process_1(root->left, str);
+    process_1(root->right, str);
 }
 char* Serialize(Node *root) {
     if (root == nullptr)
         return nullptr;
     string str;
-    Serialize(root, str);
+    process_1(root, str);
     char *p = new char[str.size() + 1];
+    memset(p, 0, sizeof(p));
     strcpy(p, str.c_str());
-    p[str.size()] = '\0';
+    //p[str.size()] = '\0';
     return p;
 }
-Node* Deserialize(char **str) {
+Node* process_2(char **str) {
     if (**str == '#') {
         (*str)++;
         return nullptr;
@@ -52,73 +53,37 @@ Node* Deserialize(char **str) {
         return node;
     else
         (*str)++;
-    node->left = Deserialize(str);
-    node->right = Deserialize(str);
+    node->left = process_2(str);
+    node->right = process_2(str);
     return node;
 }
 Node* Deserialize(char *str) {
     if (str == nullptr)
         return nullptr;
-    Node *ret = Deserialize(&str);
+    Node *ret = process_2(&str);
     return ret;
 }
 
-string getSpace(int num);
-void printInOrder(Node *head, int height, string to, int len);
-
-void printTree(Node *head) {
-    //System->out->println("Binary Tree:");
-    cout << "Binary Tree:" << endl;
-    printInOrder(head, 0, "H", 17);
-    cout << endl;
-    //System->out->println();
-}
-
-void printInOrder(Node *head, int height, string to, int len) {
-    if (head == nullptr) {
-        return;
-    }
-    printInOrder(head->right, height + 1, "v", len);
-    string val = to + to_string(head->value) + to;
-    int lenM = val.length();
-    int lenL = (len - lenM) / 2;
-    int lenR = len - lenM - lenL;
-    val = getSpace(lenL) + val + getSpace(lenR);
-    //System->out->println(getSpace(height * len) + val);
-    cout << (getSpace(height * len) + val).c_str() << endl;
-    printInOrder(head->left, height + 1, "^", len);
-}
-
-string getSpace(int num) {
-    string space = " ";
-    //stringBuffer buf = new stringBuffer("");
-    string buf;
-    for (int i = 0; i < num; i++) {
-        buf.append(space.c_str());
-    }
-    return buf;
-}
-
 int main() {
-    Node *head_1 = new Node(1);
-    head_1->left = new Node(2);
-    head_1->right = new Node(3);
-    head_1->left->left = new Node(4);
-    head_1->left->right = new Node(5);
-    head_1->right->left = new Node(6);
-    head_1->right->right = new Node(7);
+    Node *head_1 = &Node(1);
+    head_1->left = &Node(2);
+    head_1->right = &Node(3);
+    head_1->left->left = &Node(4);
+    head_1->left->right = &Node(5);
+    head_1->right->left = &Node(6);
+    head_1->right->right = &Node(7);
 
-    Node *head_2 = new Node(5);
-    head_2->left = new Node(3);
-    head_2->right = new Node(8);
-    head_2->left->left = new Node(2);
-    head_2->left->right = new Node(4);
-    head_2->left->left->left = new Node(1);
-    head_2->right->left = new Node(7);
-    head_2->right->left->left = new Node(6);
-    head_2->right->right = new Node(10);
-    head_2->right->right->left = new Node(9);
-    head_2->right->right->right = new Node(11);
+    Node *head_2 = &Node(5);
+    head_2->left = &Node(3);
+    head_2->right = &Node(8);
+    head_2->left->left = &Node(2);
+    head_2->left->right = &Node(4);
+    head_2->left->left->left = &Node(1);
+    head_2->right->left = &Node(7);
+    head_2->right->left->left = &Node(6);
+    head_2->right->right = &Node(10);
+    head_2->right->right->left = &Node(9);
+    head_2->right->right->right = &Node(11);
     printTree(head_1);
     cout << "=============================================" << endl;
     char *temp = Serialize(head_1);
@@ -132,6 +97,34 @@ int main() {
     printTree(Deserialize(temp));
     cout << "=============================================" << endl;
 
-
     return 0;
+}
+
+void printTree(Node *head) {
+    cout << "Binary Tree:" << endl;
+    printInOrder(head, 0, "H", 17);
+    cout << endl;
+}
+
+void printInOrder(Node *head, int height, string to, int len) {
+    if (head == nullptr) {
+        return;
+    }
+    printInOrder(head->right, height + 1, "v", len);
+    string val = to + to_string(head->value) + to;
+    int lenM = val.length();
+    int lenL = (len - lenM) / 2;
+    int lenR = len - lenM - lenL;
+    val = getSpace(lenL) + val + getSpace(lenR);
+    cout << (getSpace(height * len) + val).c_str() << endl;
+    printInOrder(head->left, height + 1, "^", len);
+}
+
+string getSpace(int num) {
+    string space = " ";
+    string buf;
+    for (int i = 0; i < num; i++) {
+        buf.append(space.c_str());
+    }
+    return buf;
 }

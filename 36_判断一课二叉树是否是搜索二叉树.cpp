@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <stack>
 #include <string>
 #include <memory>
@@ -11,9 +11,10 @@ public:
     Node *left;
     Node *right;
 };
+void inOrder(Node *head);
 
 /*
-    �ж�һ�ζ������Ƿ�������������
+    判断一课二叉树是否是搜索二叉树
 */
 
 bool isBST_1(Node *head) {
@@ -28,15 +29,17 @@ bool isBST_1(Node *head) {
         else {
             cur = sk.top();
             sk.pop();
-            if (pre != nullptr && cur->value <= pre->value)
+
+            /* 二叉树中序遍历非递归版增加三行代码 */
+            if ((pre != nullptr) && (cur->value <= pre->value))
                 return false;
             pre = cur;
+
             cur = cur->right;
         }
     }
     return true;
 }
-
 
 bool isBST_2(Node *head) {
     if (head == nullptr) {
@@ -70,35 +73,95 @@ bool isBST_2(Node *head) {
     return res;
 }
 
-void inOrder(Node *head) {
-    if (head == nullptr) {
-        return;
+bool process_12(Node* head, bool flag) {
+    if (flag) {
+        Node* next = head->left;
+        while (next != nullptr) {
+            if (next->value < head->value) {
+                head = next;
+                next = head->left;
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
     }
-    inOrder(head->left);
-    cout << head->value << " ";
-    inOrder(head->right);
+    else {
+        Node* next = head->right;
+        while (next != nullptr) {
+            if (next->value > head->value) {
+                head = next;
+                next = head->right;
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+// 只判断当前节点的左孩子与右孩子了
+// 并没有判断整颗左子树与右子树中的最大值与最小值和当前节点是否满足二叉搜索树的条件
+bool isBST_3(Node* head) {
+    if (head == nullptr) {
+        return true;
+    }
+    if (head->left == nullptr && (head->right == nullptr)) {
+        return true;
+    }
+    if ((head->left != nullptr) && (head->right == nullptr)) {
+        return process_12(head, true);
+        //return (head->left->value < head->value);
+    }
+    if ((head->right != nullptr) && (head->left == nullptr)) {
+        return process_12(head, false);
+        //return head->right->value > head->value;
+    }
+
+    bool L = isBST_3(head->left);
+    bool H = isBST_3(head->right);
+    if (L && H
+        && (head->left->value < head->value)
+        && (head->right->value) > head->value) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 int main() {
-    Node *head_1 = new Node(1);
-    head_1->left = new Node(2);
-    head_1->right = new Node(3);
-    head_1->left->left = new Node(4);
-    head_1->left->right = new Node(5);
-    head_1->right->left = new Node(6);
-    head_1->right->right = new Node(7);
+    Node *head_1 = &Node(1);
+    head_1->left = &Node(2);
+    head_1->right = &Node(3);
+    head_1->left->left = &Node(4);
+    head_1->left->right = &Node(5);
+    head_1->right->left = &Node(6);
+    head_1->right->right = &Node(7);
 
-    Node *head_2 = new Node(5);
-    head_2->left = new Node(3);
-    head_2->right = new Node(8);
-    head_2->left->left = new Node(2);
-    head_2->left->right = new Node(4);
-    head_2->left->left->left = new Node(1);
-    head_2->right->left = new Node(7);
-    head_2->right->left->left = new Node(6);
-    head_2->right->right = new Node(10);
-    head_2->right->right->left = new Node(9);
-    head_2->right->right->right = new Node(11);
+    Node *head_2 = &Node(5);
+    head_2->left = &Node(3);
+    head_2->right = &Node(8);
+    head_2->left->left = &Node(2);
+    head_2->left->right = &Node(4);
+    head_2->left->left->left = &Node(1);
+    head_2->right->left = &Node(7);
+    head_2->right->left->left = &Node(6);
+    head_2->right->right = &Node(10);
+    head_2->right->right->left = &Node(9);
+    head_2->right->right->right = &Node(11);
+
+    Node* head_3 = &Node(10);
+    head_3->left = &Node(5);
+    head_3->right = &Node(15);
+    head_3->right->left = &Node(6);
+    head_3->right->right = &Node(20);
+
+    Node* head_4 = &Node(1);
+    head_4->right = &Node(4);
+    head_4->right->right = &Node(3);
 
     cout << "head_1: ";
     inOrder(head_1);
@@ -109,9 +172,27 @@ int main() {
     cout << "================isBST_1===================" << endl;
     cout << "head_1: " << isBST_1(head_1) << endl;
     cout << "head_2: " << isBST_1(head_2) << endl;
+    cout << "head_3: " << isBST_1(head_3) << endl;
+    cout << "head_4: " << isBST_1(head_4) << endl;
     cout << "================isBST_2===================" << endl;
     cout << "head_1: " << isBST_2(head_1) << endl;
     cout << "head_2: " << isBST_2(head_2) << endl;
+    cout << "head_3: " << isBST_2(head_3) << endl;
+    cout << "head_4: " << isBST_2(head_4) << endl;
+    cout << "================isBST_3===================" << endl;
+    cout << "head_1: " << isBST_3(head_1) << endl;
+    cout << "head_2: " << isBST_3(head_2) << endl;
+    cout << "head_3: " << isBST_3(head_3) << endl;
+    cout << "head_4: " << isBST_3(head_4) << endl;
 
     return 0;
+}
+
+void inOrder(Node *head) {
+    if (head == nullptr) {
+        return;
+    }
+    inOrder(head->left);
+    cout << head->value << " ";
+    inOrder(head->right);
 }

@@ -1,23 +1,22 @@
-#include <iostream>
-#include <queue>
+﻿#include <iostream>
 #include <string>
 #include <memory>
 #include <algorithm>
 using namespace std;
-
-/*
-    完全二叉树节点的个数.cpp
-*/
-
 class Node {
 public:
     Node(int value) : value(value) { left = nullptr; right = nullptr; }
-    int value;
-    Node *left;
-    Node *right;
+    int value; Node *left; Node *right;
 };
+string getSpace(int num);
+void printInOrder(Node *head, int height, string to, int len);
+void printTree(Node *head);
 
-int mostLeftLevel(Node *node, int level) {
+/*
+    完全二叉树节点的个数
+*/
+
+int mostLeftLevel(Node *node, int level) {  // 以node为头节点所能到达的最大层数
     while (node != nullptr) {
         level++;
         node = node->left;
@@ -29,7 +28,17 @@ int bs(Node *node, int level, int h) {
     if (level == h) {
         return 1;
     }
-    if (mostLeftLevel(node->right, level + 1) == h) {
+    if (node->right != nullptr) {
+        cout << node->value << " 的右节点不为空, 右节点为 " << node->right->value  
+             << " 右节点可到达最大深度"<< mostLeftLevel(node->right, level + 1) 
+             << endl;
+    }
+    else {
+        cout << node->value << " 的右节点为空, " 
+             << "当前节点到达最大深度 " << mostLeftLevel(node->right, level + 1) 
+             << endl;
+    }
+    if (mostLeftLevel(node->right, level + 1) == h) {   // 调用mostLeftLevel时, 节点下一, 层数同时+1
         return (1 << (h - level)) + bs(node->right, level + 1, h);
     }
     else {
@@ -41,18 +50,43 @@ int nodeNum(Node *head) {
     if (head == nullptr) {
         return 0;
     }
+    cout << "头结点: " << head->value 
+         << " 可到达最大深度: " << mostLeftLevel(head, 1) 
+         << endl;
     return bs(head, 1, mostLeftLevel(head, 1));
 }
 
-string getSpace(int num);
-void printInOrder(Node *head, int height, string to, int len);
+int main() {
+    Node *head_2 = &Node(1);
+    head_2->left = &Node(2);
+    head_2->right = &Node(3);
+    head_2->left->left = &Node(4);
+    head_2->left->right = &Node(5);
+    head_2->right->left = &Node(6);
+
+    printTree(head_2);
+    cout << "=============================================" << endl;
+    cout << "node : " << nodeNum(head_2) << endl;
+
+    Node *head_1 = &Node(1);
+    head_1->left = &Node(2);
+    head_1->right = &Node(3);
+    head_1->left->left = &Node(4);
+    head_1->left->right = &Node(5);
+    head_1->right->left = &Node(6);
+    head_1->right->right = &Node(7);
+    head_1->left->left->left = &Node(7);
+    printTree(head_1);
+    cout << "=============================================" << endl;
+    cout << "node : " << nodeNum(head_1) << endl;
+
+    return 0;
+}
 
 void printTree(Node *head) {
-    //System->out->println("Binary Tree:");
     cout << "Binary Tree:" << endl;
     printInOrder(head, 0, "H", 17);
     cout << endl;
-    //System->out->println();
 }
 
 void printInOrder(Node *head, int height, string to, int len) {
@@ -65,32 +99,15 @@ void printInOrder(Node *head, int height, string to, int len) {
     int lenL = (len - lenM) / 2;
     int lenR = len - lenM - lenL;
     val = getSpace(lenL) + val + getSpace(lenR);
-    //System->out->println(getSpace(height * len) + val);
     cout << (getSpace(height * len) + val).c_str() << endl;
     printInOrder(head->left, height + 1, "^", len);
 }
 
 string getSpace(int num) {
     string space = " ";
-    //stringBuffer buf = new stringBuffer("");
     string buf;
     for (int i = 0; i < num; i++) {
         buf.append(space.c_str());
     }
     return buf;
-}
-
-int main() {
-    Node *head = new Node(1);
-    head->left = new Node(2);
-    head->right = new Node(3);
-    head->left->left = new Node(4);
-    head->left->right = new Node(5);
-    head->right->left = new Node(6);
-    //System.out.println(nodeNum(head));
-    printTree(head);
-    cout << "=============================================" << endl;
-    cout << "node : " << nodeNum(head) << endl;
-
-    return 0;
 }

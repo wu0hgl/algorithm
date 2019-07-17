@@ -1,29 +1,25 @@
-#include <iostream>
-#include <algorithm>
+ï»¿#include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
 
 /*
-    ÊäÈë¶ş²æÊ÷ÏÈĞò±éÀúºÍÖĞĞò±éÀú½á¹û, ÖØ½¨¶ş²æÊ÷
+    è¾“å…¥äºŒå‰æ ‘å…ˆåºéå†å’Œä¸­åºéå†ç»“æœ, é‡å»ºäºŒå‰æ ‘
 */
 
 class Node {
 public:
     Node(int value) : value(value) { left = nullptr; right = nullptr; }
-    int value;
-    Node *left;
-    Node *right;
+    int value;  Node *left; Node *right;
 };
-
-vector<int> preOrder;
-vector<int> inOrder;
-
 string getSpace(int num);
 void printInOrder(Node *head, int height, string to, int len);
 void printTree(Node *head);
 void preOrderRecur(Node *head);
 void inOrderRecur(Node *head);
+
+vector<int> preOrder;
+vector<int> inOrder;
 
 Node* constructTree(vector<int> pre, int startPre, int endPre, vector<int> in, int startIn, int endIn) {
     if ((startPre > endPre) || (startIn > endIn)) {
@@ -34,8 +30,10 @@ Node* constructTree(vector<int> pre, int startPre, int endPre, vector<int> in, i
 
     for (int i = 0; i <= endIn; i++) {
         if (pre[startPre] == in[i]) {
-            ret->left = constructTree(pre, startPre + 1, startPre + i - startIn, in, startIn, i - 1);
-            ret->right = constructTree(pre, startPre + i - startIn + 1, endPre, in, i + 1, endIn);
+            ret->left  = constructTree(pre, startPre + 1, startPre + (i - startIn), 
+                                       in,  startIn,      i - 1);
+            ret->right = constructTree(pre, startPre + (i - startIn) + 1, endPre, 
+                                       in,  i + 1,                        endIn);
             break;
         }
     }
@@ -44,12 +42,12 @@ Node* constructTree(vector<int> pre, int startPre, int endPre, vector<int> in, i
 }
 
 int main() {
-    Node *head = new Node(1);
-    head->left = new Node(2);
-    head->right = new Node(3);
-    head->left->left = new Node(4);
-    head->left->right = new Node(5);
-    head->right->left = new Node(6);
+    Node *head = &Node(1);
+    head->left = &Node(2);
+    head->right = &Node(3);
+    head->left->left = &Node(4);
+    head->left->right = &Node(5);
+    head->right->left = &Node(6);
     printTree(head);
     cout << "=============================================" << endl;
     preOrderRecur(head);
@@ -69,14 +67,10 @@ int main() {
     return 0;
 }
 
-
-
 void printTree(Node *head) {
-    //System->out->println("Binary Tree:");
     cout << "Binary Tree:" << endl;
     printInOrder(head, 0, "H", 17);
     cout << endl;
-    //System->out->println();
 }
 
 void printInOrder(Node *head, int height, string to, int len) {
@@ -95,7 +89,6 @@ void printInOrder(Node *head, int height, string to, int len) {
 
 string getSpace(int num) {
     string space = " ";
-    //stringBuffer buf = new stringBuffer("");
     string buf;
     for (int i = 0; i < num; i++) {
         buf.append(space.c_str());

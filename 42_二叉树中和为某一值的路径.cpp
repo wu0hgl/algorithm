@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include <string>
 #include <stdio.h>
@@ -10,15 +10,14 @@ public:
     Node *left;
     Node *right;
 };
-
-/*
-    ÊäÈëÒ»¿Å¶ş²æÊ÷µÄ¸ú½ÚµãºÍÒ»¸öÕûÊı, ´òÓ¡³ö¶ş²æÊ÷ÖĞ½áµãÖµµÄºÍÎªÊäÈëÕûÊıµÄËùÓĞÂ·¾¶. 
-    Â·¾¶¶¨ÒåÎª´ÓÊ÷µÄ¸ù½áµã¿ªÊ¼ÍùÏÂÒ»Ö±µ½Ò¶½áµãËù¾­¹ıµÄ½áµãĞÎ³ÉÒ»ÌõÂ·¾¶. 
-*/
-
 string getSpace(int num);
 void printInOrder(Node *head, int height, string to, int len);
 void printTree(Node *head);
+
+/*
+    è¾“å…¥ä¸€é¢—äºŒå‰æ ‘çš„æ ¹èŠ‚ç‚¹å’Œä¸€ä¸ªæ•´æ•°, æ‰“å°å‡ºäºŒå‰æ ‘ä¸­ç»“ç‚¹å€¼çš„å’Œä¸ºè¾“å…¥æ•´æ•°çš„æ‰€æœ‰è·¯å¾„. 
+    è·¯å¾„å®šä¹‰ä¸ºä»æ ‘çš„æ ¹ç»“ç‚¹å¼€å§‹å¾€ä¸‹ä¸€ç›´åˆ°å¶ç»“ç‚¹æ‰€ç»è¿‡çš„ç»“ç‚¹å½¢æˆä¸€æ¡è·¯å¾„. 
+*/
 
 vector<vector<int> > ret;
 vector<int> temp;
@@ -27,7 +26,7 @@ void dfsFind(Node* root, int expectNumber) {
     if (NULL == root) {
         return;
     }
-    temp.push_back(root->value);
+    temp.push_back(root->value);    // å½“å‰èŠ‚ç‚¹å‹æ ˆ
     if ((root->value == expectNumber) && (NULL == root->left) && (NULL == root->right)) {
         ret.push_back(temp);
     }
@@ -35,10 +34,9 @@ void dfsFind(Node* root, int expectNumber) {
     dfsFind(root->left, expectNumber - root->value);
     dfsFind(root->right, expectNumber - root->value);
     //if (!temp.empty()) {
-        temp.pop_back();
+        temp.pop_back();            // ä¸ä¸Šé¢çš„å‹æ ˆæ“ä½œç›¸å¯¹åº”
     //}
 }
-
 vector<vector<int> > FindPath(Node* root, int expectNumber) {
     if (root) {
         dfsFind(root, expectNumber);
@@ -47,19 +45,18 @@ vector<vector<int> > FindPath(Node* root, int expectNumber) {
     return ret;
 }
 
-
 int main() {
-    Node *head = new Node(5);
-    head->left = new Node(3);
-    head->right = new Node(8);
-    head->left->left = new Node(2);
-    head->left->right = new Node(4);
-    head->left->left->left = new Node(24);
-    head->right->left = new Node(7);
-    head->right->left->left = new Node(6);
-    head->right->right = new Node(10);
-    head->right->right->left = new Node(9);
-    head->right->right->right = new Node(11);
+    Node *head = &Node(5);
+    head->left = &Node(3);
+    head->right = &Node(8);
+    head->left->left = &Node(2);
+    head->left->right = &Node(4);
+    head->left->left->left = &Node(24);
+    head->right->left = &Node(7);
+    head->right->left->left = &Node(6);
+    head->right->right = &Node(10);
+    head->right->right->left = &Node(9);
+    head->right->right->right = &Node(11);
     printTree(head);
     FindPath(head, 34);
     for (int i = 0; i < ret.size(); i++) {
@@ -88,7 +85,6 @@ void printInOrder(Node *head, int height, string to, int len) {
     int lenL = (len - lenM) / 2;
     int lenR = len - lenM - lenL;
     val = getSpace(lenL) + val + getSpace(lenR);
-    //System->out->println(getSpace(height * len) + val);
     cout << (getSpace(height * len) + val).c_str() << endl;
     printInOrder(head->left, height + 1, "^", len);
 }
@@ -96,7 +92,6 @@ void printInOrder(Node *head, int height, string to, int len) {
 
 string getSpace(int num) {
     string space = " ";
-    //stringBuffer buf = new stringBuffer("");
     string buf;
     for (int i = 0; i < num; i++) {
         buf.append(space.c_str());

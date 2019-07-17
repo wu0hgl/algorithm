@@ -18,6 +18,9 @@ public:
     Node *left;
     Node *right;
 };
+string getSpace(int num);
+void printInOrder(Node *head, int height, string to, int len);
+void printTree(Node *head);
 
 vector<vector<int> > Print(Node* pRoot) {
     vector<vector<int>> ret;
@@ -54,7 +57,7 @@ vector<vector<int> > Print(Node* pRoot) {
 
         if (levels[current].empty()) {
             ret.push_back(vt);
-            vt.resize(0);
+            vt.clear(0);            // 把之前保存的数据清空
             current = 1 - current;
             next = 1 - next;
         }
@@ -62,15 +65,30 @@ vector<vector<int> > Print(Node* pRoot) {
     return ret;
 }
 
-string getSpace(int num);
-void printInOrder(Node *head, int height, string to, int len);
+int main() {
+    Node *head = &Node(1);
+    head->left = &Node(2);
+    head->right = &Node(3);
+    head->left->left = &Node(4);
+    head->left->right = &Node(5);
+    head->right->left = &Node(6);
+    printTree(head);
+    cout << "=============================================" << endl;
+    vector<vector<int>> temp = Print(head);
+    for (size_t i = 0; i < temp.size(); i++) {
+        for (size_t j = 0; j < temp[i].size(); j++) {
+            cout << temp[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
 
 void printTree(Node *head) {
-    //System->out->println("Binary Tree:");
     cout << "Binary Tree:" << endl;
     printInOrder(head, 0, "H", 17);
     cout << endl;
-    //System->out->println();
 }
 
 void printInOrder(Node *head, int height, string to, int len) {
@@ -83,38 +101,15 @@ void printInOrder(Node *head, int height, string to, int len) {
     int lenL = (len - lenM) / 2;
     int lenR = len - lenM - lenL;
     val = getSpace(lenL) + val + getSpace(lenR);
-    //System->out->println(getSpace(height * len) + val);
     cout << (getSpace(height * len) + val).c_str() << endl;
     printInOrder(head->left, height + 1, "^", len);
 }
 
 string getSpace(int num) {
     string space = " ";
-    //stringBuffer buf = new stringBuffer("");
     string buf;
     for (int i = 0; i < num; i++) {
         buf.append(space.c_str());
     }
     return buf;
-}
-
-int main() {
-    Node *head = new Node(1);
-    head->left = new Node(2);
-    head->right = new Node(3);
-    head->left->left = new Node(4);
-    head->left->right = new Node(5);
-    head->right->left = new Node(6);
-    //System.out.println(nodeNum(head));
-    printTree(head);
-    cout << "=============================================" << endl;
-    vector<vector<int>> temp = Print(head);
-    for (int i = 0; i < temp.size(); i++) {
-        for (int j = 0; j < temp[i].size(); j++) {
-            cout << temp[i][j] << " ";
-        }
-        cout << endl;
-    }
-
-    return 0;
 }
