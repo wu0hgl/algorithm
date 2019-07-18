@@ -46,20 +46,21 @@ string Serialize(Node *head) {
     return res;
 }
 
-vector<string> split(string& str) {
+vector<string> split(string& str1, const string& str2) {
     vector<string> res;
     size_t start = 0;
-    size_t pos = str.find("!");
+    //size_t pos = str1.find("!");
+    size_t pos = str1.find(str2);
     while (pos != string::npos) {
         if (pos > start) {
-            res.push_back(str.substr(start, pos - start));
+            res.push_back(str1.substr(start, pos - start));
         }
         start = pos + 1;
-        pos = str.find("!", start);
+        pos = str1.find("!", start);
     }
 
-    if (start < str.size()) {
-        res.push_back(str.substr(start));
+    if (start < str1.size()) {
+        res.push_back(str1.substr(start));
     }
     return res;
 }
@@ -78,7 +79,7 @@ Node* generateNodeByString(string& str) {
 }
 
 Node* Deserialize(string str) {
-    vector<string> values = split(str);
+    vector<string> values = split(str, "!");
     if (values.size() == 0) {
         return nullptr;
     }
