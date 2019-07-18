@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <string>
-#include <hash_map>
+#include <unordered_map>
 #include <ctime>
 using namespace std;
 
@@ -35,22 +35,22 @@ public:
     {
         if ((keyIndexMap.find(key) != keyIndexMap.end()))
         {
-            int deleteIndex = keyIndexMap[key];
+            int deleteIndex = keyIndexMap[key];         // key, deletIndex为要删除的点
 
             int lastIndex = --this->size;               // 最后插入元素的index
-            string lastKey = indexKeyMap[lastIndex];
+            string lastKey = indexKeyMap[lastIndex];    // 最后插入的元素
 
             keyIndexMap[lastKey] = deleteIndex;         // 修改最后一个key对应的index
             indexKeyMap[deleteIndex] = lastKey;         // 填坑
 
-            keyIndexMap.erase(key);
-            indexKeyMap.erase(lastIndex);
+            keyIndexMap.erase(key);                     // keyIndexMap删除key
+            indexKeyMap.erase(lastIndex);               // indexKeyMap删除最后一个元素
         }
     }
 
 private:
-    hash_map<string, int> keyIndexMap;
-    hash_map<int, string> indexKeyMap;
+    unordered_map<string, int> keyIndexMap;
+    unordered_map<int, string> indexKeyMap;
     int size;
 };
 

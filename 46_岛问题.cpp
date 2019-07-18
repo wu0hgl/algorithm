@@ -1,33 +1,25 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 using namespace std;
-
+void printArr(vector<vector<int>> &arr);
 /*
-    Ò»¸ö¾ØÕóÖĞÖ»ÓĞ0ºÍ1Á½ÖÖÖµ, Ã¿¸öÎ»ÖÃ¶¼¿ÉÒÔºÍ×Ô¼ºµÄÉÏĞĞ×óÓÒËÄ¸öÎ»ÖÃÏàÁ¬, Èç¹ûÓĞÒ»Æ¬1Á¬ÔÚÒ»Æğ, Õâ¸ö²¿·Ö½Ğ×öÒ»¸öµº, 
-    ÇóÒ»¸ö¾ØÕóÖĞÓĞ¶àÉÙ¸öµº
+    ä¸€ä¸ªçŸ©é˜µä¸­åªæœ‰0å’Œ1ä¸¤ç§å€¼, æ¯ä¸ªä½ç½®éƒ½å¯ä»¥å’Œè‡ªå·±çš„ä¸Šè¡Œå·¦å³å››ä¸ªä½ç½®ç›¸è¿, å¦‚æœæœ‰ä¸€ç‰‡1è¿åœ¨ä¸€èµ·, è¿™ä¸ªéƒ¨åˆ†å«åšä¸€ä¸ªå²›, 
+    æ±‚ä¸€ä¸ªçŸ©é˜µä¸­æœ‰å¤šå°‘ä¸ªå²›
 */
 
-void printArr(vector<vector<int>> &arr) {
-    for (int i = 0;  i < arr.size(); i++) {
-        for (int j = 0; j < arr[0].size(); j++) {
-            cout << arr[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
 
 void infect(vector<vector<int>> &arr, int i, int j, int row, int col) {
     if ((i < 0) || (i >= row) || (j < 0) || (j >= col) || (arr[i][j] != 1)) {
         return;
     }
     arr[i][j] = 2;
-    infect(arr, i + 1, j, row, col);
-    infect(arr, i - 1, j, row, col);
-    infect(arr, i, j + 1, row, col);
-    infect(arr, i, j - 1, row, col);
+    infect(arr, i - 1, j, row, col);    // ä¸Š
+    infect(arr, i + 1, j, row, col);    // ä¸‹
+    infect(arr, i, j - 1, row, col);    // å·¦
+    infect(arr, i, j + 1, row, col);    // å³
 }
 
-int countIsLands(vector<vector<int>> arr) {
+int countIsLands(vector<vector<int>>& arr) {
     if (arr.size() == 0 || arr[0].size() == 0) {
         return 0;
     }
@@ -42,7 +34,6 @@ int countIsLands(vector<vector<int>> arr) {
             }
         }
     }
-    //printArr(arr);
     return res;
 }
 
@@ -55,7 +46,10 @@ int main() {
     { 0, 0, 0, 0, 0, 1, 1, 0, 0 },
     { 0, 0, 0, 0, 1, 1, 1, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
+    printArr(arr_1);
     cout << countIsLands(arr_1) << endl;
+    //printArr(arr_1);
+    cout << "=============================" << endl;
 
     vector<vector<int>> arr_2 = { 
     { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -65,7 +59,17 @@ int main() {
     { 0, 0, 0, 0, 0, 1, 1, 0, 0 },
     { 0, 0, 0, 0, 1, 1, 1, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, };
+    printArr(arr_1);
     cout << countIsLands(arr_2) << endl;
 
     return 0;
+}
+
+void printArr(vector<vector<int>> &arr) {
+    for (int i = 0; i < arr.size(); i++) {
+        for (int j = 0; j < arr[0].size(); j++) {
+            cout << arr[i][j] << " ";
+        }
+        cout << endl;
+    }
 }
