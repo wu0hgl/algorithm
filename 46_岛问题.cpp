@@ -19,6 +19,7 @@ void infect(vector<vector<int>> &arr, int i, int j, int row, int col) {
     infect(arr, i, j + 1, row, col);    // 右
 }
 
+// 此处传引用会改变原来矩阵, 若把引用去掉则拷贝一份矩阵, 处理过程中不影响原矩阵
 int countIsLands(vector<vector<int>>& arr) {
     if (arr.size() == 0 || arr[0].size() == 0) {
         return 0;
