@@ -65,7 +65,7 @@ class Node {
 public:
     Node() {
         this->nexts[0] = nullptr;
-        this->nexts[0] = nullptr;
+        this->nexts[1] = nullptr;
     }
     pNode nexts[2];
 };
@@ -87,7 +87,7 @@ public:
         }
     }
 
-    int maxXor(int num) {       // 
+    int maxXor(int num) {       // num: 当前异或和
         pNode cur = head;
         int res = 0;
         for (int move = 31; move >= 0; move--) {
@@ -95,7 +95,7 @@ public:
             // 期待的下一路径
             int best = (move == 31      // 是否为符号位
                         ? path          // 符号位不变, 因为maxXor选出的异或结果要与当前的异或结果异或, 符号位不变, 异或之后的符号为0, 正数
-                        : (path ^ 1));  // 其余位取反
+                        : (path ^ 1));  // 其余位取反, 为使最后异或结果为1, 期待已有的异或和的这个位为当前位的相反数
             best = (cur->nexts[best] != nullptr // 期待的路径是否存在
                     ? best                      // 存在
                     : (best ^ 1));              // 不存在
@@ -117,6 +117,7 @@ int getMaxE_4(vector<int>& arr) {
     numTrie.add(0);             // 这行要有, 代表建出一个字典树
     for (auto cur : arr) {
         eor ^= cur;
+        // numTrie.maxXor(eor)当前异或和与之前的异或和, 代替getMaxE_4中的第二个for循环
         maxValue = max(maxValue, numTrie.maxXor(eor));  // 查找字典树中是否与当前遍历结果最大
         numTrie.add(eor);
     }

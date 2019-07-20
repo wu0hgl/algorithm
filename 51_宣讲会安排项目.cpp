@@ -51,6 +51,7 @@ int main() {
 
 
     cout << bestArray(arr, 0) << endl;;
+
     return 0;
 }
 
