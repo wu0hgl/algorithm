@@ -46,6 +46,7 @@ int findMaximizedCapital(int k, int w, vector<int> &Profits, vector<int> &Capita
             minCostQ.pop();
         }
         if (maxProfitQ.empty()) {
+            delete[] nodes;
             return w;
         }
         w += maxProfitQ.top()->p;
