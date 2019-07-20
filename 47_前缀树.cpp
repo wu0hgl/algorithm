@@ -1,5 +1,5 @@
 ﻿#include <iostream>
-#include <cstring>
+#include <string>
 using namespace std;
 
 /*
@@ -28,7 +28,7 @@ public:
         freeNode(root);
     }
 
-    void insert(const string word) {
+    void insertStr(const string word) {
         if (word.size() == 0) {
             return;
         }
@@ -52,7 +52,7 @@ public:
             for (size_t i = 0; i < word.size(); i++) {
                 index = word[i] - 'a';
                 if (--node->nexts[index]->path == 0) {  // path==0, 说明底下链已经为没有共用的节点, 可以直接删除, end不需要-1
-                    freeNode(node->nexts[index]);
+                    freeNode(node->nexts[index]);       // 释放节点
                     node->nexts[index] = nullptr;       // 必须置空, 否则析构时有问题
                     return;
                 }
@@ -115,24 +115,27 @@ int main() {
     Trie trie;
     
     cout << trie.search("zyb") << endl;
-    trie.insert("zyb");
+    trie.insertStr("zyb");
     cout << trie.search("zyb") << endl;
     trie.deleteStr("zyb");
     cout << trie.search("zyb") << endl;
+    cout << "===============================" << endl;
 
-    trie.insert("zyb");
-    trie.insert("zyb");
+    trie.insertStr("zyb");
+    trie.insertStr("zyb");
     cout << trie.search("zyb") << endl;
     trie.deleteStr("zyb");
     cout << trie.search("zyb") << endl;
     trie.deleteStr("zyb");
     cout << trie.search("zyb") << endl;
+    cout << "===============================" << endl;
 
-    trie.insert("zybhaha");
-    trie.insert("zybhehe");
-    trie.insert("zybhij");
-    trie.insert("zybwuwu");
+    trie.insertStr("zybhaha");
+    trie.insertStr("zybhehe");
+    trie.insertStr("zybhij");
+    trie.insertStr("zybwuwu");
     cout << trie.prefixNumber("zybh") << endl;
     cout << trie.prefixNumber("zyb") << endl;
+
     return 0;
 }
