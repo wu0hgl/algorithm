@@ -56,48 +56,49 @@ int minPath3(vector<vector<int>> &matrix) {
     int row = matrix.size();
     int col = matrix[0].size();
 
-    vector<vector<int>> dp;
-    dp.resize(row);
-    for (int i = 0; i < row; i++) {
-        dp[i].resize(col);
-    }
+    vector<vector<int>> dp(row, vector<int>(col));  // 二维数组初始化
+    //vector<vector<bool>> dp;
+    //dp.resize(row);
+    //for (int i = 0; i < row; i++) {
+    //    dp[i].resize(col);
+    //}
 
     /* 从上向下填表 */
-    dp[0][0] = matrix[0][0];
-    for (int i = 1; i < row; i++) {
-        dp[i][0] = dp[i - 1][0] + matrix[i][0];
-    }
-    printArr(dp);
-    for (int j = 1; j < col; j++) {
-        dp[0][j] = dp[0][j - 1] + matrix[0][j];
-    }
-    printArr(dp);
-    for (int i = 1; i < row; i++) {
-        for (int j = 1; j < col; j++) {
-            dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + matrix[i][j];
-        }
-    }
-    printArr(dp);
-    return dp[row - 1][col - 1];
-
-    /* 从下向上填表 */
-    //dp[row - 1][col - 1] = matrix[row - 1][col - 1];
-    //for (int i = row - 1; i > 0; i--) {
-    //    dp[i - 1][col - 1] = dp[i][col - 1] + matrix[i - 1][col - 1];
+    //dp[0][0] = matrix[0][0];
+    //for (int i = 1; i < row; i++) {
+    //    dp[i][0] = dp[i - 1][0] + matrix[i][0];
     //}
     //printArr(dp);
-    //for (int j = col - 1; j > 0; j--) {
-    //    dp[row - 1][j - 1] = dp[row - 1][j] + matrix[row - 1][j - 1];
+    //for (int j = 1; j < col; j++) {
+    //    dp[0][j] = dp[0][j - 1] + matrix[0][j];
     //}
     //printArr(dp);
-
-    //for (int i = row - 1; i > 0; i--) {
-    //    for (int j = col - 1; j > 0; j--) {
-    //        dp[i- 1][j - 1] = matrix[i][j] + min(dp[i - 1][j], dp[i][j - 1]);
+    //for (int i = 1; i < row; i++) {
+    //    for (int j = 1; j < col; j++) {
+    //        dp[i][j] = min(dp[i - 1][j], dp[i][j - 1]) + matrix[i][j];
     //    }
     //}
     //printArr(dp);
-    //return dp[0][0];
+    //return dp[row - 1][col - 1];
+
+    /* 从下向上填表 */
+    dp[row - 1][col - 1] = matrix[row - 1][col - 1];
+    for (int i = row - 1; i > 0; i--) {
+        dp[i - 1][col - 1] = dp[i][col - 1] + matrix[i - 1][col - 1];
+    }
+    printArr(dp);
+    for (int j = col - 1; j > 0; j--) {
+        dp[row - 1][j - 1] = dp[row - 1][j] + matrix[row - 1][j - 1];
+    }
+    printArr(dp);
+
+    for (int i = row - 1; i > 0; i--) {
+        for (int j = col - 1; j > 0; j--) {
+            dp[i- 1][j - 1] = matrix[i][j] + min(dp[i - 1][j], dp[i][j - 1]);
+        }
+    }
+    printArr(dp);
+    return dp[0][0];
 }
 
 int main() {
@@ -106,7 +107,7 @@ int main() {
         {7, 5, 0, 1},
         {3, 7, 6, 2}
     };
-    
+    printArr(matrix);
     cout << minPath1(matrix, 0, 0) << endl;
     cout << "========================" << endl;
     cout << minPath2(matrix, matrix.size() - 1, matrix[0].size() - 1) << endl;
@@ -117,8 +118,8 @@ int main() {
 }
 
 void printArr(vector<vector<int>> &matrix) {
-    for (int i = 0; i < matrix.size(); i++) {
-        for (int j = 0; j < matrix[0].size(); j++) {
+    for (size_t i = 0; i < matrix.size(); i++) {
+        for (size_t j = 0; j < matrix[0].size(); j++) {
             cout << matrix[i][j] << "\t";
         }
         cout << endl;

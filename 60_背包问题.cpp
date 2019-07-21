@@ -15,8 +15,9 @@ int process1(vector<int> &weights, vector<int> &values, int begin, int value, in
     if (begin == weights.size()) {
         return value;
     }
-    return max(process1(weights, values, begin + 1, value, bag), 
-        process1(weights, values, begin + 1, value + values[begin], bag - weights[begin]));
+
+    return max(process1(weights, values, begin + 1, value, bag),                                    // 不要当前物品
+               process1(weights, values, begin + 1, value + values[begin], bag - weights[begin]));  // 要当前物品
 }
 int maxValue1(vector<int> &c, vector<int> &p, int bag) {
     return process1(c, p, 0, 0, bag);
@@ -40,11 +41,12 @@ int maxValue2(vector<int> &c, vector<int> &p, int bag) {
 }
 
 int maxValue3(vector<int> & c, vector<int> & p, int bag) {
-    vector<vector<int>> dp;
-    dp.resize(c.size() + 1);
-    for (int i = 0; i <= c.size(); i++) {
-        dp[i].resize(bag + 1);
-    }
+    vector<vector<int>> dp(c.size() + 1, vector<int>(bag + 1));
+    //vector<vector<int>> dp;
+    //dp.resize(c.size() + 1);
+    //for (int i = 0; i <= c.size(); i++) {
+    //    dp[i].resize(bag + 1);
+    //}
     
     for (int i = c.size() - 1; i >= 0; i--) {
         for (int j = bag; j >= 0; j--) {
@@ -53,9 +55,9 @@ int maxValue3(vector<int> & c, vector<int> & p, int bag) {
                 dp[i][j] = max(dp[i][j], p[i] + dp[i + 1][j + c[i]]);
             }
         }
-        //printArr(dp);
+        printArr(dp);
     }
-    //printArr(dp);
+    printArr(dp);
     return dp[0][0];
 }
 

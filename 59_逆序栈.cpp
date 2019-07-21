@@ -10,10 +10,10 @@ int getAndRemoveLastElement(stack<int> &sk) {
     int res = sk.top();
     sk.pop();
     if (sk.empty()) {       // 获得最后一个元素没有压入栈
-        return res;
+        return res;         // 返回最后一个元素
     }
     else {
-        int last = getAndRemoveLastElement(sk);
+        int last = getAndRemoveLastElement(sk); // 把获取到的最后一个元素返回出去
         sk.push(res);       // 恢复栈
         return last;
     }

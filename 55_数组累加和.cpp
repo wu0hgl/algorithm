@@ -2,19 +2,24 @@
 #include <cstring>
 #include <vector>
 using namespace std;
+void printArr(vector<vector<bool>> &matrix);
 
 /*
     一个数组arr, 和一个整数aim. 如果可以任意选择arr中的数字, 能不能累加得到aim, 返回true或者false
 */
 
-void printArr(vector<vector<bool>> &matrix);
-
 bool isSum_1(vector<int> &arr, int i, int sum, int aim) {
     if (i == arr.size()) {
         return sum == aim;      // base case
     }
+
     /* 要当前数字||不要当前数字 */
-    return isSum_1(arr, i + 1, sum, aim) || isSum_1(arr, i + 1, sum + arr[i], aim);
+    //bool res_1 = isSum_1(arr, i + 1, sum, aim);
+    //bool res_2 = isSum_1(arr, i + 1, sum + arr[i], aim);
+    //return res_1 || res_2;
+
+    return (isSum_1(arr, i + 1, sum, aim) 
+           || isSum_1(arr, i + 1, sum + arr[i], aim));
 }
 
 /* 目前只能处理正数数组, 若含负数数组扩充二维表, 列数扩充负向最小值到正向最大值? */
@@ -31,15 +36,16 @@ bool isSum_2(vector<int> &arr, int aim) {
         return false;
     }
 
-    vector<vector<bool>> dp;
     int row = arr.size();
     int col = sum;
 
     /* 建表 */
-    dp.resize(row + 1);
-    for (int i = 0; i <= row; i++) {
-        dp[i].resize(col + 1);
-    }
+    vector<vector<bool>> dp(row + 1, vector<bool>(col + 1));
+    //vector<vector<bool>> dp;
+    //dp.resize(row + 1);
+    //for (int i = 0; i <= row; i++) {
+    //    dp[i].resize(col + 1);
+    //}
 
     /* 最后一行为base case可直接计算 */
     for (int i = 0; i <= col; i++) {
@@ -68,8 +74,8 @@ int main() {
 }
 
 void printArr(vector<vector<bool>> &matrix) {
-    for (int i = 0; i < matrix.size(); i++) {
-        for (int j = 0; j < matrix[0].size(); j++) {
+    for (size_t i = 0; i < matrix.size(); i++) {
+        for (size_t j = 0; j < matrix[0].size(); j++) {
             if (matrix[i][j]) {
                 cout << "T" << " ";
             }
@@ -79,5 +85,4 @@ void printArr(vector<vector<bool>> &matrix) {
         }
         cout << endl;
     }
-
 }

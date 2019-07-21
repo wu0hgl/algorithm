@@ -12,6 +12,7 @@ void printArr(vector<string> &arr);
     例如输入字符串abc, 则打印出由字符a, b, c所能排列出来的所有字符串abc, acb, bac, bca, cab和cba.
 */
 
+
 void process_1(string &str, int begin, vector<string> &res) {
     if (begin == str.size()) {
         res.push_back(str);
@@ -49,7 +50,7 @@ void process_2(string &str, int begin, set<string, strComp> &mySet) {
     if (begin == str.size()) {
         mySet.insert(str);
     }
-    for (int i = begin; i < str.size(); i++) {
+    for (int i = begin; i < static_cast<int>(str.size()); i++) {
         swap(str[begin], str[i]);
         process_2(str, begin + 1, mySet);
         swap(str[begin], str[i]);

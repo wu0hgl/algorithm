@@ -8,13 +8,15 @@ using namespace std;
 
 void printAllSub(string &str, int i, string &res) {
     if (i == str.size()) {
+        //if (res.size() == 0) {
+        //    return;
+        //}
         printf("%s\n", res.c_str());        // 打印之前的收集结构
         return;
     }
     printAllSub(str, i + 1, res);           // 不要当前字符
     printAllSub(str, i + 1, res + str[i]);  // 要当前字符
 }
-
 
 int main() {
     string test = "abc";
