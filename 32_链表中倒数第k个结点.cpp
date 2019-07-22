@@ -1,16 +1,15 @@
 ﻿#include <iostream>
 using namespace std;
-void printList(Node *head);
-/*
-    输入一个链表, 输出该链表中倒数第k个结点
-*/
-
 class Node {
 public:
     Node(int data) { value = data; next = nullptr; }
-    Node *next;
-    int value;
+    Node *next; int value;
 };
+void printList(Node *head);
+
+/*
+    输入一个链表, 输出该链表中倒数第k个结点
+*/
 
 Node* FindKthToTail(Node* pListHead, unsigned int k) {
     Node *cur1 = pListHead;
@@ -30,13 +29,13 @@ Node* FindKthToTail(Node* pListHead, unsigned int k) {
 
 int main() {
     int k = 7;
-    Node *head1 = new Node(1);
-    head1->next = new Node(2);
-    head1->next->next = new Node(3);
-    head1->next->next->next = new Node(4);
-    head1->next->next->next->next = new Node(5);
-    head1->next->next->next->next->next = new Node(6);
-    head1->next->next->next->next->next->next = new Node(7);
+    Node *head1 = &Node(1);
+    head1->next = &Node(2);
+    head1->next->next = &Node(3);
+    head1->next->next->next = &Node(4);
+    head1->next->next->next->next = &Node(5);
+    head1->next->next->next->next->next = &Node(6);
+    head1->next->next->next->next->next->next = &Node(7);
     printList(head1);
 
     Node *temp = nullptr;
