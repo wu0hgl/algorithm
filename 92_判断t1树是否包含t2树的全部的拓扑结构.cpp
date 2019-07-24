@@ -1,10 +1,10 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
 
 /*
-¸ø¶¨±Ë´Ë¶ÀÁ¢µÄÁ½¿ÅÊ÷Í·½áµã·Ö±ðÎªt1ºÍt2, ÅÐ¶Ït1ÖÐÊÇ·ñÓÐÓët2Ê÷ÍØÆË½á¹¹ÍêÈ«ÏàÍ¬µÄ×ÓÊ÷
+    ç»™å®šå½¼æ­¤ç‹¬ç«‹çš„ä¸¤é¢—æ ‘å¤´ç»“ç‚¹åˆ†åˆ«ä¸ºt1å’Œt2, åˆ¤æ–­t1æ ‘æ˜¯å¦åŒ…å«t2æ ‘å…¨éƒ¨çš„æ‹“æ‰‘ç»“æž„
 */
 
 class Node {

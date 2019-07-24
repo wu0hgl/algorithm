@@ -18,7 +18,7 @@ vector<int> getNextArray(string m) {
     next.resize(m.size());
     next[0] = -1;
     next[1] = 0;
-    int pos = 2;
+    size_t pos = 2;
     int cn = 0;
     while (pos < m.size()) {
         if (m[pos - 1] == m[cn]) {  // 当前跳到的位置和前一个字符一样, 长度确定
@@ -34,12 +34,12 @@ vector<int> getNextArray(string m) {
     return next;
 }
 
-int getIndexOf(string s, string m) {
+int getIndexOf_1(string s, string m) {
     if ((s.size() < 1) || (m.size() < 1) || (s.size() < m.size())) {
         return -1;
     }
-    int si = 0;
-    int mi = 0;
+    size_t si = 0;
+    size_t mi = 0;
     vector<int> next = getNextArray(m);
     while ((si < s.size()) && (mi < m.size())) {
         if (s[si] == m[mi]) {
@@ -58,11 +58,41 @@ int getIndexOf(string s, string m) {
     return (mi == m.size() ? si - mi : -1); 
 }
 
+int getIndexOf_2(string& s, string& m) {
+    if ((s.size() == 0) || (m.size() == 0) || (s.size() < m.size())) {
+        return -1;
+    }
+    
+    for (size_t i = 0; i < s.size(); i++) {
+        size_t sPos = i;
+        size_t mPos = 0;
+        while ((sPos < s.size()) && (mPos < m.size())) {
+            if (s[sPos] == m[mPos]) {
+                sPos++;
+                mPos++;
+            }
+            else {
+                break;
+            }
+        }
+        if (mPos == m.size()) {
+            return sPos - mPos;
+        }
+    }
+    return -1;
+}
+
 int main() {
     string str = "abcabcababaccc";
     string match = "ababa";
+    //string str = "abcabc";
+    //string match = "ca";
 
-    cout << getIndexOf(str, match) << endl;
+    cout << str.c_str() << endl;
+    cout << match.c_str() << endl;
+
+    cout << getIndexOf_1(str, match) << endl;
+    cout << getIndexOf_2(str, match) << endl;
 
     return 0;
 }

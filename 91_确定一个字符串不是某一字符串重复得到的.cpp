@@ -36,7 +36,7 @@ bool repeatedSubstringPattern(string s) {
 
 void main(void)
 {
-    string arr = "ababab";
+    string arr = "aaaaaa";
     //string arr{ "123123123" };
     if (repeatedSubstringPattern(arr)) {
         cout << arr.c_str() << " 是由重复字符串得到" << endl;

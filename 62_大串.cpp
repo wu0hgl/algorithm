@@ -15,7 +15,7 @@ int endNextLength(string &str) {
     next.resize(str.size() + 1);
     next[0] = -1;
     next[1] = 0;
-    int pos = 2;
+    size_t pos = 2;
     int cn = 0;
     while (pos < next.size()) {
         if (str[pos - 1] == str[cn]) {
@@ -29,8 +29,8 @@ int endNextLength(string &str) {
         }
     }
 
-    //return next[str.size()];
-    return next[next.size() - 1];
+    return next[str.size()];        // 两个返回值一样
+    //return next[next.size() - 1];
 }
 
 string answer(string &str) {
