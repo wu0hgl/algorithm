@@ -20,7 +20,7 @@ int maxLcpsLength(string &str) {
 
     int myMax = INT_MIN;
 
-    for (int i = 0; i != charArr.size(); i++) { // 每个回文的中心
+    for (int i = 0; i != charArr.size(); i++) { // 每个回文的中心, 这里i不能是size_t类型, 否则下面min中类型匹配有问题
         // (1) i不在回文在回文右边界, 暴力扩
         // (2) i在回文半径内, i的对称点i'的回文半径在当前回文左边界内, pArr[i] = pArr[2 * index - i]
         // (3) i在回文半径内, i的对称点i'的回文半径在当前回文左边界外, pArr[i] = pR - i
