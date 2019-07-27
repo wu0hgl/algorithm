@@ -2,6 +2,9 @@
 #include <algorithm>
 #include <set>
 using namespace std;
+void test_1();
+void test_2();
+void test_3();
 
 /*
     两个链表相交问题
@@ -76,7 +79,8 @@ Node* noLoop(Node *pHead1, Node *pHead2) {
         count--;
     }
 
-    if (cur1 != cur2) {
+    // 此时cur1与cur2分别指向两个链表的最后一个节点
+    if (cur1 != cur2) {     // 最后一个节点若不相等可直接返回
         return nullptr;
     }
 
