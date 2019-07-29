@@ -26,7 +26,14 @@ public:
 };
 
 bool comparator(const Node& a, const Node& b) { 
-    return (a.posi < b.posi); 
+    if (a.posi != b.posi) {             // 位置不同时, 先出现的位置在前面
+        return (a.posi < b.posi);
+    }
+    if (a.isUp != b.isUp) {             // 位置相同时, 上位置在前
+        return a.isUp ? true : false;
+    }
+    return 0;                           // 随意
+    //return (a.posi < b.posi); 
 }
 
 vector<vector<int>> buildingOutline(vector<vector<int>> &buildings) {
@@ -38,8 +45,8 @@ vector<vector<int>> buildingOutline(vector<vector<int>> &buildings) {
 
     sort(nodes.begin(), nodes.end(), comparator);   // 按位置排序
 
-    map<int, int> htMap;        // key: 高度; value: 位置
-    map<int, int> pmMap;        // key: 位置; value: 高度, 利用map的从小到大排序
+    map<int, int> htMap;        // key: 高度; value: 高度出现的次数, 利用map的从小到大排序查找当前最大高度
+    map<int, int> pmMap;        // key: 位置; value: 高度
 
     for (size_t i = 0; i < nodes.size(); i++) {
         if (nodes[i].isUp) {    // 上 -> htMap添加
@@ -72,7 +79,6 @@ vector<vector<int>> buildingOutline(vector<vector<int>> &buildings) {
     }
 
     vector<vector<int>> ret;
-
     int start = 0;
     int height = 0;     // 记录之前的高度
     for (map<int, int>::iterator it = pmMap.begin(); it != pmMap.end(); it++) { // 利用pmMap升序来取位置
@@ -95,9 +101,24 @@ vector<vector<int>> buildingOutline(vector<vector<int>> &buildings) {
 }
 
 int main() {
-    vector<vector<int>> arr = { { 1, 3, 3 }, { 2, 4, 4 }, { 5, 6, 1 } };
-    
-    vector <vector<int>> res = buildingOutline(arr);
+    vector<vector<int>> arr;
+    vector <vector<int>> res;
+
+    arr = { { 1, 3, 3 }, 
+            { 2, 4, 4 }, 
+            { 5, 6, 1 } };
+    res = buildingOutline(arr);
+    printVector(res);
+    cout << "====================" << endl;
+    arr = { { 2, 5, 6 }, 
+            { 1, 7, 4 }, 
+            { 4, 6, 7 },
+            { 3, 6, 5 },
+            { 10, 13, 2 },
+            { 9, 11, 3 },
+            { 12, 14, 4 },
+            { 10, 12, 5 } };
+    res = buildingOutline(arr);
     printVector(res);
 
     return 0;
