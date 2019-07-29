@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <vector>
 #include <map>
+#include <unordered_map>
 #include <algorithm>
 #include <ctime>
 using namespace std;
@@ -15,7 +16,8 @@ void printVector(vector<int> &vt);
 int maxLength_1(vector<int>& arr, int aim) {
     int len = 0;
     int sum = 0;
-    map<int, int> lenMap;   // key: 累加和, value: 第一次出现累加和的位置
+    //map<int, int> lenMap;   // key: 累加和, value: 第一次出现累加和的位置
+    unordered_map<int, int> lenMap;
     lenMap[0] = -1;
     for (size_t i = 0; i < arr.size(); i++) {
         sum += arr[i];
@@ -23,7 +25,8 @@ int maxLength_1(vector<int>& arr, int aim) {
             int temp = i - lenMap[sum - aim];
             len = max(temp, len);
         } 
-        if (!lenMap.count(sum)) {
+
+        if (!lenMap.count(sum)) {   // 未含有表示第一次出现
             lenMap[sum] = i;
         }
     }
@@ -33,12 +36,12 @@ int maxLength_1(vector<int>& arr, int aim) {
 /* 暴力解 */
 int maxLength_2(vector<int>& arr, int aim) {
     size_t len = 0;
-    for (size_t outer = 0; outer < arr.size(); outer++) {
+    for (size_t start = 0; start < arr.size(); start++) {
         int sum = 0;
-        for (size_t inner = outer; inner < arr.size(); inner++) {
-            sum += arr[inner];
+        for (size_t end = start; end < arr.size(); end++) {
+            sum += arr[end];
             if (sum == aim) {
-                len = (inner - outer + 1) > len ? (inner - outer + 1) : len;
+                len = (end - start + 1) > len ? (end - start + 1) : len;
             }
         }
     }
