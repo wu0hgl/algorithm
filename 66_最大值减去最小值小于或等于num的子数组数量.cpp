@@ -22,6 +22,7 @@ int getNum1(vector<int> &arr, int num) {
 
     list<int> qmin;
     list<int> qmax;
+
     int L = 0;
     int R = 0;
     int res = 0;
@@ -34,13 +35,16 @@ int getNum1(vector<int> &arr, int num) {
                 qmin.pop_back();
             }
             qmin.push_back(R);
+
             while ((!qmax.empty()) && (arr[qmax.back()] <= arr[R])) {
                 qmax.pop_back();
             }
             qmax.push_back(R);
+
             if (arr[qmax.front()] - arr[qmin.front()] > num) {  // 不满足条件, 再外扩的子数组都不满足条件
                 break;
             }
+
             R++;
         }
 

@@ -22,12 +22,10 @@ vector<int> getMaxWindow_1(vector<int> arr, int w) {
         return res;
     }
 
-    res.resize(len - w + 1);
     //deque<int> qmax;
     list<int> qmax;                     // 不使用随机访问功能使用list更好
-    int index = 0;
     for (int i = 0; i < len; i++) {
-        while ((!qmax.empty()) && (arr[qmax.back()] <= arr[i])) {
+        while ((!qmax.empty()) && (arr[qmax.back()] <= arr[i])) {   // 小于等于是因为数字相同但下标不同, 相同的数字弹出时机不同
             qmax.pop_back();
         }
         qmax.push_back(i);
@@ -35,7 +33,7 @@ vector<int> getMaxWindow_1(vector<int> arr, int w) {
             qmax.pop_front();
         }
         if (i >= w - 1) {
-            res[index++] = arr[qmax.front()];
+            res.push_back(arr[qmax.front()]);
         }
     }
 
