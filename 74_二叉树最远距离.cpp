@@ -39,15 +39,12 @@ ReturnType process(Node* head) {
     ReturnType leftReturnType = process(head->left);
     ReturnType rightReturnType = process(head->right);
 
-    int includeHeadDistance = leftReturnType.h + 1 + rightReturnType.h;
-    int p1 = leftReturnType.maxDistance;
-    int p2 = rightReturnType.maxDistance;
-
     /* 返回结构 */
-    int resultDistance = max(max(p1, p2), includeHeadDistance);
-    int hitself = max(leftReturnType.h, rightReturnType.h) + 1;
+    int height = max(leftReturnType.h, rightReturnType.h) + 1;
+    int resultDistance = max(max(leftReturnType.maxDistance, rightReturnType.maxDistance),
+                             leftReturnType.h + 1 + rightReturnType.h);
 
-    return ReturnType(resultDistance, hitself);
+    return ReturnType(resultDistance, height);
 }
 int maxDistance_1(Node* head) {
     return process(head).maxDistance;
