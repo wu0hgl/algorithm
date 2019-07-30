@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <vector>
-#include <map>
+#include <unordered_map>
+#include <unordered_map>
 #include <algorithm>
 #include <ctime>
 using namespace std;
@@ -13,10 +14,10 @@ void printVector(vector<int> &vt);
 */
 
 int mostEOR_1(vector<int>& arr) {
-    int ans = 0;
+    int res = 0;
     int xor = 0;
     vector<int> dp = vector<int>(arr.size(), 0);
-    map<int, int> xMap;     // key: 某一个异或和, value: 或和上次出现的位置
+    unordered_map<int, int> xMap;     // key: 某一个异或和, value: 或和上次出现的位置
     xMap[0] = -1;
     for (size_t i = 0; i < arr.size(); i++) {
         xor ^= arr[i];
@@ -27,11 +28,11 @@ int mostEOR_1(vector<int>& arr) {
         if (i > 0) {
             dp[i] = max(dp[i - 1], dp[i]);
         }
-        xMap[xor] = i;              // 更新map
-        ans = max(ans, dp[i]);
+        xMap[xor] = i;              // 更新unordered_map
+        res = max(res, dp[i]);
     }
 
-    return ans;
+    return res;
 }
 
 int most(vector<int>& arr) {
@@ -41,7 +42,7 @@ int most(vector<int>& arr) {
 
     int eor = 0;
     vector<int> dp = vector<int>(arr.size(), 0);
-    map<int, int> xMap;
+    unordered_map<int, int> xMap;
     xMap[0] = -1;
     dp[0] = (arr[0] == 0 ? 1 : 0);
     xMap[arr[0]] = 0;

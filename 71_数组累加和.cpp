@@ -51,11 +51,12 @@ int maxLength_2(vector<int>& arr, int aim) {
 int main() {
     vector<int> arr;
     generatorRandomArray(arr, 10, 5);
-    //vector<int> arr = {7, 3, 2, 1, 1, 7, -6, -1, 7};
+    //vector<int> arr = { 1, 2, 3};
+    //vector<int> arr = { 1, 1, 3 };
     printVector(arr);
 
-    cout << maxLength_1(arr, -3) << endl;
-    cout << maxLength_2(arr, -3) << endl;
+    cout << maxLength_1(arr, 3) << endl;
+    cout << maxLength_2(arr, 3) << endl;
 
     return 0;
 }
