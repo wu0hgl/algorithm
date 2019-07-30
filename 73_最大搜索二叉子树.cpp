@@ -48,6 +48,7 @@ ReturnType process(Node* head) {
         /* 上两个条件满足的情况下, 左树就是左子树, 右树就是右子树 */
         && (head->value > leftSubTressInfo.max)     // 当前节点值大于左子树最大值
         && (head->value < rightSubTressInfo.min)) { // 当前节点值小于右子树最小值
+
         includeItSelf = leftSubTressInfo.size + 1 + rightSubTressInfo.size;     // 更新数量
     }
 
@@ -127,8 +128,9 @@ int main() {
     head->right->right->right = &Node(16);
 
     printTree(head);
-
+    cout << "================================" << endl;
     printTree(biggestSubBST_1(head));
+    cout << "================================" << endl;
     printTree(biggestSubBST_2(head));
 
     return 0;
