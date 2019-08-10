@@ -1,6 +1,5 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
-#include <stack>
 #include <algorithm>
 #include <ctime>
 using namespace std;
@@ -9,24 +8,43 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
 
 /*
-    ¿ìÅÅ
+    å¿«æ’
 */
 
 void partition(vector<int> &arr, int left, int right, vector<int> &out) {
-    int leftPtr = left - 1; // leftPtrÖ¸ÏòĞ¡ÓÚarr[right]µÄÓÒ±ß½ç
-    int rightPtr = right;   // rightPtrÖ¸Ïò´óÓÚarr[right]µÄ×ó±ß½ç
-    int ctPtr = left;
-    while (ctPtr < rightPtr) {
-        if (arr[ctPtr] < arr[right])
-            swap(arr[ctPtr++], arr[++leftPtr]);
-        else if (arr[ctPtr] > arr[right])
-            swap(arr[ctPtr], arr[--rightPtr]);
-        else
-            ctPtr++;
+    int L = left - 1;
+    int R = right;
+    int ct = left;
+
+    while (ct < R) {
+        if (arr[ct] < arr[right]) {
+            swap(arr[ct++], arr[++L]);
+        }
+        else if (arr[ct] > arr[right]) {
+            swap(arr[ct], arr[--R]);
+        }
+        else {
+            ct++;
+        }
     }
-    swap(arr[right], arr[rightPtr]);
-    out.push_back(leftPtr + 1);
-    out.push_back(rightPtr - 1);
+    swap(arr[R], arr[right]);
+    
+    out.push_back(L + 1);
+    out.push_back(R - 1);
+    //int leftPtr = left - 1; // leftPtræŒ‡å‘å°äºarr[right]çš„å³è¾¹ç•Œ
+    //int rightPtr = right;   // rightPtræŒ‡å‘å¤§äºarr[right]çš„å·¦è¾¹ç•Œ
+    //int ctPtr = left;
+    //while (ctPtr < rightPtr) {
+    //    if (arr[ctPtr] < arr[right])
+    //        swap(arr[ctPtr++], arr[++leftPtr]);
+    //    else if (arr[ctPtr] > arr[right])
+    //        swap(arr[ctPtr], arr[--rightPtr]);
+    //    else
+    //        ctPtr++;
+    //}
+    //swap(arr[right], arr[rightPtr]);
+    //out.push_back(leftPtr + 1);
+    //out.push_back(rightPtr - 1);
 }
 
 void quickSort(vector<int> &vt, int left, int right) {
@@ -45,7 +63,7 @@ int main() {
     //vector<int> arr;
     //srand(static_cast<int>(time(NULL)));
     //generatorRandomArray(arr, 20, 200);
-    vector<int> arr = { 3, 3, 3 };
+    vector<int> arr = { 2, 1, 3 };
     printVector(arr);
     quickSort(arr, 0, arr.size() - 1);
     printVector(arr);
@@ -64,8 +82,8 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
     int len = (int)(maxSize % (maxSize + 1));
 
     for (int i = 0; i < len; i++) {
-        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // Ëæ»úÉú³ÉÕı¸ºÊı
-        //temp = static_cast<int>(rand() % (range + 1));          // Ëæ»úÉú³ÉÕıÊı
+        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // éšæœºç”Ÿæˆæ­£è´Ÿæ•°
+        //temp = static_cast<int>(rand() % (range + 1));          // éšæœºç”Ÿæˆæ­£æ•°
         vt.push_back(temp);
     }
 }

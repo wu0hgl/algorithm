@@ -1,56 +1,43 @@
 ﻿#include <iostream>
 #include <vector>
-#include <algorithm>
 #include <ctime>
 using namespace std;
-
 void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
 
 /*
-    插入排序
+    计数排序
 */
 
-void insertSort_1(vector<int> &arr) {
-    int inner = 0;
-    int outer = 0;
-    int temp = 0;
-    for (outer = 1; outer < arr.size(); outer++) {
-        temp = arr[outer];
-        inner = outer;
-        while ((inner > 0) && (arr[inner - 1] < temp)) {
-            swap(arr[inner], arr[inner - 1]);
-            inner--;
-        }
-        arr[inner] = temp;
+void countSort(vector<int>& arr) {
+    int min = arr[0];
+    int max = arr[0];
+    for (int i = 0; i < arr.size(); i++) {
+        if (arr[i] < min)   min = arr[i];
+        if (arr[i] > max)   max = arr[i];
     }
-}
-
-void insertSort_2(vector<int>& arr) {
-    int inner = 0;
-    int outer = 0;
-    int temp = 0;
-
-    for (outer = 0; outer < arr.size(); outer++) {
-        temp = arr[outer];
-        inner = outer;
-        while ((inner > 0) && (arr[inner - 1] > temp)) {
-            swap(arr[inner], arr[inner - 1]);
-            inner--;
-        }
-        arr[inner] = temp;
+    int size = max - min + 1;
+    vector<int> count(size);
+    for (int i = 0; i < arr.size(); i++) {
+        count[arr[i] - min]++;
     }
+    for (int i = 1; i < count.size(); i++) {
+        count[i] += count[i - 1];
+    }
+    vector<int> res(arr.size());
+    for (int i = arr.size() - 1; i >= 0; i--) {
+        count[arr[i] - min]--;
+        res[count[arr[i] - min]] = arr[i];
+    }
+    arr.swap(res);
 }
-
 
 int main() {
     vector<int> arr;
     srand(static_cast<int>(time(NULL)));
-    generatorRandomArray(arr, 10, 20);
+    generatorRandomArray(arr, 15, 10);
     printVector(arr);
-    insertSort_1(arr);
-    printVector(arr);
-    insertSort_2(arr);
+    countSort(arr);
     printVector(arr);
 
     return 0;

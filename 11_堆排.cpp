@@ -1,6 +1,5 @@
 ﻿#include <iostream>
 #include <vector>
-#include <stack>
 #include <algorithm>
 #include <ctime>
 using namespace std;

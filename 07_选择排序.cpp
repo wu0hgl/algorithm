@@ -1,39 +1,56 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
-#include <stack>
 #include <algorithm>
 #include <ctime>
 using namespace std;
-
 void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
 
 /*
-    Ñ¡ÔñÅÅĞò
+    é€‰æ‹©æ’åº
 */
 
-void selectSort(vector<int> &arr) {
-    int outer;
-    int inner;
-    int min;
+void selectSort_1(vector<int> &arr) {
+    int outer = 0;
+    int inner = 0;
+    int index = 0;
 
-    for (outer = 0; outer < arr.size(); outer++) {
-        int min = outer;
+    for (outer = 0; outer < arr.size() - 1; outer++) {
+        index = outer;
         for (inner = outer + 1; inner < arr.size(); inner++) {
-            if (arr[min] > arr[inner])
-                min = inner;
+            if (arr[inner] < arr[index]) {
+                index = inner;
+            }
         }
-        swap(arr[min], arr[outer]);
+        swap(arr[outer], arr[index]);
     }
 }
 
+
+void selectSort_2(vector<int>& arr) {
+    int inner = 0;
+    int outer = 0;
+    int index = 0;
+
+    for (inner = 0; inner < arr.size() - 1; inner++) {
+        index = inner;
+        for (outer = inner + 1; outer < arr.size(); outer++) {
+            if (arr[outer] > arr[index]) {
+                index = outer;
+            }
+        }
+        swap(arr[inner], arr[index]);
+    }
+}
 
 int main() {
     vector<int> arr;
     srand(static_cast<int>(time(NULL)));
     generatorRandomArray(arr, 10, 20);
     printVector(arr);
-    selectSort(arr);
+    selectSort_1(arr);
+    printVector(arr);
+    selectSort_2(arr);
     printVector(arr);
 
     return 0;
@@ -50,8 +67,8 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
     int len = (int)(maxSize % (maxSize + 1));
     //vt.resize(len);
     for (int i = 0; i < len; i++) {
-        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // Ëæ»úÉú³ÉÕı¸ºÊı
-        //temp = static_cast<int>(rand() % (range + 1));          // Ëæ»úÉú³ÉÕıÊı
+        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // éšæœºç”Ÿæˆæ­£è´Ÿæ•°
+        //temp = static_cast<int>(rand() % (range + 1));          // éšæœºç”Ÿæˆæ­£æ•°
         vt.push_back(temp);
     }
 }

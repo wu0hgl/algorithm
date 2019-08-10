@@ -1,41 +1,62 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
-#include <stack>
 #include <algorithm>
 #include <ctime>
 using namespace std;
-
 void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
 
 /*
-    Ã°ÅİÅÅĞò
+    å†’æ³¡æ’åº
 */
 
-// ÆÕÍ¨Ã°ÅİÅÅĞò
+// æ™®é€šå†’æ³¡æ’åº
 void bubbleSort_1(vector<int> &arr) {
-    int outer;
-    int inner;
-    for (outer = arr.size() - 1; outer > 0; outer--)
-        for (inner = 0; inner < outer; inner++)
-            if (arr[inner] > arr[inner + 1])
-                swap(arr[inner], arr[inner + 1]);
-}
-
-// ¸Ä½øºóÃ°ÅİÅÅĞò
-void bubbleSort_2(vector<int> &arr) {
-    int outer;
-    int inner;
-    bool needSwap = true;
-    for (outer = arr.size() - 1; (outer > 0) && (needSwap == true); outer--) {
-        needSwap = false;
+    int outer = 0;
+    int inner = 0;
+    for (outer = arr.size() - 1; outer > 0; outer--) {
         for (inner = 0; inner < outer; inner++) {
             if (arr[inner] > arr[inner + 1]) {
+                swap(arr[inner], arr[inner + 1]);
+            }
+        }
+    }
+
+    //int outer;
+    //int inner;
+    //for (outer = arr.size() - 1; outer > 0; outer--)
+    //    for (inner = 0; inner < outer; inner++)
+    //        if (arr[inner] > arr[inner + 1])
+    //            swap(arr[inner], arr[inner + 1]);
+}
+
+// æ”¹è¿›åå†’æ³¡æ’åº
+void bubbleSort_2(vector<int> &arr) {
+    int inner = 0;
+    int outer = 0;
+    bool needSwap = true;
+    for (outer = arr.size() - 1; (outer > 0) && needSwap; outer--) {
+        needSwap = false;
+        for (inner = 0; inner < outer; inner++) {
+            if (arr[inner] < arr[inner + 1]) {
                 needSwap = true;
                 swap(arr[inner], arr[inner + 1]);
             }
         }
     }
+
+    //int outer;
+    //int inner;
+    //bool needSwap = true;
+    //for (outer = arr.size() - 1; (outer > 0) && (needSwap == true); outer--) {
+    //    needSwap = false;
+    //    for (inner = 0; inner < outer; inner++) {
+    //        if (arr[inner] > arr[inner + 1]) {
+    //            needSwap = true;
+    //            swap(arr[inner], arr[inner + 1]);
+    //        }
+    //    }
+    //}
 }
 
 int main() {
@@ -43,7 +64,8 @@ int main() {
     srand(static_cast<int>(time(NULL)));
     generatorRandomArray(arr, 20, 20);
     printVector(arr);
-    //bubbleSort_1(arr);
+    bubbleSort_1(arr);
+    printVector(arr);
     bubbleSort_2(arr);
     printVector(arr);
 
@@ -61,8 +83,8 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
     int len = (int)(maxSize % (maxSize + 1));
 
     for (int i = 0; i < len; i++) {
-        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // Ëæ»úÉú³ÉÕı¸ºÊı
-        //temp = static_cast<int>(rand() % (range + 1));          // Ëæ»úÉú³ÉÕıÊı
+        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // éšæœºç”Ÿæˆæ­£è´Ÿæ•°
+        //temp = static_cast<int>(rand() % (range + 1));          // éšæœºç”Ÿæˆæ­£æ•°
         vt.push_back(temp);
     }
 }
