@@ -78,7 +78,7 @@ public:
 SmartPtr<Test> test() {
     SmartPtr<Test> p1(new Test);
     p1->a = 10;
-    (*p1).a = 30;
+    (*p1).a = 30;               // 用到左值的概念了, *operator如果返回T则是左值不能赋值, 改变, 寻址, T&就不一样了
     cout << p1.get_count() << endl;
     SmartPtr<Test> p2(p1);
     SmartPtr<Test> p3 = p1;
