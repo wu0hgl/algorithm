@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <string>
-#include <hash_map>
+#include <unordered_map>
 #include <exception>
 using namespace std;
 
@@ -151,8 +151,8 @@ public:
 
 private:
     int capacity;
-    hash_map<K, Node<V>*>    keyNodeMap;    // key: 类型, value: 内存地址
-    hash_map<Node<V>*, K>    nodeKeyMap;    // key: 内存地址, value: 类型
+    unordered_map<K, Node<V>*>    keyNodeMap;    // key: 类型, value: 内存地址
+    unordered_map<Node<V>*, K>    nodeKeyMap;    // key: 内存地址, value: 类型
     NodeDoubleLinkedList<V>  nodeList;
 };
 
@@ -180,6 +180,7 @@ void func() {
     try {
         cout << testCache.get("D") << endl;
         cout << testCache.get("C") << endl;
+        cout << testCache.get("A") << endl;
         cout << testCache.get("B") << endl; // 此时B已经被移除了, 异常报错
     }
     catch (const char* msg) {
