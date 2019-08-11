@@ -10,7 +10,7 @@ public:
 
     SmartPtr<T>& operator=(const SmartPtr& obj);
 
-    T operator*();
+    T& operator*();     // 返回若是T则会拷贝构造一个T, 此时*指针并不会改变其值
     T* operator->();
 
     int get_count();
@@ -23,31 +23,16 @@ private:
 template<typename T>
 SmartPtr<T>::SmartPtr(T* ptr) {
     this->ptr = ptr;
-    count = new int(1);
-    *count = 1;
+    this->count = new int(1);
+    *(this->count) = 1;
 }
 
 template<typename T>
 SmartPtr<T>::SmartPtr(const SmartPtr& obj) {
     this->ptr = obj.ptr;
     this->count = obj.count;
-    ++(*this->count);
+    ++(*obj.count);
 }
-
-template<typename T>
-SmartPtr<T>& SmartPtr<T>::operator=(const SmartPtr& obj) {
-    if (this != &obj) {
-        ++(*obj.count);
-        if (--(*this->count) == 0) {
-            delete this->ptr;   this->ptr = nullptr;
-            delete this->count; this->count = nullptr;
-        }
-        this->ptr = obj.ptr;
-        this->count = obj.count;
-    }
-    return *this;
-}
-
 
 template<typename T>
 SmartPtr<T>::~SmartPtr() {
@@ -58,10 +43,21 @@ SmartPtr<T>::~SmartPtr() {
 }
 
 template<typename T>
-T SmartPtr<T>::operator*() {
-    return *this->ptr;
+SmartPtr<T>& SmartPtr<T>::operator=(const SmartPtr& obj) {
+    if (this != &obj) {
+        delete this->ptr;   
+        delete this->count; 
+        this->ptr = obj.ptr;
+        this->count = obj.count;
+        (*obj.count)++;
+    }
+    return *this;
 }
 
+template<typename T>
+T& SmartPtr<T>::operator*() {
+    return *(this->ptr);
+}
 template<typename T>
 T* SmartPtr<T>::operator->() {
     return this->ptr;
@@ -70,6 +66,7 @@ template<typename T>
 int SmartPtr<T>::get_count() {
     return *(this->count);
 }
+
 
 class Test {
 public:
@@ -81,6 +78,7 @@ public:
 SmartPtr<Test> test() {
     SmartPtr<Test> p1(new Test);
     p1->a = 10;
+    (*p1).a = 30;
     cout << p1.get_count() << endl;
     SmartPtr<Test> p2(p1);
     SmartPtr<Test> p3 = p1;
@@ -100,5 +98,6 @@ int main() {
     SmartPtr<Test> p = test();
     cout << p.get_count() << endl;
     cout << p->a << endl;
+    cout << (*p).a << endl;     // 这里需加括号
     return 0;
 }
