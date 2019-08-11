@@ -21,6 +21,17 @@ void countSort(vector<int>& arr) {
     for (int i = 0; i < arr.size(); i++) {
         count[arr[i] - min]++;
     }
+
+    // 与下面效果相同
+    vector<int> res(arr.size());
+    int i, j, k;
+    for (i = j = 0; i < (max - min + 1); i++, j = k) {
+        for (k = j; k < j + count[i]; k++) {
+            res[k] = i + min;
+        }
+    }
+    arr.swap(res);
+    /*
     for (int i = 1; i < count.size(); i++) {
         count[i] += count[i - 1];
     }
@@ -30,6 +41,7 @@ void countSort(vector<int>& arr) {
         res[--count[arr[i] - min]] = arr[i];
     }
     arr.swap(res);
+    */
 }
 
 int main() {

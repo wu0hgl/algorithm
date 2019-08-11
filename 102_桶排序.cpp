@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
-#include <algorithm>
 using namespace std;
 void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue);
 void printVector(vector<int> &vt);
@@ -92,7 +91,7 @@ int main() {
     //vector<int> arr = { 1, 2 };
     vector<int> arr;
     srand(static_cast<int>(time(NULL)));
-    generatorRandomArray(arr, 10, 10);
+    generatorRandomArray(arr, 20, 50);
     printVector(arr);
     BucketSort(arr);
     printVector(arr);
@@ -111,8 +110,8 @@ void generatorRandomArray(vector<int> &vt, int maxSize, int maxValue) {
     int len = (int)(maxSize % (maxSize + 1));
 
     for (int i = 0; i < len; i++) {
-        temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // 随机生成正负数
-        //temp = static_cast<int>(rand() % (range + 1));          // 随机生成正数
+        //temp = static_cast<int>(rand() % (maxValue + 1)) - static_cast<int>(rand() % (maxValue));   // 随机生成正负数
+        temp = static_cast<int>(rand() % (maxValue + 1));          // 随机生成正数
         vt.push_back(temp);
     }
 }
