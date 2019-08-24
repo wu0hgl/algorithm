@@ -17,23 +17,20 @@ void func(vector<int> &arr, int left, int right, int aim) {
     int leftPtr = left - 1;     // 当前所指的位置就是小于aim数的右边界
     int index = left;
     while (index < rightPtr) {  // 这里不能有等于号, 因为rightPtr所指位置就是大于aim的左边界
-        if (arr[index] < aim) {
+        if (arr[index] < aim) 
             swap(arr[++leftPtr], arr[index++]);
-        }
-        else if (arr[index] > aim) {
+        else if (arr[index] > aim) 
             swap(arr[index], arr[--rightPtr]);  // 从右边界交换过来的数组还未与aim比较, 所以index不变
-        }
-        else {
+        else 
             index++;
-        }
         //printVector(arr);
     }
 }
 
 int main() {
-    vector<int> arr;
-    generatorRandomArray(arr, 30, 10);
-    //vector<int> arr = { 8, 2, 4 };
+    //vector<int> arr;
+    //generatorRandomArray(arr, 30, 10);
+    vector<int> arr = { 1, 4, 8 };
     printVector(arr);
 
     func(arr, 0, arr.size() - 1, 4);

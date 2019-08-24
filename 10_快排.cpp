@@ -17,40 +17,26 @@ void partition(vector<int> &arr, int left, int right, vector<int> &out) {
     int ct = left;
 
     while (ct < R) {
-        if (arr[ct] < arr[right]) {
+        if (arr[ct] < arr[right]) 
             swap(arr[ct++], arr[++L]);
-        }
-        else if (arr[ct] > arr[right]) {
+        else if (arr[ct] > arr[right]) 
             swap(arr[ct], arr[--R]);
-        }
-        else {
+        else 
             ct++;
-        }
     }
+    //printVector(arr);
     swap(arr[R], arr[right]);
-    
+    //printVector(arr);
+    // 此时L+1与R恰好指向分界点
     out.push_back(L + 1);
-    out.push_back(R - 1);
-    //int leftPtr = left - 1; // leftPtr指向小于arr[right]的右边界
-    //int rightPtr = right;   // rightPtr指向大于arr[right]的左边界
-    //int ctPtr = left;
-    //while (ctPtr < rightPtr) {
-    //    if (arr[ctPtr] < arr[right])
-    //        swap(arr[ctPtr++], arr[++leftPtr]);
-    //    else if (arr[ctPtr] > arr[right])
-    //        swap(arr[ctPtr], arr[--rightPtr]);
-    //    else
-    //        ctPtr++;
-    //}
-    //swap(arr[right], arr[rightPtr]);
-    //out.push_back(leftPtr + 1);
-    //out.push_back(rightPtr - 1);
+    out.push_back(R);
 }
 
 void quickSort(vector<int> &vt, int left, int right) {
     if (left < right) {
         int random = left + int((rand() % (right - left + 1)));
         swap(vt[random], vt[right]);
+        //printVector(vt);
         vector<int> temp;
         partition(vt, left, right, temp);
         quickSort(vt, left, temp[0] - 1);
@@ -60,10 +46,10 @@ void quickSort(vector<int> &vt, int left, int right) {
 
 
 int main() {
-    //vector<int> arr;
-    //srand(static_cast<int>(time(NULL)));
-    //generatorRandomArray(arr, 20, 200);
-    vector<int> arr = { 2, 1, 3 };
+    vector<int> arr;
+    srand(static_cast<int>(time(NULL)));
+    generatorRandomArray(arr, 20, 200);
+    //vector<int> arr = { 2, 1, 4, 3 };
     printVector(arr);
     quickSort(arr, 0, arr.size() - 1);
     printVector(arr);
