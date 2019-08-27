@@ -34,16 +34,24 @@ void inOrderUnRecur(Node *head) {
     Node *cur = head;
     stack<Node *> sk;
     while ((!sk.empty()) || (cur != nullptr)) {
-        if (cur != nullptr) {   
+        while (cur != nullptr) {
             sk.push(cur);
             cur = cur->left;    // 一直向左穿
         }
-        else {                  // 没有左节点时, cur移动至右节点
             cur = sk.top();
             sk.pop();
             cout << cur->value << " ";
             cur = cur->right;   // cur移动至右节点
-        }
+        //if (cur != nullptr) {   
+        //    sk.push(cur);
+        //    cur = cur->left;    // 一直向左穿
+        //}
+        //else {                  // 没有左节点时, cur移动至右节点
+        //    cur = sk.top();
+        //    sk.pop();
+        //    cout << cur->value << " ";
+        //    cur = cur->right;   // cur移动至右节点
+        //}
     }
 }
 
