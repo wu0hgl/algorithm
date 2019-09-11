@@ -1,4 +1,5 @@
-﻿#include <iostream>  
+﻿#include <iostream>
+#include <vector>       
 #define MAX 40000       // 定义最多能存多少位
 using namespace std;
 
@@ -6,9 +7,9 @@ int main(void)
 {
     int n = 0;
     while (scanf("%d", &n) != EOF && (n > 0)) {
-        int h = 0;  // 记录进位
-        int p = 1;  // 记录当前位数
-        int a[MAX] = { 0 };
+        int h = 0;          // 记录进位
+        int p = 1;          // 记录当前位数
+        int a[MAX] = { 0 }; // 不能用vector
         a[1] = 1;
         int i, j;
         //int j = 0;
@@ -23,13 +24,13 @@ int main(void)
                 j++;
                 h = h / 10;
             }
-            p = j - 1;  // 进位之后处理当前位数
+            p = j - 1;      // 进位之后处理当前位数
         }
         for (j = p; j >= 2; j--) {
             printf("%d", a[j]);
         }
         printf("%d\n", a[1]);
     }
-
+    
     return 0;
 }
