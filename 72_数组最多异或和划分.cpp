@@ -14,26 +14,46 @@ void printVector(vector<int> &vt);
 */
 
 int mostEOR_1(vector<int>& arr) {
-    int res = 0;
+    unordered_map<int, int> mp;
+    mp[0] = -1;
+    vector<int> dp(arr.size());
     int xor = 0;
-    vector<int> dp = vector<int>(arr.size(), 0);
-    unordered_map<int, int> xMap;     // key: 某一个异或和, value: 或和上次出现的位置
-    xMap[0] = -1;
-    for (size_t i = 0; i < arr.size(); i++) {
+    for (int i = 0; i < arr.size(); i++) {
         xor ^= arr[i];
-        if (xMap.count(xor)) {      // 异或和之前出现过
-            int pre = xMap[xor];    // 之前出现过的位置     
-            dp[i] = (pre == -1 ? 1 : (dp[pre] + 1));
+        if (mp.count(xor)) {
+            int pre = mp[xor];
+            dp[i] = pre == -1 ? 1 : dp[pre] + 1;
         }
         if (i > 0) {
             dp[i] = max(dp[i - 1], dp[i]);
         }
-        xMap[xor] = i;              // 更新unordered_map
-        res = max(res, dp[i]);
+        mp[xor] = i;
     }
-
-    return res;
+    return dp.back();
 }
+
+
+//int mostEOR_1(vector<int>& arr) {
+//    int res = 0;
+//    int xor = 0;
+//    vector<int> dp = vector<int>(arr.size(), 0);
+//    unordered_map<int, int> xMap;     // key: 某一个异或和, value: 或和上次出现的位置
+//    xMap[0] = -1;
+//    for (size_t i = 0; i < arr.size(); i++) {
+//        xor ^= arr[i];
+//        if (xMap.count(xor)) {      // 异或和之前出现过
+//            int pre = xMap[xor];    // 之前出现过的位置     
+//            dp[i] = (pre == -1 ? 1 : (dp[pre] + 1));
+//        }
+//        if (i > 0) {
+//            dp[i] = max(dp[i - 1], dp[i]);
+//        }
+//        xMap[xor] = i;              // 更新unordered_map
+//        res = max(res, dp[i]);
+//    }
+//
+//    return res;
+//}
 
 int most(vector<int>& arr) {
     if (arr.size() == 0) {
