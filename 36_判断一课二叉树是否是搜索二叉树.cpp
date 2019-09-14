@@ -18,26 +18,40 @@ void inOrder(Node *head);
 */
 
 bool isBST_1(Node *head) {
-    Node *cur = head;
-    Node *pre = nullptr;
-    stack<Node *>sk;
-    while ((!sk.empty()) || (cur != nullptr)) {
-        if (cur != nullptr) {
+    stack<Node*> sk;
+    Node* cur = head;
+    Node* pre = nullptr;
+
+    while (!sk.empty() || cur != nullptr) {
+        while (cur != nullptr) {
             sk.push(cur);
             cur = cur->left;
         }
-        else {
-            cur = sk.top();
-            sk.pop();
-
-            /* 二叉树中序遍历非递归版增加三行代码 */
-            if ((pre != nullptr) && (cur->value <= pre->value))
-                return false;
-            pre = cur;
-
-            cur = cur->right;
-        }
+        cur = sk.top(); sk.pop();
+        if (pre != nullptr && pre->value >= cur->value)
+            return false;
+        pre = cur;
+        cur = cur->right;
     }
+
+    //while ((!sk.empty()) || (cur != nullptr)) {
+    //    if (cur != nullptr) {
+    //        sk.push(cur);
+    //        cur = cur->left;
+    //    }
+    //    else {
+    //        cur = sk.top();
+    //        sk.pop();
+
+    //        /* 二叉树中序遍历非递归版增加三行代码 */
+    //        if ((pre != nullptr) && (cur->value <= pre->value))
+    //            return false;
+    //        pre = cur;
+
+    //        cur = cur->right;
+    //    }
+    //}
+
     return true;
 }
 
