@@ -69,7 +69,7 @@ int main() {
     t3->right->left = &Node(9);
     t3->right->right = &Node(10);
 
-    t2->right->left->left = &Node(9);
+    //t2->right->left->left = &Node(9);
 
     printTree(t1);
     printTree(t2);
