@@ -20,10 +20,10 @@ void printTree(Node *head);
 
 void process_1(Node *root, string &str) {
     if (root == nullptr) {
-        str += '#';
+        str += "#!";
         return;
     }
-    str += to_string(root->value) + ',';
+    str += to_string(root->value) + '!';
     process_1(root->left, str);
     process_1(root->right, str);
 }
@@ -36,12 +36,12 @@ string Serialize(Node *root) {
 }
 
 Node* process_2(string& str, int& pos) {
-    if (str[pos] == '#') {
-        pos++;
+    if (str[pos] == '#' && str[pos + 1] == '!') {
+        pos = pos + 2;
         return nullptr;
     }
     int num = 0;
-    while (str[pos] != ',' && pos != str.size()) {
+    while (str[pos] != '!' && pos != str.size()) {
         //cout << str[pos] << " " << str[pos] - '0' << endl;
         num = num * 10 + str[pos] - '0';
         pos++;
