@@ -27,51 +27,52 @@ void process_1(Node *root, string &str) {
     process_1(root->left, str);
     process_1(root->right, str);
 }
-char* Serialize(Node *root) {
+string Serialize(Node *root) {
     if (root == nullptr)
         return nullptr;
     string str;
     process_1(root, str);
-    char *p = new char[str.size() + 1];
-    memset(p, 0, sizeof(p));
-    strcpy(p, str.c_str());
-    //p[str.size()] = '\0';
-    return p;
+    return str;
 }
-Node* process_2(char **str) {
-    if (**str == '#') {
-        (*str)++;
+
+Node* process_2(string& str, int& pos) {
+    if (str[pos] == '#') {
+        pos++;
         return nullptr;
     }
     int num = 0;
-    while ((**str != ',') && (**str != '\0')) {
-        num = num * 10 + ((**str) - '0');
-        (*str)++;
+    while (str[pos] != ',' && pos != str.size()) {
+        //cout << str[pos] << " " << str[pos] - '0' << endl;
+        num = num * 10 + str[pos] - '0';
+        pos++;
     }
     Node* node = new Node(num);
-    if (**str == '\0')
+    if (pos == str.size())
         return node;
     else
-        (*str)++;
-    node->left = process_2(str);
-    node->right = process_2(str);
+        pos++;
+
+    node->left = process_2(str, pos);
+    node->right = process_2(str, pos);
+
     return node;
 }
-Node* Deserialize(char *str) {
-    if (str == nullptr)
+Node* Deserialize(string str) {
+    if (str.size() == 0)
         return nullptr;
-    Node *ret = process_2(&str);
+    int pos = 0;
+    Node *ret = process_2(str, pos);
     return ret;
 }
 
 int main() {
-    Node *head_1 = &Node(1);
-    head_1->left = &Node(2);
-    head_1->right = &Node(3);
-    head_1->left->left = &Node(4);
-    head_1->left->right = &Node(5);
-    head_1->right->left = &Node(6);
-    head_1->right->right = &Node(7);
+    Node *head_1 = &Node(11);
+    head_1->left = &Node(22);
+    head_1->right = &Node(33);
+    head_1->left->left = &Node(44);
+    head_1->left->right = &Node(55);
+    head_1->right->left = &Node(66);
+    head_1->right->right = &Node(77);
 
     Node *head_2 = &Node(5);
     head_2->left = &Node(3);
@@ -86,7 +87,7 @@ int main() {
     head_2->right->right->right = &Node(11);
     printTree(head_1);
     cout << "=============================================" << endl;
-    char *temp = Serialize(head_1);
+    string temp = Serialize(head_1);
     cout << "Serialize: " << temp << endl;
     printTree(Deserialize(temp));
     cout << "=============================================" << endl;
