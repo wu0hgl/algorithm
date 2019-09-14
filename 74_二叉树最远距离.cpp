@@ -40,9 +40,9 @@ ReturnType process(Node* head) {
     ReturnType rightReturnType = process(head->right);
 
     /* 返回结构 */
-    int height = max(leftReturnType.h, rightReturnType.h) + 1;
+    int height = max(leftReturnType.h, rightReturnType.h) + 1;  // 左子树高度与右子树高度取最大值, 让后+1是当前节点的高度
     int resultDistance = max(max(leftReturnType.maxDistance, rightReturnType.maxDistance),
-                             leftReturnType.h + 1 + rightReturnType.h);
+                             leftReturnType.h + 1 + rightReturnType.h); // 左子树高度+右子树高度+1 是最远距离
 
     return ReturnType(resultDistance, height);
 }
