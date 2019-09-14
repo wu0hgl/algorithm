@@ -93,7 +93,7 @@ void posOrderUnRecur2(Node *head) {
     while (!sk.empty()) {
         cur = sk.top();
         /* 左子树不为空 且 左子树未处理 且 右子树未处理 */
-        if ((cur->left != nullptr) && (hasNode != cur->left) && (hasNode != cur->right)) {
+        if ((cur->left != nullptr) && (hasNode != cur->left) && (hasNode != cur->right) /* 遍历完右子树防止再处理左子树 */) {
             sk.push(cur->left);
         }
         /* 右子树不为空 且 右子树未处理 */
