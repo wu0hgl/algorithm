@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <string>
+#include <map>
 #include <memory>
 #include <algorithm>
 using namespace std;
@@ -46,7 +47,7 @@ int bs(Node *node, int level, int h) {
     }
 }
 
-int nodeNum(Node *head) {
+int nodeNum_1(Node *head) {
     if (head == nullptr) {
         return 0;
     }
@@ -54,6 +55,21 @@ int nodeNum(Node *head) {
          << " 可到达最大深度: " << mostLeftLevel(head, 1) 
          << endl;
     return bs(head, 1, mostLeftLevel(head, 1));
+}
+
+map<Node*, int> mp;
+void func(Node* head) {
+    if (head == nullptr)
+        return;
+    mp[head]++;
+    func(head->left);
+    func(head->right);
+}
+
+int nodeNum_2(Node* head) {
+    mp.clear();
+    func(head);
+    return mp.size();
 }
 
 int main() {
@@ -66,7 +82,8 @@ int main() {
 
     printTree(head_2);
     cout << "=============================================" << endl;
-    cout << "node : " << nodeNum(head_2) << endl;
+    cout << "node : " << nodeNum_1(head_2) << endl;
+    cout << "node : " << nodeNum_2(head_2) << endl;
 
     Node *head_1 = &Node(1);
     head_1->left = &Node(2);
@@ -78,7 +95,8 @@ int main() {
     head_1->left->left->left = &Node(7);
     printTree(head_1);
     cout << "=============================================" << endl;
-    cout << "node : " << nodeNum(head_1) << endl;
+    cout << "node : " << nodeNum_1(head_1) << endl;
+    cout << "node : " << nodeNum_2(head_1) << endl;
 
     return 0;
 }
