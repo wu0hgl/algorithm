@@ -45,8 +45,10 @@ SmartPtr<T>::~SmartPtr() {
 template<typename T>
 SmartPtr<T>& SmartPtr<T>::operator=(const SmartPtr& obj) {
     if (this != &obj) {
-        delete this->ptr;   
-        delete this->count; 
+        if (*this->count == 1) {
+            delete this->ptr;   
+            delete this->count; 
+        }
         this->ptr = obj.ptr;
         this->count = obj.count;
         (*obj.count)++;
