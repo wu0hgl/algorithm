@@ -10,39 +10,41 @@ abcdeba --> 5 (abcba与abcba)
 aeaabab --> 4 (aaaa与aaaa对称)
 */
 
-int max = 0;
 
-void func(string& s, int begin, int end, int len){
-    if (begin > end) return;
-    if (begin == end){
-        len += 1;
-        if (len > max){
-            max = len;
+int res = 0;;
+void func(string& str, int L, int R, int len) {
+    if (L > R)
+        return;
+    if (L == R) {
+        if (str[L] == str[R]) {
+            len += 1;
+            res = len > res ? len : res;
         }
         return;
     }
-    if (str[begin] == str[end]){
-        if (len + 2 > max){
-            max = len + 2;
-        }
-        func(str, begin + 1, end - 1, len + 2);
+    if (str[L] == str[R]) {
+        len += 2;
+        res = len > res ? len : res;
+        func(str, L + 1, R - 1, len);
     }
-    func(str, begin + 1, end, len);
-    func(str, begin, end - 1, len);
+    else {
+        func(str, L + 1, R, len);
+        func(str, L, R - 1, len);
+    }
 }
 
 int main() {
     string str = "abcba";
     func(str, 0, str.size() - 1, 0);
-    cout << max << endl;
+    cout << res << endl;
 
-    max = 0;
+    res = 0;
     str = "abcdeba";
     func(str, 0, str.size() - 1, 0);
-    cout << max << endl;
+    cout << res << endl;
 
-    max = 0;
+    res = 0;
     str = "aeaabab";
     func(str, 0, str.size() - 1, 0);
-    cout << max << endl;
+    cout << res << endl;
 }
