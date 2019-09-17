@@ -2,16 +2,15 @@
 using namespace std;
 
 /*
-给定的字符串里面, 找出最长的对称字符串(可以跳过部分字符)
-输入: 字符串
-输出: 最长字符串的长度
-abcba   --> 5
-abcdeba --> 5 (abcba与abcba)
-aeaabab --> 4 (aaaa与aaaa对称)
+    给定的字符串里面, 找出最长的对称字符串(可以跳过部分字符)
+    输入: 字符串
+    输出: 最长字符串的长度
+    abcba   --> 5
+    abcdeba --> 5 (abcba与abcba)
+    aeaabab --> 4 (aaaa与aaaa对称)
 */
 
-
-int res = 0;;
+int res = 0;
 void func(string& str, int L, int R, int len) {
     if (L > R)
         return;
@@ -35,6 +34,8 @@ void func(string& str, int L, int R, int len) {
 
 int main() {
     string str = "abcba";
+    
+    res = 0;
     func(str, 0, str.size() - 1, 0);
     cout << res << endl;
 
