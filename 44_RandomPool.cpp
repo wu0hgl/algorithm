@@ -4,15 +4,13 @@
 #include <ctime>
 using namespace std;
 
-class RandomPool
-{
+class RandomPool {
 public:
-    RandomPool()
-    {
+    RandomPool() {
         this->size = 0;
     }
-    void insert(string k) 
-    {
+
+    void insert(string k)  {
         if ((keyIndexMap.find(k) == keyIndexMap.end())) 
         {
             keyIndexMap[k] = size;
@@ -21,8 +19,7 @@ public:
         }
     }
 
-    string getRandom()
-    {
+    string getRandom() {
         if (this->size == 0) 
         {
             return nullptr;
@@ -31,10 +28,8 @@ public:
         return indexKeyMap[randomIndex];
     }
 
-    void remove(string key) 
-    {
-        if ((keyIndexMap.find(key) != keyIndexMap.end()))
-        {
+    void remove(string key) {
+        if ((keyIndexMap.find(key) != keyIndexMap.end())) {
             int deleteIndex = keyIndexMap[key];         // key, deletIndex为要删除的点
 
             int lastIndex = --this->size;               // 最后插入元素的index
