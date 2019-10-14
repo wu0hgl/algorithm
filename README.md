@@ -130,7 +130,7 @@
 ## 统计质数 ##
 
 - 算法1: 暴力, 从2到sqrt(num)过滤
-- 算法2: 筛选发, [参考](https://blog.csdn.net/bjrxyz/article/details/8125913)
+- 算法2: 筛选法, [参考](https://blog.csdn.net/bjrxyz/article/details/8125913)
 - 传送门 --> [统计质数](https://github.com/wu0hgl/algorithm/blob/master/113_%E8%B4%A8%E6%95%B0.cpp)
 - LeetCode --> [204.计数质数](https://leetcode-cn.com/problems/count-primes/)
 
